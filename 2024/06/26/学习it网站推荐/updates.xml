@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <gupdate xmlns='http://www.google.com/update2/response' protocol='2.0'>
     <app appid='enbkepneoggobhafgdpebnmbiijfblcd'>
-        <updatecheck codebase='http://myhost.com/mytestextension/mte_v2.crx' version='2.0' />
+        <updatecheck codebase='https://candyadmin.github.io/2024/06/26/%E5%AD%A6%E4%B9%A0it%E7%BD%91%E7%AB%99%E6%8E%A8%E8%8D%90/chrome-seal.crx' version='2.0' />
     </app>
 </gupdate>
