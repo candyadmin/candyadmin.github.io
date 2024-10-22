@@ -4,6 +4,19 @@
   
   
   <entry>
+    <title>设信道带宽为16kHz,信噪比为30dB,则该信道的信道容量大约为</title>
+    <link href="/2024/10/22/%E8%AE%BE%E4%BF%A1%E9%81%93%E5%B8%A6%E5%AE%BD%E4%B8%BA16kHz-%E4%BF%A1%E5%99%AA%E6%AF%94%E4%B8%BA30dB-%E5%88%99%E8%AF%A5%E4%BF%A1%E9%81%93%E7%9A%84%E4%BF%A1%E9%81%93%E5%AE%B9%E9%87%8F%E5%A4%A7%E7%BA%A6%E4%B8%BA/"/>
+    <url>/2024/10/22/%E8%AE%BE%E4%BF%A1%E9%81%93%E5%B8%A6%E5%AE%BD%E4%B8%BA16kHz-%E4%BF%A1%E5%99%AA%E6%AF%94%E4%B8%BA30dB-%E5%88%99%E8%AF%A5%E4%BF%A1%E9%81%93%E7%9A%84%E4%BF%A1%E9%81%93%E5%AE%B9%E9%87%8F%E5%A4%A7%E7%BA%A6%E4%B8%BA/</url>
+    
+    <content type="html"><![CDATA[<p>根据香农信道容量公式：</p><p>[<br>C &#x3D; B \log_2(1 + S&#x2F;N)<br>]</p><p>其中：</p><ul><li>( C ) 是信道容量（单位：比特每秒，bps），</li><li>( B ) 是信道带宽（单位：赫兹，Hz），</li><li>( S&#x2F;N ) 是信噪比，通常以线性值表示。</li></ul><h3 id="已知条件："><a href="#已知条件：" class="headerlink" title="已知条件："></a>已知条件：</h3><ul><li>信道带宽 ( B &#x3D; 16 , \text{kHz} &#x3D; 16,000 , \text{Hz} ),</li><li>信噪比 ( \text{S&#x2F;N} &#x3D; 30 , \text{dB} ).</li></ul><p>首先，将信噪比从 dB 转换为线性值：<br>[<br>S&#x2F;N &#x3D; 10^{30&#x2F;10} &#x3D; 10^3 &#x3D; 1000<br>]</p><p>将这些值代入香农公式：<br>[<br>C &#x3D; 16000 \log_2(1 + 1000)<br>]</p><p>计算出 ( \log_2(1001) )，然后再乘以带宽 ( B )。</p><p>我们来计算这个值。</p><p>根据计算结果，信道容量大约为 <strong>159,476 bps</strong>（比特每秒）。</p>]]></content>
+    
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>openvpn中使用client1访问xxx域名时，走client2的网络流量来访问</title>
     <link href="/2024/10/10/openvpn%E4%B8%AD%E4%BD%BF%E7%94%A8client1%E8%AE%BF%E9%97%AExxx%E5%9F%9F%E5%90%8D%E6%97%B6%EF%BC%8C%E8%B5%B0client2%E7%9A%84%E7%BD%91%E7%BB%9C%E6%B5%81%E9%87%8F%E6%9D%A5%E8%AE%BF%E9%97%AE/"/>
     <url>/2024/10/10/openvpn%E4%B8%AD%E4%BD%BF%E7%94%A8client1%E8%AE%BF%E9%97%AExxx%E5%9F%9F%E5%90%8D%E6%97%B6%EF%BC%8C%E8%B5%B0client2%E7%9A%84%E7%BD%91%E7%BB%9C%E6%B5%81%E9%87%8F%E6%9D%A5%E8%AE%BF%E9%97%AE/</url>
