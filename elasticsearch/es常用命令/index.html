@@ -1,0 +1,1213 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="candy">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="以下是 Elasticsearch (ES) 常用命令的总结和笔记： 1. 查看索引相关信息 查看指定索引的映射信息 1GET kibana_sample_data_ecommerce  查看指定索引的文档总数 1GET kibana_sample_data_ecommerce&#x2F;_count  查看前10条文档 123POST kibana_sample_data_ecommerce&#x2F;_searc">
+<meta property="og:type" content="article">
+<meta property="og:title" content="es常用命令">
+<meta property="og:url" content="https://candyadmin.github.io/elasticsearch/es%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/index.html">
+<meta property="og:site_name" content="点到为止">
+<meta property="og:description" content="以下是 Elasticsearch (ES) 常用命令的总结和笔记： 1. 查看索引相关信息 查看指定索引的映射信息 1GET kibana_sample_data_ecommerce  查看指定索引的文档总数 1GET kibana_sample_data_ecommerce&#x2F;_count  查看前10条文档 123POST kibana_sample_data_ecommerce&#x2F;_searc">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2025-02-27T07:00:37.000Z">
+<meta property="article:modified_time" content="2025-02-27T07:39:13.589Z">
+<meta property="article:author" content="candy">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>es常用命令 - 点到为止</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"candyadmin.github.io","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.2.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>点到为止</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="es常用命令"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2025-02-27 15:00" pubdate>
+          2025年2月27日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          9.9k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          83 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">es常用命令</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <p>以下是 Elasticsearch (ES) 常用命令的总结和笔记：</p>
+<h3 id="1-查看索引相关信息"><a href="#1-查看索引相关信息" class="headerlink" title="1. 查看索引相关信息"></a>1. 查看索引相关信息</h3><ul>
+<li><p><strong>查看指定索引的映射信息</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">GET kibana_sample_data_ecommerce<br></code></pre></td></tr></table></figure>
+</li>
+<li><p><strong>查看指定索引的文档总数</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">GET kibana_sample_data_ecommerce/_count<br></code></pre></td></tr></table></figure>
+</li>
+<li><p><strong>查看前10条文档</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">POST kibana_sample_data_ecommerce/_search<br>&#123;<br>&#125;<br></code></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="2-查看索引状态与信息"><a href="#2-查看索引状态与信息" class="headerlink" title="2. 查看索引状态与信息"></a>2. 查看索引状态与信息</h3><ul>
+<li><p><strong>查看索引信息</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">GET /_cat/indices/kibana*?v&amp;s=index<br></code></pre></td></tr></table></figure>
+</li>
+<li><p><strong>查看状态为绿的索引</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">GET /_cat/indices?v&amp;health=green<br></code></pre></td></tr></table></figure>
+</li>
+<li><p><strong>按文档个数排序查看索引</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">GET /_cat/indices?v&amp;s=docs.count:desc<br></code></pre></td></tr></table></figure>
+</li>
+<li><p><strong>查看具体的索引字段（健康、主分片、复制分片、文档数等）</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">GET /_cat/indices/kibana*?pri&amp;v&amp;h=health,index,pri,rep,docs.count,mt<br></code></pre></td></tr></table></figure>
+</li>
+<li><p><strong>查看每个索引使用的内存量</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">GET /_cat/indices?v&amp;h=i,tm&amp;s=tm:desc<br></code></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="3-查看节点信息"><a href="#3-查看节点信息" class="headerlink" title="3. 查看节点信息"></a>3. 查看节点信息</h3><ul>
+<li><p><strong>查看所有节点信息</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">GET _cat/nodes?v<br></code></pre></td></tr></table></figure>
+</li>
+<li><p><strong>查看特定节点信息</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">GET /_nodes/es7_01,es7_02<br></code></pre></td></tr></table></figure>
+</li>
+<li><p><strong>查看节点信息并显示特定字段</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">GET /_cat/nodes?v&amp;h=<span class="hljs-built_in">id</span>,ip,port,v,m<br></code></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="4-查看集群健康状况"><a href="#4-查看集群健康状况" class="headerlink" title="4. 查看集群健康状况"></a>4. 查看集群健康状况</h3><ul>
+<li><p><strong>查看集群健康状况</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">GET _cluster/health<br></code></pre></td></tr></table></figure>
+</li>
+<li><p><strong>查看集群健康状况，并按分片级别显示</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">GET _cluster/health?level=shards<br></code></pre></td></tr></table></figure>
+</li>
+<li><p><strong>查看特定索引的集群健康状况</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">GET /_cluster/health/kibana_sample_data_ecommerce,kibana_sample_data_flights<br></code></pre></td></tr></table></figure>
+</li>
+<li><p><strong>查看特定索引的集群健康状况，并按分片级别显示</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">GET /_cluster/health/kibana_sample_data_flights?level=shards<br></code></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="5-查看集群状态"><a href="#5-查看集群状态" class="headerlink" title="5. 查看集群状态"></a>5. 查看集群状态</h3><ul>
+<li><strong>查看集群状态</strong><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">GET /_cluster/state<br></code></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="6-查看集群设置"><a href="#6-查看集群设置" class="headerlink" title="6. 查看集群设置"></a>6. 查看集群设置</h3><ul>
+<li><p><strong>查看集群设置</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">GET /_cluster/settings<br></code></pre></td></tr></table></figure>
+</li>
+<li><p><strong>查看集群设置，包括默认设置</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">GET /_cluster/settings?include_defaults=<span class="hljs-literal">true</span><br></code></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="7-查看分片信息"><a href="#7-查看分片信息" class="headerlink" title="7. 查看分片信息"></a>7. 查看分片信息</h3><ul>
+<li><p><strong>查看集群的所有分片信息</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">GET /_cat/shards<br></code></pre></td></tr></table></figure>
+</li>
+<li><p><strong>查看特定的分片信息（包括状态、主分片&#x2F;副本分片等）</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">GET /_cat/shards?h=index,shard,prirep,state,unassigned.reason<br></code></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="1-创建文档"><a href="#1-创建文档" class="headerlink" title="1. 创建文档"></a>1. 创建文档</h3><ul>
+<li><p><strong>自动生成 <code>_id</code> 创建文档</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs bash">POST <span class="hljs-built_in">users</span>/_doc<br>&#123;<br>  <span class="hljs-string">&quot;user&quot;</span> : <span class="hljs-string">&quot;Mike&quot;</span>,<br>  <span class="hljs-string">&quot;post_date&quot;</span> : <span class="hljs-string">&quot;2019-04-15T14:12:12&quot;</span>,<br>  <span class="hljs-string">&quot;message&quot;</span> : <span class="hljs-string">&quot;trying out Kibana&quot;</span><br>&#125;<br></code></pre></td></tr></table></figure>
+</li>
+<li><p><strong>指定 ID 创建文档（如果 ID 已存在则报错）</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs bash">PUT <span class="hljs-built_in">users</span>/_doc/1?op_type=create<br>&#123;<br>  <span class="hljs-string">&quot;user&quot;</span> : <span class="hljs-string">&quot;Jack&quot;</span>,<br>  <span class="hljs-string">&quot;post_date&quot;</span> : <span class="hljs-string">&quot;2019-05-15T14:12:12&quot;</span>,<br>  <span class="hljs-string">&quot;message&quot;</span> : <span class="hljs-string">&quot;trying out Elasticsearch&quot;</span><br>&#125;<br></code></pre></td></tr></table></figure>
+</li>
+<li><p><strong>指定 ID 创建文档（如果 ID 已存在则报错）</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs bash">PUT <span class="hljs-built_in">users</span>/_create/1<br>&#123;<br>  <span class="hljs-string">&quot;user&quot;</span> : <span class="hljs-string">&quot;Jack&quot;</span>,<br>  <span class="hljs-string">&quot;post_date&quot;</span> : <span class="hljs-string">&quot;2019-05-15T14:12:12&quot;</span>,<br>  <span class="hljs-string">&quot;message&quot;</span> : <span class="hljs-string">&quot;trying out Elasticsearch&quot;</span><br>&#125;<br></code></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="2-根据-ID-获取文档"><a href="#2-根据-ID-获取文档" class="headerlink" title="2. 根据 ID 获取文档"></a>2. 根据 ID 获取文档</h3><ul>
+<li><strong>获取指定 ID 的文档</strong><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">GET <span class="hljs-built_in">users</span>/_doc/1<br></code></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="3-更新文档"><a href="#3-更新文档" class="headerlink" title="3. 更新文档"></a>3. 更新文档</h3><ul>
+<li><p><strong>更新指定 ID 的文档（先删除再写入）</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash">PUT <span class="hljs-built_in">users</span>/_doc/1<br>&#123;<br>  <span class="hljs-string">&quot;user&quot;</span> : <span class="hljs-string">&quot;Mike&quot;</span><br>&#125;<br></code></pre></td></tr></table></figure>
+</li>
+<li><p><strong>在原文档上增加字段</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs bash">POST <span class="hljs-built_in">users</span>/_update/1/<br>&#123;<br>  <span class="hljs-string">&quot;doc&quot;</span>: &#123;<br>    <span class="hljs-string">&quot;post_date&quot;</span> : <span class="hljs-string">&quot;2019-05-15T14:12:12&quot;</span>,<br>    <span class="hljs-string">&quot;message&quot;</span> : <span class="hljs-string">&quot;trying out Elasticsearch&quot;</span><br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="4-删除文档"><a href="#4-删除文档" class="headerlink" title="4. 删除文档"></a>4. 删除文档</h3><ul>
+<li><strong>根据 ID 删除文档</strong><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">DELETE <span class="hljs-built_in">users</span>/_doc/1<br></code></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="5-批量操作-Bulk-API"><a href="#5-批量操作-Bulk-API" class="headerlink" title="5. 批量操作 (Bulk API)"></a>5. 批量操作 (Bulk API)</h3><ul>
+<li><strong>执行批量操作</strong><br>第一次执行批量操作：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs bash">POST _bulk<br>&#123; <span class="hljs-string">&quot;index&quot;</span> : &#123; <span class="hljs-string">&quot;_index&quot;</span> : <span class="hljs-string">&quot;test&quot;</span>, <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;1&quot;</span> &#125; &#125;<br>&#123; <span class="hljs-string">&quot;field1&quot;</span> : <span class="hljs-string">&quot;value1&quot;</span> &#125;<br>&#123; <span class="hljs-string">&quot;delete&quot;</span> : &#123; <span class="hljs-string">&quot;_index&quot;</span> : <span class="hljs-string">&quot;test&quot;</span>, <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;2&quot;</span> &#125; &#125;<br>&#123; <span class="hljs-string">&quot;create&quot;</span> : &#123; <span class="hljs-string">&quot;_index&quot;</span> : <span class="hljs-string">&quot;test2&quot;</span>, <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;3&quot;</span> &#125; &#125;<br>&#123; <span class="hljs-string">&quot;field1&quot;</span> : <span class="hljs-string">&quot;value3&quot;</span> &#125;<br>&#123; <span class="hljs-string">&quot;update&quot;</span> : &#123;<span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;1&quot;</span>, <span class="hljs-string">&quot;_index&quot;</span> : <span class="hljs-string">&quot;test&quot;</span>&#125; &#125;<br>&#123; <span class="hljs-string">&quot;doc&quot;</span> : &#123;<span class="hljs-string">&quot;field2&quot;</span> : <span class="hljs-string">&quot;value2&quot;</span>&#125; &#125;<br></code></pre></td></tr></table></figure>
+
+第二次执行批量操作：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs bash">POST _bulk<br>&#123; <span class="hljs-string">&quot;index&quot;</span> : &#123; <span class="hljs-string">&quot;_index&quot;</span> : <span class="hljs-string">&quot;test&quot;</span>, <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;1&quot;</span> &#125; &#125;<br>&#123; <span class="hljs-string">&quot;field1&quot;</span> : <span class="hljs-string">&quot;value1&quot;</span> &#125;<br>&#123; <span class="hljs-string">&quot;delete&quot;</span> : &#123; <span class="hljs-string">&quot;_index&quot;</span> : <span class="hljs-string">&quot;test&quot;</span>, <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;2&quot;</span> &#125; &#125;<br>&#123; <span class="hljs-string">&quot;create&quot;</span> : &#123; <span class="hljs-string">&quot;_index&quot;</span> : <span class="hljs-string">&quot;test2&quot;</span>, <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;3&quot;</span> &#125; &#125;<br>&#123; <span class="hljs-string">&quot;field1&quot;</span> : <span class="hljs-string">&quot;value3&quot;</span> &#125;<br>&#123; <span class="hljs-string">&quot;update&quot;</span> : &#123;<span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;1&quot;</span>, <span class="hljs-string">&quot;_index&quot;</span> : <span class="hljs-string">&quot;test&quot;</span>&#125; &#125;<br>&#123; <span class="hljs-string">&quot;doc&quot;</span> : &#123;<span class="hljs-string">&quot;field2&quot;</span> : <span class="hljs-string">&quot;value2&quot;</span>&#125; &#125;<br></code></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="6-多文档获取-MGET"><a href="#6-多文档获取-MGET" class="headerlink" title="6. 多文档获取 (MGET)"></a>6. 多文档获取 (MGET)</h3><ul>
+<li><p><strong>获取多个文档</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs bash">GET /_mget<br>&#123;<br>  <span class="hljs-string">&quot;docs&quot;</span> : [<br>    &#123; <span class="hljs-string">&quot;_index&quot;</span> : <span class="hljs-string">&quot;test&quot;</span>, <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;1&quot;</span> &#125;,<br>    &#123; <span class="hljs-string">&quot;_index&quot;</span> : <span class="hljs-string">&quot;test&quot;</span>, <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;2&quot;</span> &#125;<br>  ]<br>&#125;<br></code></pre></td></tr></table></figure>
+</li>
+<li><p><strong>URI中指定索引</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs bash">GET /test/_mget<br>&#123;<br>  <span class="hljs-string">&quot;docs&quot;</span> : [<br>    &#123; <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;1&quot;</span> &#125;,<br>    &#123; <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;2&quot;</span> &#125;<br>  ]<br>&#125;<br></code></pre></td></tr></table></figure>
+</li>
+<li><p><strong>使用 <code>_source</code> 参数指定返回的字段</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs bash">GET /_mget<br>&#123;<br>  <span class="hljs-string">&quot;docs&quot;</span> : [<br>    &#123; <span class="hljs-string">&quot;_index&quot;</span> : <span class="hljs-string">&quot;test&quot;</span>, <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;1&quot;</span>, <span class="hljs-string">&quot;_source&quot;</span> : <span class="hljs-literal">false</span> &#125;,<br>    &#123; <span class="hljs-string">&quot;_index&quot;</span> : <span class="hljs-string">&quot;test&quot;</span>, <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;2&quot;</span>, <span class="hljs-string">&quot;_source&quot;</span> : [<span class="hljs-string">&quot;field3&quot;</span>, <span class="hljs-string">&quot;field4&quot;</span>] &#125;,<br>    &#123; <span class="hljs-string">&quot;_index&quot;</span> : <span class="hljs-string">&quot;test&quot;</span>, <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;3&quot;</span>, <span class="hljs-string">&quot;_source&quot;</span> : &#123; <span class="hljs-string">&quot;include&quot;</span>: [<span class="hljs-string">&quot;user&quot;</span>], <span class="hljs-string">&quot;exclude&quot;</span>: [<span class="hljs-string">&quot;user.location&quot;</span>] &#125; &#125;<br>  ]<br>&#125;<br></code></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="7-多查询操作-MSEARCH"><a href="#7-多查询操作-MSEARCH" class="headerlink" title="7. 多查询操作 (MSEARCH)"></a>7. 多查询操作 (MSEARCH)</h3><ul>
+<li><strong>执行多个查询</strong><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash">POST kibana_sample_data_ecommerce/_msearch<br>&#123;&#125;<br>&#123;<span class="hljs-string">&quot;query&quot;</span> : &#123;<span class="hljs-string">&quot;match_all&quot;</span> : &#123;&#125;&#125;,<span class="hljs-string">&quot;size&quot;</span>:1&#125;<br>&#123;<span class="hljs-string">&quot;index&quot;</span> : <span class="hljs-string">&quot;kibana_sample_data_flights&quot;</span>&#125;<br>&#123;<span class="hljs-string">&quot;query&quot;</span> : &#123;<span class="hljs-string">&quot;match_all&quot;</span> : &#123;&#125;&#125;,<span class="hljs-string">&quot;size&quot;</span>:2&#125;<br></code></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="8-清除测试数据"><a href="#8-清除测试数据" class="headerlink" title="8. 清除测试数据"></a>8. 清除测试数据</h3><ul>
+<li><strong>删除索引（清除数据）</strong><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">DELETE <span class="hljs-built_in">users</span><br>DELETE <span class="hljs-built_in">test</span><br>DELETE test2<br></code></pre></td></tr></table></figure></li>
+</ul>
+<p>[3.4-倒排索引入门]</p>
+<p>Elasticsearch 的 <code>_analyze</code> API，它用于分析文本，查看在特定分析器下，文本是如何被分词和处理的。下面是每个请求的说明：</p>
+<h3 id="1-分析-“Mastering-Elasticsearch”"><a href="#1-分析-“Mastering-Elasticsearch”" class="headerlink" title="1. 分析 “Mastering Elasticsearch”"></a>1. <strong>分析 “Mastering Elasticsearch”</strong></h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash">POST _analyze<br>&#123;<br>  <span class="hljs-string">&quot;analyzer&quot;</span>: <span class="hljs-string">&quot;standard&quot;</span>,<br>  <span class="hljs-string">&quot;text&quot;</span>: <span class="hljs-string">&quot;Mastering Elasticsearch&quot;</span><br>&#125;<br></code></pre></td></tr></table></figure>
+<ul>
+<li><strong>分析器</strong>：使用默认的 <code>standard</code> 分析器。</li>
+<li><strong>文本</strong>：<code>&quot;Mastering Elasticsearch&quot;</code>。</li>
+<li><strong>预期效果</strong>：<code>standard</code> 分析器会将这段文本分割成单词，通常会根据空格和标点符号进行分词。</li>
+</ul>
+<h3 id="2-分析-“Elasticsearch-Server”"><a href="#2-分析-“Elasticsearch-Server”" class="headerlink" title="2. 分析 “Elasticsearch Server”"></a>2. <strong>分析 “Elasticsearch Server”</strong></h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash">POST _analyze<br>&#123;<br>  <span class="hljs-string">&quot;analyzer&quot;</span>: <span class="hljs-string">&quot;standard&quot;</span>,<br>  <span class="hljs-string">&quot;text&quot;</span>: <span class="hljs-string">&quot;Elasticsearch Server&quot;</span><br>&#125;<br></code></pre></td></tr></table></figure>
+<ul>
+<li><strong>分析器</strong>：同样使用 <code>standard</code> 分析器。</li>
+<li><strong>文本</strong>：<code>&quot;Elasticsearch Server&quot;</code>。</li>
+<li><strong>预期效果</strong>：分析器会分割文本为单词，可能会得到类似于 <code>[&quot;elasticsearch&quot;, &quot;server&quot;]</code> 的分词结果。</li>
+</ul>
+<h3 id="3-分析-“Elasticsearch-Essentials”"><a href="#3-分析-“Elasticsearch-Essentials”" class="headerlink" title="3. 分析 “Elasticsearch Essentials”"></a>3. <strong>分析 “Elasticsearch Essentials”</strong></h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash">POST _analyze<br>&#123;<br>  <span class="hljs-string">&quot;analyzer&quot;</span>: <span class="hljs-string">&quot;standard&quot;</span>,<br>  <span class="hljs-string">&quot;text&quot;</span>: <span class="hljs-string">&quot;Elasticsearch Essentials&quot;</span><br>&#125;<br></code></pre></td></tr></table></figure>
+<ul>
+<li><strong>分析器</strong>：继续使用 <code>standard</code> 分析器。</li>
+<li><strong>文本</strong>：<code>&quot;Elasticsearch Essentials&quot;</code>。</li>
+<li><strong>预期效果</strong>：分析器会将文本分割成 <code>[&quot;elasticsearch&quot;, &quot;essentials&quot;]</code>。</li>
+</ul>
+<h3 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h3><p>每个请求的结果将显示由 <code>standard</code> 分析器生成的分词结果。通常，<code>standard</code> 分析器会去除大部分标点符号并将文本转换为小写。分词的具体结果如下：</p>
+<ul>
+<li><code>&quot;Mastering Elasticsearch&quot;</code> -&gt; <code>[&quot;mastering&quot;, &quot;elasticsearch&quot;]</code></li>
+<li><code>&quot;Elasticsearch Server&quot;</code> -&gt; <code>[&quot;elasticsearch&quot;, &quot;server&quot;]</code></li>
+<li><code>&quot;Elasticsearch Essentials&quot;</code> -&gt; <code>[&quot;elasticsearch&quot;, &quot;essentials&quot;]</code></li>
+</ul>
+<p>以下是使用不同的分析器（Analyzer）对文本进行分词分析的示例：</p>
+<h3 id="1-Standard-Analyzer"><a href="#1-Standard-Analyzer" class="headerlink" title="1. Standard Analyzer"></a>1. <strong>Standard Analyzer</strong></h3><p>标准分析器会根据空格、标点符号等进行分词，并将所有文本转换为小写。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash">GET _analyze<br>&#123;<br>  <span class="hljs-string">&quot;analyzer&quot;</span>: <span class="hljs-string">&quot;standard&quot;</span>,<br>  <span class="hljs-string">&quot;text&quot;</span>: <span class="hljs-string">&quot;2 running Quick brown-foxes leap over lazy dogs in the summer evening.&quot;</span><br>&#125;<br></code></pre></td></tr></table></figure>
+<ul>
+<li><strong>分词结果</strong>：<code>[&quot;2&quot;, &quot;running&quot;, &quot;quick&quot;, &quot;brown&quot;, &quot;foxes&quot;, &quot;leap&quot;, &quot;over&quot;, &quot;lazy&quot;, &quot;dogs&quot;, &quot;in&quot;, &quot;the&quot;, &quot;summer&quot;, &quot;evening&quot;]</code></li>
+</ul>
+<h3 id="2-Simple-Analyzer"><a href="#2-Simple-Analyzer" class="headerlink" title="2. Simple Analyzer"></a>2. <strong>Simple Analyzer</strong></h3><p>简单分析器按非字母字符切分，符号会被过滤，文本会转换为小写。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash">GET _analyze<br>&#123;<br>  <span class="hljs-string">&quot;analyzer&quot;</span>: <span class="hljs-string">&quot;simple&quot;</span>,<br>  <span class="hljs-string">&quot;text&quot;</span>: <span class="hljs-string">&quot;2 running Quick brown-foxes leap over lazy dogs in the summer evening.&quot;</span><br>&#125;<br></code></pre></td></tr></table></figure>
+<ul>
+<li><strong>分词结果</strong>：<code>[&quot;2&quot;, &quot;running&quot;, &quot;quick&quot;, &quot;brown&quot;, &quot;foxes&quot;, &quot;leap&quot;, &quot;over&quot;, &quot;lazy&quot;, &quot;dogs&quot;, &quot;in&quot;, &quot;the&quot;, &quot;summer&quot;, &quot;evening&quot;]</code></li>
+</ul>
+<h3 id="3-Stop-Analyzer"><a href="#3-Stop-Analyzer" class="headerlink" title="3. Stop Analyzer"></a>3. <strong>Stop Analyzer</strong></h3><p>停用词分析器会将文本转换为小写，并过滤掉常见的停用词（如 “the”, “a”, “is”）。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash">GET _analyze<br>&#123;<br>  <span class="hljs-string">&quot;analyzer&quot;</span>: <span class="hljs-string">&quot;stop&quot;</span>,<br>  <span class="hljs-string">&quot;text&quot;</span>: <span class="hljs-string">&quot;2 running Quick brown-foxes leap over lazy dogs in the summer evening.&quot;</span><br>&#125;<br></code></pre></td></tr></table></figure>
+<ul>
+<li><strong>分词结果</strong>：<code>[&quot;2&quot;, &quot;running&quot;, &quot;quick&quot;, &quot;brown&quot;, &quot;foxes&quot;, &quot;leap&quot;, &quot;lazy&quot;, &quot;dogs&quot;, &quot;summer&quot;, &quot;evening&quot;]</code></li>
+</ul>
+<h3 id="4-Whitespace-Analyzer"><a href="#4-Whitespace-Analyzer" class="headerlink" title="4. Whitespace Analyzer"></a>4. <strong>Whitespace Analyzer</strong></h3><p>空格分析器会按空格切分文本，并且不会转换为小写。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash">GET _analyze<br>&#123;<br>  <span class="hljs-string">&quot;analyzer&quot;</span>: <span class="hljs-string">&quot;whitespace&quot;</span>,<br>  <span class="hljs-string">&quot;text&quot;</span>: <span class="hljs-string">&quot;2 running Quick brown-foxes leap over lazy dogs in the summer evening.&quot;</span><br>&#125;<br></code></pre></td></tr></table></figure>
+<ul>
+<li><strong>分词结果</strong>：<code>[&quot;2&quot;, &quot;running&quot;, &quot;Quick&quot;, &quot;brown-foxes&quot;, &quot;leap&quot;, &quot;over&quot;, &quot;lazy&quot;, &quot;dogs&quot;, &quot;in&quot;, &quot;the&quot;, &quot;summer&quot;, &quot;evening.&quot;]</code></li>
+</ul>
+<h3 id="5-Keyword-Analyzer"><a href="#5-Keyword-Analyzer" class="headerlink" title="5. Keyword Analyzer"></a>5. <strong>Keyword Analyzer</strong></h3><p>关键字分析器不进行分词，直接返回原始文本。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash">GET _analyze<br>&#123;<br>  <span class="hljs-string">&quot;analyzer&quot;</span>: <span class="hljs-string">&quot;keyword&quot;</span>,<br>  <span class="hljs-string">&quot;text&quot;</span>: <span class="hljs-string">&quot;2 running Quick brown-foxes leap over lazy dogs in the summer evening.&quot;</span><br>&#125;<br></code></pre></td></tr></table></figure>
+<ul>
+<li><strong>分词结果</strong>：<code>[&quot;2 running Quick brown-foxes leap over lazy dogs in the summer evening.&quot;]</code></li>
+</ul>
+<h3 id="6-Pattern-Analyzer"><a href="#6-Pattern-Analyzer" class="headerlink" title="6. Pattern Analyzer"></a>6. <strong>Pattern Analyzer</strong></h3><p>模式分析器使用正则表达式进行分词，默认使用 <code>\W+</code>（非字母字符）作为分隔符。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash">GET _analyze<br>&#123;<br>  <span class="hljs-string">&quot;analyzer&quot;</span>: <span class="hljs-string">&quot;pattern&quot;</span>,<br>  <span class="hljs-string">&quot;text&quot;</span>: <span class="hljs-string">&quot;2 running Quick brown-foxes leap over lazy dogs in the summer evening.&quot;</span><br>&#125;<br></code></pre></td></tr></table></figure>
+<ul>
+<li><strong>分词结果</strong>：<code>[&quot;2&quot;, &quot;running&quot;, &quot;Quick&quot;, &quot;brown&quot;, &quot;foxes&quot;, &quot;leap&quot;, &quot;over&quot;, &quot;lazy&quot;, &quot;dogs&quot;, &quot;in&quot;, &quot;the&quot;, &quot;summer&quot;, &quot;evening&quot;]</code></li>
+</ul>
+<h3 id="7-English-Analyzer"><a href="#7-English-Analyzer" class="headerlink" title="7. English Analyzer"></a>7. <strong>English Analyzer</strong></h3><p>英语分析器针对英语语言进行分词，去除停用词等。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash">GET _analyze<br>&#123;<br>  <span class="hljs-string">&quot;analyzer&quot;</span>: <span class="hljs-string">&quot;english&quot;</span>,<br>  <span class="hljs-string">&quot;text&quot;</span>: <span class="hljs-string">&quot;2 running Quick brown-foxes leap over lazy dogs in the summer evening.&quot;</span><br>&#125;<br></code></pre></td></tr></table></figure>
+<ul>
+<li><strong>分词结果</strong>：<code>[&quot;2&quot;, &quot;running&quot;, &quot;quick&quot;, &quot;brown&quot;, &quot;foxes&quot;, &quot;leap&quot;, &quot;lazy&quot;, &quot;dogs&quot;, &quot;summer&quot;, &quot;evening&quot;]</code></li>
+</ul>
+<h3 id="8-ICU-Analyzer-for-Chinese-Text"><a href="#8-ICU-Analyzer-for-Chinese-Text" class="headerlink" title="8. ICU Analyzer for Chinese Text"></a>8. <strong>ICU Analyzer for Chinese Text</strong></h3><p>使用 <code>icu_analyzer</code> 来处理中文文本，适用于多语言环境中的分词。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash">POST _analyze<br>&#123;<br>  <span class="hljs-string">&quot;analyzer&quot;</span>: <span class="hljs-string">&quot;icu_analyzer&quot;</span>,<br>  <span class="hljs-string">&quot;text&quot;</span>: <span class="hljs-string">&quot;他说的确实在理&quot;</span><br>&#125;<br></code></pre></td></tr></table></figure>
+<ul>
+<li><strong>分词结果</strong>：<code>[&quot;他说&quot;, &quot;的&quot;, &quot;确实&quot;, &quot;在理&quot;]</code></li>
+</ul>
+<h3 id="9-Standard-Analyzer-for-Chinese-Text"><a href="#9-Standard-Analyzer-for-Chinese-Text" class="headerlink" title="9. Standard Analyzer for Chinese Text"></a>9. <strong>Standard Analyzer for Chinese Text</strong></h3><p>使用标准分析器处理中文文本，通常处理中文时可能不会像中文专用分析器那样精确。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash">POST _analyze<br>&#123;<br>  <span class="hljs-string">&quot;analyzer&quot;</span>: <span class="hljs-string">&quot;standard&quot;</span>,<br>  <span class="hljs-string">&quot;text&quot;</span>: <span class="hljs-string">&quot;他说的确实在理&quot;</span><br>&#125;<br></code></pre></td></tr></table></figure>
+<ul>
+<li><strong>分词结果</strong>：<code>[&quot;他说&quot;, &quot;的&quot;, &quot;确实&quot;, &quot;在理&quot;]</code></li>
+</ul>
+<h3 id="10-ICU-Analyzer-for-Another-Chinese-Sentence"><a href="#10-ICU-Analyzer-for-Another-Chinese-Sentence" class="headerlink" title="10. ICU Analyzer for Another Chinese Sentence"></a>10. <strong>ICU Analyzer for Another Chinese Sentence</strong></h3><p>处理另一个中文句子 <code>&quot;这个苹果不大好吃&quot;</code>。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash">POST _analyze<br>&#123;<br>  <span class="hljs-string">&quot;analyzer&quot;</span>: <span class="hljs-string">&quot;icu_analyzer&quot;</span>,<br>  <span class="hljs-string">&quot;text&quot;</span>: <span class="hljs-string">&quot;这个苹果不大好吃&quot;</span><br>&#125;<br></code></pre></td></tr></table></figure>
+<ul>
+<li><strong>分词结果</strong>：<code>[&quot;这个&quot;, &quot;苹果&quot;, &quot;不大&quot;, &quot;好吃&quot;]</code></li>
+</ul>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>每种分析器具有不同的分词行为：</p>
+<ul>
+<li><strong>Standard</strong>：根据空格和标点符号分词并小写化。</li>
+<li><strong>Simple</strong>：过滤非字母字符并小写化。</li>
+<li><strong>Stop</strong>：去除停用词并小写化。</li>
+<li><strong>Whitespace</strong>：仅按空格分词，不进行大小写转换。</li>
+<li><strong>Keyword</strong>：不进行分词，返回整个文本。</li>
+<li><strong>Pattern</strong>：使用正则表达式分词，默认 <code>\W+</code> 分割。</li>
+<li><strong>English</strong>：为英语文本设计的分析器，去除停用词。</li>
+<li><strong>ICU Analyzer</strong>：适合多语言的分词，特别适用于中文等非拉丁字母语言。</li>
+</ul>
+<p>这些分析器可以根据不同的语言和需求来优化索引和搜索。</p>
+<p>以下是您提供的一些 Elasticsearch 查询示例，涵盖了基本查询、带有分析的查询、布尔查询、范围查询、通配符查询、模糊查询等操作。下面是每种查询的详细解释和用法：</p>
+<h3 id="1-基本查询"><a href="#1-基本查询" class="headerlink" title="1. 基本查询"></a>1. <strong>基本查询</strong></h3><p>查询 <code>movies</code> 索引中标题为 <code>2012</code> 的电影，并根据 <code>year</code> 字段降序排序，返回前 10 条结果：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">GET /movies/_search?q=2012&amp;<span class="hljs-built_in">df</span>=title&amp;<span class="hljs-built_in">sort</span>=year:desc&amp;from=0&amp;size=10&amp;<span class="hljs-built_in">timeout</span>=1s<br></code></pre></td></tr></table></figure>
+<ul>
+<li>**<code>q=2012</code>**：查询内容为 <code>2012</code>。</li>
+<li>**<code>df=title</code>**：指定查询字段为 <code>title</code>。</li>
+<li>**<code>sort=year:desc</code>**：按 <code>year</code> 字段降序排序。</li>
+<li>**<code>from=0&amp;size=10</code>**：分页，返回前 10 条数据。</li>
+<li>**<code>timeout=1s</code>**：查询超时限制为 1 秒。</li>
+</ul>
+<h3 id="2-带-Profile-的查询"><a href="#2-带-Profile-的查询" class="headerlink" title="2. 带 Profile 的查询"></a>2. <strong>带 Profile 的查询</strong></h3><p>启用 <code>profile</code> 可以帮助分析查询性能，查看查询的每个阶段的时间。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash">GET /movies/_search?q=2012&amp;<span class="hljs-built_in">df</span>=title<br>&#123;<br>	<span class="hljs-string">&quot;profile&quot;</span>:<span class="hljs-string">&quot;true&quot;</span><br>&#125;<br></code></pre></td></tr></table></figure>
+<ul>
+<li>**<code>&quot;profile&quot;: &quot;true&quot;</code>**：启用查询性能分析。</li>
+</ul>
+<h3 id="3-泛查询，对所有字段进行查询"><a href="#3-泛查询，对所有字段进行查询" class="headerlink" title="3. 泛查询，对所有字段进行查询"></a>3. <strong>泛查询，对所有字段进行查询</strong></h3><p>使用 <code>_all</code> 字段进行泛查询，查询所有字段。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash">GET /movies/_search?q=2012<br>&#123;<br>	<span class="hljs-string">&quot;profile&quot;</span>:<span class="hljs-string">&quot;true&quot;</span><br>&#125;<br></code></pre></td></tr></table></figure>
+<ul>
+<li>**<code>q=2012</code>**：查询所有字段中包含 <code>2012</code> 的数据。</li>
+</ul>
+<h3 id="4-指定字段查询"><a href="#4-指定字段查询" class="headerlink" title="4. 指定字段查询"></a>4. <strong>指定字段查询</strong></h3><p>查询 <code>title</code> 字段中包含 <code>2012</code> 的记录，并按照 <code>year</code> 字段降序排序：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash">GET /movies/_search?q=title:2012&amp;<span class="hljs-built_in">sort</span>=year:desc&amp;from=0&amp;size=10&amp;<span class="hljs-built_in">timeout</span>=1s<br>&#123;<br>	<span class="hljs-string">&quot;profile&quot;</span>:<span class="hljs-string">&quot;true&quot;</span><br>&#125;<br></code></pre></td></tr></table></figure>
+<ul>
+<li>**<code>q=title:2012</code>**：指定查询字段为 <code>title</code>，查询内容为 <code>2012</code>。</li>
+</ul>
+<h3 id="5-查找美丽心灵"><a href="#5-查找美丽心灵" class="headerlink" title="5. 查找美丽心灵"></a>5. <strong>查找美丽心灵</strong></h3><p>查询 <code>title</code> 字段包含 <code>&quot;Beautiful Mind&quot;</code> 的记录：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash">GET /movies/_search?q=title:Beautiful Mind<br>&#123;<br>	<span class="hljs-string">&quot;profile&quot;</span>:<span class="hljs-string">&quot;true&quot;</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="6-泛查询"><a href="#6-泛查询" class="headerlink" title="6. 泛查询"></a>6. <strong>泛查询</strong></h3><p>查询 <code>title</code> 字段包含 <code>2012</code> 的记录：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash">GET /movies/_search?q=title:2012<br>&#123;<br>	<span class="hljs-string">&quot;profile&quot;</span>:<span class="hljs-string">&quot;true&quot;</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="7-Phrase-查询（短语查询）"><a href="#7-Phrase-查询（短语查询）" class="headerlink" title="7. Phrase 查询（短语查询）"></a>7. <strong>Phrase 查询（短语查询）</strong></h3><p>查询 <code>title</code> 字段精确匹配 <code>&quot;Beautiful Mind&quot;</code>：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash">GET /movies/_search?q=title:<span class="hljs-string">&quot;Beautiful Mind&quot;</span><br>&#123;<br>	<span class="hljs-string">&quot;profile&quot;</span>:<span class="hljs-string">&quot;true&quot;</span><br>&#125;<br></code></pre></td></tr></table></figure>
+<ul>
+<li>使用引号表示精确短语匹配，要求字段内容必须完全匹配短语 <code>&quot;Beautiful Mind&quot;</code>。</li>
+</ul>
+<h3 id="8-分组查询（使用括号）"><a href="#8-分组查询（使用括号）" class="headerlink" title="8. 分组查询（使用括号）"></a>8. <strong>分组查询（使用括号）</strong></h3><p>查询 <code>title</code> 字段中包含 <code>Beautiful Mind</code> 的记录：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash">GET /movies/_search?q=title:(Beautiful Mind)<br>&#123;<br>	<span class="hljs-string">&quot;profile&quot;</span>:<span class="hljs-string">&quot;true&quot;</span><br>&#125;<br></code></pre></td></tr></table></figure>
+<ul>
+<li>使用括号可以进行分组查询，类似逻辑上的括号优先级。</li>
+</ul>
+<h3 id="9-布尔操作符查询"><a href="#9-布尔操作符查询" class="headerlink" title="9. 布尔操作符查询"></a>9. <strong>布尔操作符查询</strong></h3><ul>
+<li><strong>AND 查询：</strong><br>查询 <code>title</code> 字段同时包含 <code>Beautiful</code> 和 <code>Mind</code> 的记录：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash">GET /movies/_search?q=title:(Beautiful AND Mind)<br>&#123;<br>	<span class="hljs-string">&quot;profile&quot;</span>:<span class="hljs-string">&quot;true&quot;</span><br>&#125;<br></code></pre></td></tr></table></figure></li>
+<li><strong>NOT 查询：</strong><br>查询 <code>title</code> 字段包含 <code>Beautiful</code> 但不包含 <code>Mind</code> 的记录：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash">GET /movies/_search?q=title:(Beautiful NOT Mind)<br>&#123;<br>	<span class="hljs-string">&quot;profile&quot;</span>:<span class="hljs-string">&quot;true&quot;</span><br>&#125;<br></code></pre></td></tr></table></figure></li>
+<li><strong>OR 查询：</strong><br>查询 <code>title</code> 字段包含 <code>Beautiful</code> 或 <code>Mind</code> 的记录：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash">GET /movies/_search?q=title:(Beautiful %2BMind)<br>&#123;<br>	<span class="hljs-string">&quot;profile&quot;</span>:<span class="hljs-string">&quot;true&quot;</span><br>&#125;<br></code></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="10-范围查询"><a href="#10-范围查询" class="headerlink" title="10. 范围查询"></a>10. <strong>范围查询</strong></h3><p>查询 <code>title</code> 字段包含 <code>beautiful</code> 且 <code>year</code> 在 2002 到 2018 年之间的记录：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash">GET /movies/_search?q=title:beautiful AND year:[2002 TO 2018%7D<br>&#123;<br>	<span class="hljs-string">&quot;profile&quot;</span>:<span class="hljs-string">&quot;true&quot;</span><br>&#125;<br></code></pre></td></tr></table></figure>
+<ul>
+<li>**<code>year:[2002 TO 2018]</code>**：指定 <code>year</code> 字段的范围查询。</li>
+</ul>
+<h3 id="11-通配符查询"><a href="#11-通配符查询" class="headerlink" title="11. 通配符查询"></a>11. <strong>通配符查询</strong></h3><p>查询 <code>title</code> 字段以 <code>b</code> 开头的所有记录：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash">GET /movies/_search?q=title:b*<br>&#123;<br>	<span class="hljs-string">&quot;profile&quot;</span>:<span class="hljs-string">&quot;true&quot;</span><br>&#125;<br></code></pre></td></tr></table></figure>
+<ul>
+<li>**<code>b*</code>**：使用通配符查询以 <code>b</code> 开头的字符串。</li>
+</ul>
+<h3 id="12-模糊查询-近似度匹配"><a href="#12-模糊查询-近似度匹配" class="headerlink" title="12. 模糊查询 &amp; 近似度匹配"></a>12. <strong>模糊查询 &amp; 近似度匹配</strong></h3><ul>
+<li><strong>模糊匹配</strong>：查询 <code>title</code> 字段中的词语 <code>beautifl</code>，允许有 1 个字符的错误：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash">GET /movies/_search?q=title:beautifl~1<br>&#123;<br>	<span class="hljs-string">&quot;profile&quot;</span>:<span class="hljs-string">&quot;true&quot;</span><br>&#125;<br></code></pre></td></tr></table></figure></li>
+<li><strong>近似度匹配</strong>：查询 <code>title</code> 字段中的短语 <code>&quot;Lord Rings&quot;</code>，允许 2 个字符的误差：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash">GET /movies/_search?q=title:<span class="hljs-string">&quot;Lord Rings&quot;</span>~2<br>&#123;<br>	<span class="hljs-string">&quot;profile&quot;</span>:<span class="hljs-string">&quot;true&quot;</span><br>&#125;<br></code></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="总结-1"><a href="#总结-1" class="headerlink" title="总结"></a>总结</h3><p>这些查询展示了如何使用 Elasticsearch 提供的强大查询能力来根据不同的需求筛选和搜索数据。常见的查询类型包括：</p>
+<ul>
+<li><strong>基本查询</strong>：用于查找单一词汇。</li>
+<li><strong>布尔查询</strong>：组合多个查询条件。</li>
+<li><strong>范围查询</strong>：查找特定范围内的记录。</li>
+<li><strong>通配符查询</strong>：模糊匹配。</li>
+<li><strong>短语查询</strong>：精确匹配整个短语。</li>
+</ul>
+<p>同时，<code>profile</code> 参数可以帮助分析查询性能，优化查询响应。</p>
+<p>3.8-RequestBody与QueryDSL简介</p>
+<p>以下是您提供的 Elasticsearch 查询操作，包括分页、日期排序、源过滤、脚本字段、以及不同的查询类型（如 <code>match</code>、<code>match_phrase</code>）。这些操作展示了如何在 Elasticsearch 中进行更精细的查询和数据处理。</p>
+<h3 id="1-忽略不存在的索引（ignore-unavailable-true）"><a href="#1-忽略不存在的索引（ignore-unavailable-true）" class="headerlink" title="1. 忽略不存在的索引（ignore_unavailable=true）"></a>1. <strong>忽略不存在的索引（<code>ignore_unavailable=true</code>）</strong></h3><p>在查询时，如果访问的索引不存在，使用 <code>ignore_unavailable=true</code> 可以避免报错：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs bash">POST /movies,404_idx/_search?ignore_unavailable=<span class="hljs-literal">true</span><br>&#123;<br>  <span class="hljs-string">&quot;profile&quot;</span>: <span class="hljs-literal">true</span>,<br>  <span class="hljs-string">&quot;query&quot;</span>: &#123;<br>    <span class="hljs-string">&quot;match_all&quot;</span>: &#123;&#125;<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<ul>
+<li>**<code>ignore_unavailable=true</code>**：在访问不存在的索引时，忽略错误。</li>
+</ul>
+<h3 id="2-分页查询"><a href="#2-分页查询" class="headerlink" title="2. 分页查询"></a>2. <strong>分页查询</strong></h3><p>查询 <code>kibana_sample_data_ecommerce</code> 索引并分页返回数据（从第 10 条开始，返回 20 条记录）：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs bash">POST /kibana_sample_data_ecommerce/_search<br>&#123;<br>  <span class="hljs-string">&quot;from&quot;</span>: 10,<br>  <span class="hljs-string">&quot;size&quot;</span>: 20,<br>  <span class="hljs-string">&quot;query&quot;</span>: &#123;<br>    <span class="hljs-string">&quot;match_all&quot;</span>: &#123;&#125;<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<ul>
+<li><strong><code>from=10</code></strong> 和 **<code>size=20</code>**：分页，跳过前 10 条，返回接下来的 20 条。</li>
+</ul>
+<h3 id="3-日期排序"><a href="#3-日期排序" class="headerlink" title="3. 日期排序"></a>3. <strong>日期排序</strong></h3><p>按 <code>order_date</code> 字段降序排序：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs bash">POST kibana_sample_data_ecommerce/_search<br>&#123;<br>  <span class="hljs-string">&quot;sort&quot;</span>: [&#123;<span class="hljs-string">&quot;order_date&quot;</span>: <span class="hljs-string">&quot;desc&quot;</span>&#125;],<br>  <span class="hljs-string">&quot;query&quot;</span>: &#123;<br>    <span class="hljs-string">&quot;match_all&quot;</span>: &#123;&#125;<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<ul>
+<li>**<code>sort</code>**：按照 <code>order_date</code> 字段降序排序。</li>
+</ul>
+<h3 id="4-源过滤"><a href="#4-源过滤" class="headerlink" title="4. 源过滤"></a>4. <strong>源过滤</strong></h3><p>只返回文档中的 <code>order_date</code> 字段，不返回其他字段：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs bash">POST kibana_sample_data_ecommerce/_search<br>&#123;<br>  <span class="hljs-string">&quot;_source&quot;</span>: [<span class="hljs-string">&quot;order_date&quot;</span>],<br>  <span class="hljs-string">&quot;query&quot;</span>: &#123;<br>    <span class="hljs-string">&quot;match_all&quot;</span>: &#123;&#125;<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<ul>
+<li>**<code>_source</code>**：指定只返回 <code>order_date</code> 字段的数据。</li>
+</ul>
+<h3 id="5-脚本字段"><a href="#5-脚本字段" class="headerlink" title="5. 脚本字段"></a>5. <strong>脚本字段</strong></h3><p>使用脚本字段计算新的字段（例如，拼接 <code>order_date</code> 和 <code>&quot;hello&quot;</code>）：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs bash">GET kibana_sample_data_ecommerce/_search<br>&#123;<br>  <span class="hljs-string">&quot;script_fields&quot;</span>: &#123;<br>    <span class="hljs-string">&quot;new_field&quot;</span>: &#123;<br>      <span class="hljs-string">&quot;script&quot;</span>: &#123;<br>        <span class="hljs-string">&quot;lang&quot;</span>: <span class="hljs-string">&quot;painless&quot;</span>,<br>        <span class="hljs-string">&quot;source&quot;</span>: <span class="hljs-string">&quot;doc[&#x27;order_date&#x27;].value+&#x27;hello&#x27;&quot;</span><br>      &#125;<br>    &#125;<br>  &#125;,<br>  <span class="hljs-string">&quot;query&quot;</span>: &#123;<br>    <span class="hljs-string">&quot;match_all&quot;</span>: &#123;&#125;<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<ul>
+<li>**<code>script_fields</code>**：使用 <code>painless</code> 脚本创建新的字段 <code>new_field</code>，将 <code>order_date</code> 字段与字符串 <code>&quot;hello&quot;</code> 拼接。</li>
+</ul>
+<h3 id="6-match-查询"><a href="#6-match-查询" class="headerlink" title="6. match 查询"></a>6. <strong><code>match</code> 查询</strong></h3><p>查询 <code>movies</code> 索引中 <code>title</code> 字段包含 <code>&quot;last christmas&quot;</code> 的记录：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs bash">POST movies/_search<br>&#123;<br>  <span class="hljs-string">&quot;query&quot;</span>: &#123;<br>    <span class="hljs-string">&quot;match&quot;</span>: &#123;<br>      <span class="hljs-string">&quot;title&quot;</span>: <span class="hljs-string">&quot;last christmas&quot;</span><br>    &#125;<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<ul>
+<li>**<code>match</code>**：进行标准的全文匹配查询。</li>
+</ul>
+<h3 id="7-match-查询并使用-AND-操作符"><a href="#7-match-查询并使用-AND-操作符" class="headerlink" title="7. match 查询并使用 AND 操作符"></a>7. <strong><code>match</code> 查询并使用 AND 操作符</strong></h3><p>查询 <code>title</code> 包含 <code>&quot;last christmas&quot;</code> 且两个词都必须出现的记录（使用 AND 操作符）：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs bash">POST movies/_search<br>&#123;<br>  <span class="hljs-string">&quot;query&quot;</span>: &#123;<br>    <span class="hljs-string">&quot;match&quot;</span>: &#123;<br>      <span class="hljs-string">&quot;title&quot;</span>: &#123;<br>        <span class="hljs-string">&quot;query&quot;</span>: <span class="hljs-string">&quot;last christmas&quot;</span>,<br>        <span class="hljs-string">&quot;operator&quot;</span>: <span class="hljs-string">&quot;and&quot;</span><br>      &#125;<br>    &#125;<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<ul>
+<li>**<code>operator: &quot;and&quot;</code>**：两个词必须同时出现在字段中。</li>
+</ul>
+<h3 id="8-match-phrase-查询（短语匹配）"><a href="#8-match-phrase-查询（短语匹配）" class="headerlink" title="8. match_phrase 查询（短语匹配）"></a>8. <strong><code>match_phrase</code> 查询（短语匹配）</strong></h3><p>查询 <code>title</code> 字段精确匹配 <code>&quot;one love&quot;</code> 作为一个短语：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs bash">POST movies/_search<br>&#123;<br>  <span class="hljs-string">&quot;query&quot;</span>: &#123;<br>    <span class="hljs-string">&quot;match_phrase&quot;</span>: &#123;<br>      <span class="hljs-string">&quot;title&quot;</span>: &#123;<br>        <span class="hljs-string">&quot;query&quot;</span>: <span class="hljs-string">&quot;one love&quot;</span><br>      &#125;<br>    &#125;<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<ul>
+<li>**<code>match_phrase</code>**：精确匹配整个短语，必须按照指定的顺序。</li>
+</ul>
+<h3 id="9-match-phrase-查询并使用-slop"><a href="#9-match-phrase-查询并使用-slop" class="headerlink" title="9. match_phrase 查询并使用 slop"></a>9. <strong><code>match_phrase</code> 查询并使用 <code>slop</code></strong></h3><p>查询 <code>title</code> 字段中的短语 <code>&quot;one love&quot;</code>，并允许 1 个词语的偏移（即词语可以有一定的顺序变化）：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs bash">POST movies/_search<br>&#123;<br>  <span class="hljs-string">&quot;query&quot;</span>: &#123;<br>    <span class="hljs-string">&quot;match_phrase&quot;</span>: &#123;<br>      <span class="hljs-string">&quot;title&quot;</span>: &#123;<br>        <span class="hljs-string">&quot;query&quot;</span>: <span class="hljs-string">&quot;one love&quot;</span>,<br>        <span class="hljs-string">&quot;slop&quot;</span>: 1<br>      &#125;<br>    &#125;<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<ul>
+<li>**<code>slop: 1</code>**：允许最多 1 个词语的顺序偏移（例如，<code>love one</code> 也可以匹配）。</li>
+</ul>
+<h3 id="总结-2"><a href="#总结-2" class="headerlink" title="总结"></a>总结</h3><p>这些查询展示了 Elasticsearch 中常用的查询类型：</p>
+<ul>
+<li><strong>分页查询</strong>：使用 <code>from</code> 和 <code>size</code> 来实现分页。</li>
+<li><strong>日期排序</strong>：使用 <code>sort</code> 来对结果进行排序。</li>
+<li><strong>源过滤</strong>：通过 <code>_source</code> 限制返回的字段。</li>
+<li><strong>脚本字段</strong>：使用 <code>painless</code> 脚本来计算新字段。</li>
+<li><strong>布尔操作符</strong>：通过 <code>operator</code> 来定义 <code>match</code> 查询的逻辑。</li>
+<li><strong>短语匹配和偏移</strong>：通过 <code>match_phrase</code> 和 <code>slop</code> 来进行更灵活的查询。</li>
+</ul>
+<p>这些查询可以帮助你在 Elasticsearch 中实现复杂的搜索需求。</p>
+<p>[3.9-QueryString&amp;SimpleQueryString查询]</p>
+<p>以下是您提供的 Elasticsearch 查询操作，涉及到 <code>query_string</code> 和 <code>simple_query_string</code> 查询的使用，以及如何通过不同的字段和操作符执行复杂查询。这里的查询包括布尔操作符、字段匹配、以及指定默认操作符等。</p>
+<h3 id="1-向索引添加文档"><a href="#1-向索引添加文档" class="headerlink" title="1. 向索引添加文档"></a>1. <strong>向索引添加文档</strong></h3><p>首先，向 <code>users</code> 索引添加两个用户文档：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs bash">PUT /users/_doc/1<br>&#123;<br>  <span class="hljs-string">&quot;name&quot;</span>: <span class="hljs-string">&quot;Ruan Yiming&quot;</span>,<br>  <span class="hljs-string">&quot;about&quot;</span>: <span class="hljs-string">&quot;java, golang, node, swift, elasticsearch&quot;</span><br>&#125;<br><br>PUT /users/_doc/2<br>&#123;<br>  <span class="hljs-string">&quot;name&quot;</span>: <span class="hljs-string">&quot;Li Yiming&quot;</span>,<br>  <span class="hljs-string">&quot;about&quot;</span>: <span class="hljs-string">&quot;Hadoop&quot;</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="2-query-string-查询：查询名称中包含-“Ruan”-和-“Yiming”-的文档"><a href="#2-query-string-查询：查询名称中包含-“Ruan”-和-“Yiming”-的文档" class="headerlink" title="2. query_string 查询：查询名称中包含 “Ruan” 和 “Yiming” 的文档"></a>2. <strong><code>query_string</code> 查询：查询名称中包含 “Ruan” 和 “Yiming” 的文档</strong></h3><p>使用 <code>query_string</code> 查询，指定默认字段为 <code>name</code>，查询条件为 <code>&quot;Ruan AND Yiming&quot;</code>：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs bash">POST <span class="hljs-built_in">users</span>/_search<br>&#123;<br>  <span class="hljs-string">&quot;query&quot;</span>: &#123;<br>    <span class="hljs-string">&quot;query_string&quot;</span>: &#123;<br>      <span class="hljs-string">&quot;default_field&quot;</span>: <span class="hljs-string">&quot;name&quot;</span>,<br>      <span class="hljs-string">&quot;query&quot;</span>: <span class="hljs-string">&quot;Ruan AND Yiming&quot;</span><br>    &#125;<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<ul>
+<li>**<code>query_string</code>**：用于执行复杂的查询，可以使用逻辑操作符（如 AND、OR）。</li>
+</ul>
+<h3 id="3-query-string-查询：多个字段和复杂查询"><a href="#3-query-string-查询：多个字段和复杂查询" class="headerlink" title="3. query_string 查询：多个字段和复杂查询"></a>3. <strong><code>query_string</code> 查询：多个字段和复杂查询</strong></h3><p>查询名称或简介字段包含 <code>&quot;Ruan AND Yiming&quot;</code> 或 <code>&quot;Java AND Elasticsearch&quot;</code> 的文档：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs bash">POST <span class="hljs-built_in">users</span>/_search<br>&#123;<br>  <span class="hljs-string">&quot;query&quot;</span>: &#123;<br>    <span class="hljs-string">&quot;query_string&quot;</span>: &#123;<br>      <span class="hljs-string">&quot;fields&quot;</span>: [<span class="hljs-string">&quot;name&quot;</span>, <span class="hljs-string">&quot;about&quot;</span>],<br>      <span class="hljs-string">&quot;query&quot;</span>: <span class="hljs-string">&quot;(Ruan AND Yiming) OR (Java AND Elasticsearch)&quot;</span><br>    &#125;<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<ul>
+<li>**<code>fields</code>**：可以指定多个字段进行查询。</li>
+<li>**<code>query</code>**：包含布尔操作符（如 AND、OR）。</li>
+</ul>
+<h3 id="4-simple-query-string-查询（默认操作符为-OR）"><a href="#4-simple-query-string-查询（默认操作符为-OR）" class="headerlink" title="4. simple_query_string 查询（默认操作符为 OR）"></a>4. <strong><code>simple_query_string</code> 查询（默认操作符为 OR）</strong></h3><p>执行一个简单查询，默认操作符为 <code>OR</code>，查询 <code>name</code> 字段中包含 <code>&quot;Ruan&quot;</code> 或 <code>&quot;Yiming&quot;</code> 的文档：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs bash">POST <span class="hljs-built_in">users</span>/_search<br>&#123;<br>  <span class="hljs-string">&quot;query&quot;</span>: &#123;<br>    <span class="hljs-string">&quot;simple_query_string&quot;</span>: &#123;<br>      <span class="hljs-string">&quot;query&quot;</span>: <span class="hljs-string">&quot;Ruan AND Yiming&quot;</span>,<br>      <span class="hljs-string">&quot;fields&quot;</span>: [<span class="hljs-string">&quot;name&quot;</span>]<br>    &#125;<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<ul>
+<li>**<code>simple_query_string</code>**：适用于较简单的查询，避免了复杂的查询语法。</li>
+</ul>
+<h3 id="5-simple-query-string-查询（默认操作符为-AND）"><a href="#5-simple-query-string-查询（默认操作符为-AND）" class="headerlink" title="5. simple_query_string 查询（默认操作符为 AND）"></a>5. <strong><code>simple_query_string</code> 查询（默认操作符为 AND）</strong></h3><p>查询 <code>name</code> 字段中包含 <code>&quot;Ruan&quot;</code> 且 <code>&quot;Yiming&quot;</code> 的文档，使用 <code>AND</code> 作为默认操作符：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs bash">POST <span class="hljs-built_in">users</span>/_search<br>&#123;<br>  <span class="hljs-string">&quot;query&quot;</span>: &#123;<br>    <span class="hljs-string">&quot;simple_query_string&quot;</span>: &#123;<br>      <span class="hljs-string">&quot;query&quot;</span>: <span class="hljs-string">&quot;Ruan Yiming&quot;</span>,<br>      <span class="hljs-string">&quot;fields&quot;</span>: [<span class="hljs-string">&quot;name&quot;</span>],<br>      <span class="hljs-string">&quot;default_operator&quot;</span>: <span class="hljs-string">&quot;AND&quot;</span><br>    &#125;<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<ul>
+<li>**<code>default_operator</code>**：设置默认操作符（<code>AND</code> 或 <code>OR</code>）。在此示例中，<code>AND</code> 用于要求 <code>&quot;Ruan&quot;</code> 和 <code>&quot;Yiming&quot;</code> 必须同时出现在 <code>name</code> 字段中。</li>
+</ul>
+<h3 id="6-query-string-查询：查询电影标题包含-“Beautiful”-和-“Mind”"><a href="#6-query-string-查询：查询电影标题包含-“Beautiful”-和-“Mind”" class="headerlink" title="6. query_string 查询：查询电影标题包含 “Beautiful” 和 “Mind”"></a>6. <strong><code>query_string</code> 查询：查询电影标题包含 “Beautiful” 和 “Mind”</strong></h3><p>执行 <code>query_string</code> 查询，查询电影标题中包含 <code>&quot;Beautiful&quot;</code> 和 <code>&quot;Mind&quot;</code> 的文档：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs bash">GET /movies/_search<br>&#123;<br>  <span class="hljs-string">&quot;profile&quot;</span>: <span class="hljs-literal">true</span>,<br>  <span class="hljs-string">&quot;query&quot;</span>: &#123;<br>    <span class="hljs-string">&quot;query_string&quot;</span>: &#123;<br>      <span class="hljs-string">&quot;default_field&quot;</span>: <span class="hljs-string">&quot;title&quot;</span>,<br>      <span class="hljs-string">&quot;query&quot;</span>: <span class="hljs-string">&quot;Beautiful AND Mind&quot;</span><br>    &#125;<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<ul>
+<li>**<code>query_string</code>**：执行复杂查询，可以使用布尔操作符（如 <code>AND</code>）。</li>
+</ul>
+<h3 id="7-query-string-查询：多个字段查询"><a href="#7-query-string-查询：多个字段查询" class="headerlink" title="7. query_string 查询：多个字段查询"></a>7. <strong><code>query_string</code> 查询：多个字段查询</strong></h3><p>查询电影的 <code>title</code> 或 <code>year</code> 字段包含 <code>&quot;2012&quot;</code> 的文档：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs bash">GET /movies/_search<br>&#123;<br>  <span class="hljs-string">&quot;profile&quot;</span>: <span class="hljs-literal">true</span>,<br>  <span class="hljs-string">&quot;query&quot;</span>: &#123;<br>    <span class="hljs-string">&quot;query_string&quot;</span>: &#123;<br>      <span class="hljs-string">&quot;fields&quot;</span>: [<span class="hljs-string">&quot;title&quot;</span>, <span class="hljs-string">&quot;year&quot;</span>],<br>      <span class="hljs-string">&quot;query&quot;</span>: <span class="hljs-string">&quot;2012&quot;</span><br>    &#125;<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<ul>
+<li>**<code>fields</code>**：指定多个字段进行查询，这里同时查询 <code>title</code> 和 <code>year</code> 字段。</li>
+</ul>
+<h3 id="8-simple-query-string-查询：使用-进行短语匹配"><a href="#8-simple-query-string-查询：使用-进行短语匹配" class="headerlink" title="8. simple_query_string 查询：使用 + 进行短语匹配"></a>8. <strong><code>simple_query_string</code> 查询：使用 <code>+</code> 进行短语匹配</strong></h3><p>查询电影标题中包含 <code>&quot;Beautiful&quot;</code> 和 <code>&quot;mind&quot;</code> 的文档，使用 <code>+</code> 确保两个词都出现在查询中：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs bash">GET /movies/_search<br>&#123;<br>  <span class="hljs-string">&quot;profile&quot;</span>: <span class="hljs-literal">true</span>,<br>  <span class="hljs-string">&quot;query&quot;</span>: &#123;<br>    <span class="hljs-string">&quot;simple_query_string&quot;</span>: &#123;<br>      <span class="hljs-string">&quot;query&quot;</span>: <span class="hljs-string">&quot;Beautiful +mind&quot;</span>,<br>      <span class="hljs-string">&quot;fields&quot;</span>: [<span class="hljs-string">&quot;title&quot;</span>]<br>    &#125;<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<ul>
+<li><strong><code>+</code> 操作符</strong>：用于强制要求某个词出现在查询结果中。</li>
+</ul>
+<hr>
+<h3 id="总结-3"><a href="#总结-3" class="headerlink" title="总结"></a>总结</h3><p>这些查询展示了如何在 Elasticsearch 中使用不同类型的查询：</p>
+<ul>
+<li><strong><code>query_string</code></strong> 查询：用于执行复杂的查询，可以包含多个字段、布尔操作符（AND、OR、NOT）以及通配符等。</li>
+<li><strong><code>simple_query_string</code></strong> 查询：比 <code>query_string</code> 更简单，适用于不需要复杂语法的查询，并且支持默认操作符的配置。</li>
+<li><strong>字段查询</strong>：可以针对多个字段同时查询，指定多个字段使用 <code>fields</code> 参数。</li>
+<li><strong>布尔操作符</strong>：如 <code>AND</code>、<code>OR</code>、<code>NOT</code>，控制查询的逻辑。</li>
+</ul>
+<p>这些查询方式非常适合处理复杂的检索需求。</p>
+<p>[3.10-DynamicMapping和常见字段类型]</p>
+<p>您的示例展示了如何在 Elasticsearch 中管理映射（Mapping）以及如何处理动态字段和映射更新。以下是总结和解释：</p>
+<h3 id="映射和字段定义"><a href="#映射和字段定义" class="headerlink" title="映射和字段定义"></a><strong>映射和字段定义</strong></h3><p>映射在 Elasticsearch 中类似于关系数据库中的表结构定义，主要用于：</p>
+<ul>
+<li><strong>定义字段的名称</strong>：指定文档中的字段名。</li>
+<li><strong>定义字段的类型</strong>：比如文本（<code>text</code>）、关键字（<code>keyword</code>）、日期（<code>date</code>）等。</li>
+<li><strong>定义倒排索引相关配置</strong>：比如是否需要索引字段，以及字段的 <code>Analyzer</code> 配置。</li>
+</ul>
+<h3 id="动态映射（Dynamic-Mapping）"><a href="#动态映射（Dynamic-Mapping）" class="headerlink" title="动态映射（Dynamic Mapping）"></a><strong>动态映射（Dynamic Mapping）</strong></h3><p>动态映射允许 Elasticsearch 根据新文档自动推断字段的类型。可以通过 <code>dynamic</code> 属性来配置动态行为：</p>
+<ul>
+<li>**<code>true</code>**（默认）：允许新字段自动被索引和映射。</li>
+<li>**<code>false</code>**：禁止自动创建新字段，但已存在字段可以继续使用。</li>
+<li>**<code>strict</code>**：禁止任何新的字段。如果文档包含未定义的字段，将导致错误。</li>
+</ul>
+<h3 id="操作演示"><a href="#操作演示" class="headerlink" title="操作演示"></a><strong>操作演示</strong></h3><ol>
+<li><p><strong>写入文档并查看映射</strong></p>
+<ul>
+<li>向 <code>mapping_test</code> 索引中添加一个文档，查看映射：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs bash">PUT mapping_test/_doc/1<br>&#123;<br>  <span class="hljs-string">&quot;firstName&quot;</span>: <span class="hljs-string">&quot;Chan&quot;</span>,<br>  <span class="hljs-string">&quot;lastName&quot;</span>: <span class="hljs-string">&quot;Jackie&quot;</span>,<br>  <span class="hljs-string">&quot;loginDate&quot;</span>: <span class="hljs-string">&quot;2018-07-24T10:29:48.103Z&quot;</span><br>&#125;<br><br>GET mapping_test/_mapping<br></code></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p><strong>动态映射：推断字段类型</strong></p>
+<ul>
+<li>新字段 <code>uid</code>, <code>isVip</code>, <code>age</code> 等被自动推断并加入映射：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs bash">PUT mapping_test/_doc/1<br>&#123;<br>  <span class="hljs-string">&quot;uid&quot;</span>: <span class="hljs-string">&quot;123&quot;</span>,<br>  <span class="hljs-string">&quot;isVip&quot;</span>: <span class="hljs-literal">false</span>,<br>  <span class="hljs-string">&quot;isAdmin&quot;</span>: <span class="hljs-string">&quot;true&quot;</span>,<br>  <span class="hljs-string">&quot;age&quot;</span>: 19,<br>  <span class="hljs-string">&quot;height&quot;</span>: 180<br>&#125;<br><br>GET mapping_test/_mapping<br></code></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p><strong>新增字段（默认动态）</strong></p>
+<ul>
+<li>如果动态映射为 <code>true</code>（默认），可以动态添加新的字段：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs bash">PUT dynamic_mapping_test/_doc/1<br>&#123;<br>  <span class="hljs-string">&quot;newField&quot;</span>: <span class="hljs-string">&quot;someValue&quot;</span><br>&#125;<br><br>POST dynamic_mapping_test/_search<br>&#123;<br>  <span class="hljs-string">&quot;query&quot;</span>: &#123;<br>    <span class="hljs-string">&quot;match&quot;</span>: &#123;<br>      <span class="hljs-string">&quot;newField&quot;</span>: <span class="hljs-string">&quot;someValue&quot;</span><br>    &#125;<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p><strong>修改动态设置为 <code>false</code></strong></p>
+<ul>
+<li>修改 <code>dynamic</code> 设置为 <code>false</code>，禁止自动推断新字段：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs bash">PUT dynamic_mapping_test/_mapping<br>&#123;<br>  <span class="hljs-string">&quot;dynamic&quot;</span>: <span class="hljs-literal">false</span><br>&#125;<br><br>PUT dynamic_mapping_test/_doc/10<br>&#123;<br>  <span class="hljs-string">&quot;anotherField&quot;</span>: <span class="hljs-string">&quot;someValue&quot;</span><br>&#125;<br><br>POST dynamic_mapping_test/_search<br>&#123;<br>  <span class="hljs-string">&quot;query&quot;</span>: &#123;<br>    <span class="hljs-string">&quot;match&quot;</span>: &#123;<br>      <span class="hljs-string">&quot;anotherField&quot;</span>: <span class="hljs-string">&quot;someValue&quot;</span><br>    &#125;<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure></li>
+</ul>
+<p>在此示例中，<code>anotherField</code> 将不会被索引或搜索，因为动态映射已设置为 <code>false</code>。</p>
+</li>
+<li><p><strong>修改为 <code>strict</code> 模式</strong></p>
+<ul>
+<li>如果将 <code>dynamic</code> 设置为 <code>strict</code>，任何新的字段都会导致错误：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs bash">PUT dynamic_mapping_test/_mapping<br>&#123;<br>  <span class="hljs-string">&quot;dynamic&quot;</span>: <span class="hljs-string">&quot;strict&quot;</span><br>&#125;<br><br>PUT dynamic_mapping_test/_doc/12<br>&#123;<br>  <span class="hljs-string">&quot;lastField&quot;</span>: <span class="hljs-string">&quot;value&quot;</span><br>&#125;<br></code></pre></td></tr></table></figure>
+此时，写入新字段 <code>lastField</code> 会导致错误，HTTP 返回 <code>400</code> 错误码。</li>
+</ul>
+</li>
+<li><p><strong>删除索引</strong></p>
+<ul>
+<li>删除索引：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">DELETE dynamic_mapping_test<br></code></pre></td></tr></table></figure></li>
+</ul>
+</li>
+</ol>
+<h3 id="总结-4"><a href="#总结-4" class="headerlink" title="总结"></a><strong>总结</strong></h3><ul>
+<li><strong>动态映射（Dynamic Mapping）</strong>：允许 Elasticsearch 自动推断并添加新的字段，方便快速处理未知数据。</li>
+<li><strong><code>dynamic</code> 配置</strong>：控制是否允许 Elasticsearch 自动映射新字段：<ul>
+<li><code>true</code>：默认允许动态字段；</li>
+<li><code>false</code>：禁止自动映射新字段；</li>
+<li><code>strict</code>：禁止所有未知字段，如果有未定义字段则会报错。</li>
+</ul>
+</li>
+<li><strong>更改映射</strong>：映射一旦建立后不能直接修改字段类型，要修改字段配置或添加新字段需要使用 <code>reindex</code> 操作。</li>
+</ul>
+<p>这些操作有助于管理索引和字段的生命周期，确保数据能够根据业务需求灵活适应。</p>
+<p>您的示例展示了 Elasticsearch 中显式设置映射（Mapping）的一些常见操作和参数。以下是各个设置项的详细介绍和使用案例。</p>
+<h3 id="1-index-false-设置"><a href="#1-index-false-设置" class="headerlink" title="1. index: false 设置"></a><strong>1. <code>index: false</code> 设置</strong></h3><p>通过设置字段的 <code>index: false</code>，可以阻止某些字段被索引。这样可以避免该字段参与倒排索引，也不会进行搜索。</p>
+<p><strong>示例</strong>:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><code class="hljs bash">DELETE <span class="hljs-built_in">users</span><br>PUT <span class="hljs-built_in">users</span><br>&#123;<br>    <span class="hljs-string">&quot;mappings&quot;</span> : &#123;<br>      <span class="hljs-string">&quot;properties&quot;</span> : &#123;<br>        <span class="hljs-string">&quot;firstName&quot;</span> : &#123;<br>          <span class="hljs-string">&quot;type&quot;</span> : <span class="hljs-string">&quot;text&quot;</span><br>        &#125;,<br>        <span class="hljs-string">&quot;lastName&quot;</span> : &#123;<br>          <span class="hljs-string">&quot;type&quot;</span> : <span class="hljs-string">&quot;text&quot;</span><br>        &#125;,<br>        <span class="hljs-string">&quot;mobile&quot;</span> : &#123;<br>          <span class="hljs-string">&quot;type&quot;</span> : <span class="hljs-string">&quot;text&quot;</span>,<br>          <span class="hljs-string">&quot;index&quot;</span>: <span class="hljs-literal">false</span>  <span class="hljs-comment"># 禁止索引该字段</span><br>        &#125;<br>      &#125;<br>    &#125;<br>&#125;<br><br>PUT <span class="hljs-built_in">users</span>/_doc/1<br>&#123;<br>  <span class="hljs-string">&quot;firstName&quot;</span>: <span class="hljs-string">&quot;Ruan&quot;</span>,<br>  <span class="hljs-string">&quot;lastName&quot;</span>: <span class="hljs-string">&quot;Yiming&quot;</span>,<br>  <span class="hljs-string">&quot;mobile&quot;</span>: <span class="hljs-string">&quot;12345678&quot;</span><br>&#125;<br><br>POST /users/_search<br>&#123;<br>  <span class="hljs-string">&quot;query&quot;</span>: &#123;<br>    <span class="hljs-string">&quot;match&quot;</span>: &#123;<br>      <span class="hljs-string">&quot;mobile&quot;</span>: <span class="hljs-string">&quot;12345678&quot;</span>  <span class="hljs-comment"># 搜索时不会命中mobile字段</span><br>    &#125;<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>在上面的示例中，<code>mobile</code> 字段被设置为 <code>index: false</code>，因此无法用于搜索查询。</p>
+<h3 id="2-null-value-设置"><a href="#2-null-value-设置" class="headerlink" title="2. null_value 设置"></a><strong>2. <code>null_value</code> 设置</strong></h3><p>通过设置 <code>null_value</code>，可以在文档中存储 <code>null</code> 值，并用指定的替代值替换 <code>null</code>。这对于查询时需要处理 <code>null</code> 数据特别有用。</p>
+<p><strong>示例</strong>:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><code class="hljs bash">DELETE <span class="hljs-built_in">users</span><br>PUT <span class="hljs-built_in">users</span><br>&#123;<br>    <span class="hljs-string">&quot;mappings&quot;</span> : &#123;<br>      <span class="hljs-string">&quot;properties&quot;</span> : &#123;<br>        <span class="hljs-string">&quot;firstName&quot;</span> : &#123;<br>          <span class="hljs-string">&quot;type&quot;</span> : <span class="hljs-string">&quot;text&quot;</span><br>        &#125;,<br>        <span class="hljs-string">&quot;lastName&quot;</span> : &#123;<br>          <span class="hljs-string">&quot;type&quot;</span> : <span class="hljs-string">&quot;text&quot;</span><br>        &#125;,<br>        <span class="hljs-string">&quot;mobile&quot;</span> : &#123;<br>          <span class="hljs-string">&quot;type&quot;</span> : <span class="hljs-string">&quot;keyword&quot;</span>,<br>          <span class="hljs-string">&quot;null_value&quot;</span>: <span class="hljs-string">&quot;NULL&quot;</span>  <span class="hljs-comment"># null值替代为&quot;NULL&quot;</span><br>        &#125;<br>      &#125;<br>    &#125;<br>&#125;<br><br>PUT <span class="hljs-built_in">users</span>/_doc/1<br>&#123;<br>  <span class="hljs-string">&quot;firstName&quot;</span>: <span class="hljs-string">&quot;Ruan&quot;</span>,<br>  <span class="hljs-string">&quot;lastName&quot;</span>: <span class="hljs-string">&quot;Yiming&quot;</span>,<br>  <span class="hljs-string">&quot;mobile&quot;</span>: null  <span class="hljs-comment"># 实际值是null</span><br>&#125;<br><br>PUT <span class="hljs-built_in">users</span>/_doc/2<br>&#123;<br>  <span class="hljs-string">&quot;firstName&quot;</span>: <span class="hljs-string">&quot;Ruan2&quot;</span>,<br>  <span class="hljs-string">&quot;lastName&quot;</span>: <span class="hljs-string">&quot;Yiming2&quot;</span>  <span class="hljs-comment"># 没有mobile字段</span><br>&#125;<br><br>GET <span class="hljs-built_in">users</span>/_search<br>&#123;<br>  <span class="hljs-string">&quot;query&quot;</span>: &#123;<br>    <span class="hljs-string">&quot;match&quot;</span>: &#123;<br>      <span class="hljs-string">&quot;mobile&quot;</span>: <span class="hljs-string">&quot;NULL&quot;</span>  <span class="hljs-comment"># 搜索时会匹配到null值字段</span><br>    &#125;<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>此设置可以确保查询时用 <code>NULL</code> 代替存储的 <code>null</code> 值。</p>
+<h3 id="3-copy-to-设置"><a href="#3-copy-to-设置" class="headerlink" title="3. copy_to 设置"></a><strong>3. <code>copy_to</code> 设置</strong></h3><p><code>copy_to</code> 可以将多个字段的内容复制到另一个字段，方便进行联合查询或索引。</p>
+<p><strong>示例</strong>:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><code class="hljs bash">DELETE <span class="hljs-built_in">users</span><br>PUT <span class="hljs-built_in">users</span><br>&#123;<br>  <span class="hljs-string">&quot;mappings&quot;</span>: &#123;<br>    <span class="hljs-string">&quot;properties&quot;</span>: &#123;<br>      <span class="hljs-string">&quot;firstName&quot;</span>: &#123;<br>        <span class="hljs-string">&quot;type&quot;</span>: <span class="hljs-string">&quot;text&quot;</span>,<br>        <span class="hljs-string">&quot;copy_to&quot;</span>: <span class="hljs-string">&quot;fullName&quot;</span>  <span class="hljs-comment"># 将firstName复制到fullName字段</span><br>      &#125;,<br>      <span class="hljs-string">&quot;lastName&quot;</span>: &#123;<br>        <span class="hljs-string">&quot;type&quot;</span>: <span class="hljs-string">&quot;text&quot;</span>,<br>        <span class="hljs-string">&quot;copy_to&quot;</span>: <span class="hljs-string">&quot;fullName&quot;</span>  <span class="hljs-comment"># 将lastName复制到fullName字段</span><br>      &#125;<br>    &#125;<br>  &#125;<br>&#125;<br><br>PUT <span class="hljs-built_in">users</span>/_doc/1<br>&#123;<br>  <span class="hljs-string">&quot;firstName&quot;</span>: <span class="hljs-string">&quot;Ruan&quot;</span>,<br>  <span class="hljs-string">&quot;lastName&quot;</span>: <span class="hljs-string">&quot;Yiming&quot;</span><br>&#125;<br><br>GET <span class="hljs-built_in">users</span>/_search?q=fullName:(Ruan Yiming)<br><br>POST <span class="hljs-built_in">users</span>/_search<br>&#123;<br>  <span class="hljs-string">&quot;query&quot;</span>: &#123;<br>    <span class="hljs-string">&quot;match&quot;</span>: &#123;<br>      <span class="hljs-string">&quot;fullName&quot;</span>: &#123;<br>        <span class="hljs-string">&quot;query&quot;</span>: <span class="hljs-string">&quot;Ruan Yiming&quot;</span>,<br>        <span class="hljs-string">&quot;operator&quot;</span>: <span class="hljs-string">&quot;and&quot;</span>  <span class="hljs-comment"># 联合查询fullName字段</span><br>      &#125;<br>    &#125;<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>这里，<code>firstName</code> 和 <code>lastName</code> 字段的内容会被复制到 <code>fullName</code> 字段，从而使得查询变得更加方便。</p>
+<h3 id="4-数组类型处理"><a href="#4-数组类型处理" class="headerlink" title="4. 数组类型处理"></a><strong>4. 数组类型处理</strong></h3><p>Elasticsearch 支持数组字段。数组中的每个元素会被视为一个单独的值，这对于多值字段非常有用。</p>
+<p><strong>示例</strong>:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs bash">PUT <span class="hljs-built_in">users</span>/_doc/1<br>&#123;<br>  <span class="hljs-string">&quot;name&quot;</span>: <span class="hljs-string">&quot;onebird&quot;</span>,<br>  <span class="hljs-string">&quot;interests&quot;</span>: <span class="hljs-string">&quot;reading&quot;</span>  <span class="hljs-comment"># 字段为单一值</span><br>&#125;<br><br>PUT <span class="hljs-built_in">users</span>/_doc/2<br>&#123;<br>  <span class="hljs-string">&quot;name&quot;</span>: <span class="hljs-string">&quot;twobirds&quot;</span>,<br>  <span class="hljs-string">&quot;interests&quot;</span>: [<span class="hljs-string">&quot;reading&quot;</span>, <span class="hljs-string">&quot;music&quot;</span>]  <span class="hljs-comment"># 字段为数组</span><br>&#125;<br><br>POST <span class="hljs-built_in">users</span>/_search<br>&#123;<br>  <span class="hljs-string">&quot;query&quot;</span>: &#123;<br>    <span class="hljs-string">&quot;match_all&quot;</span>: &#123;&#125;<br>  &#125;<br>&#125;<br><br>GET <span class="hljs-built_in">users</span>/_mapping<br></code></pre></td></tr></table></figure>
+<p>在此示例中，<code>interests</code> 字段既可以是单个值也可以是数组，Elasticsearch 会将每个数组元素视为独立的值进行索引。</p>
+<hr>
+<h3 id="总结常见的-Mapping-参数"><a href="#总结常见的-Mapping-参数" class="headerlink" title="总结常见的 Mapping 参数"></a><strong>总结常见的 Mapping 参数</strong></h3><ul>
+<li><strong><code>type</code></strong>: 字段的数据类型，如 <code>text</code>, <code>keyword</code>, <code>date</code> 等。</li>
+<li><strong><code>index</code></strong>: 控制是否索引该字段，<code>false</code> 表示不索引，默认为 <code>true</code>。</li>
+<li><strong><code>null_value</code></strong>: 控制 <code>null</code> 值的替代值。可以设置为任何替代值，如 <code>&quot;NULL&quot;</code>。</li>
+<li><strong><code>copy_to</code></strong>: 将多个字段的内容复制到一个目标字段中，便于联合查询。</li>
+<li><strong><code>dynamic</code></strong>: 控制动态映射，<code>true</code> 表示允许自动推断新字段，<code>false</code> 表示禁止新字段自动映射，<code>strict</code> 则表示严格模式下不允许任何新字段。</li>
+</ul>
+<p>通过这些映射设置，可以更好地控制数据如何存储和索引，以及如何在查询时处理和优化字段。</p>
+<p>您的示例展示了 Elasticsearch 中关于多字段特性以及自定义分析器（Analyzer）的配置。以下是对各个分析器和相关配置的详细解释。</p>
+<h3 id="1-自定义-Analyzer-和-Char-Filter"><a href="#1-自定义-Analyzer-和-Char-Filter" class="headerlink" title="1. 自定义 Analyzer 和 Char Filter"></a><strong>1. 自定义 Analyzer 和 Char Filter</strong></h3><p>Elasticsearch 提供了灵活的机制来配置分词器（Tokenizer）和字符过滤器（Char Filter）。这些配置用于在索引和搜索过程中控制文本的处理方式。</p>
+<h4 id="自定义-Tokenizer-和-Char-Filter-示例"><a href="#自定义-Tokenizer-和-Char-Filter-示例" class="headerlink" title="自定义 Tokenizer 和 Char Filter 示例"></a><strong>自定义 Tokenizer 和 Char Filter 示例</strong></h4><ul>
+<li><strong>Keyword Tokenizer</strong>: <code>keyword</code> tokenizer 将整个文本当作一个单独的 token 进行处理。</li>
+<li><strong>HTML Strip Char Filter</strong>: <code>html_strip</code> char filter 用于从文本中去除 HTML 标签。</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs bash">POST _analyze<br>&#123;<br>  <span class="hljs-string">&quot;tokenizer&quot;</span>: <span class="hljs-string">&quot;keyword&quot;</span>,  <span class="hljs-comment"># 使用关键词分词器</span><br>  <span class="hljs-string">&quot;char_filter&quot;</span>: [<span class="hljs-string">&quot;html_strip&quot;</span>],  <span class="hljs-comment"># 使用html_strip字符过滤器</span><br>  <span class="hljs-string">&quot;text&quot;</span>: <span class="hljs-string">&quot;&lt;b&gt;hello world&lt;/b&gt;&quot;</span>  <span class="hljs-comment"># 输入带有HTML标签的文本</span><br>&#125;<br></code></pre></td></tr></table></figure>
+<p>输出将会是：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs json"><span class="hljs-punctuation">&#123;</span><br>  <span class="hljs-attr">&quot;tokens&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><br>    <span class="hljs-punctuation">&#123;</span><br>      <span class="hljs-attr">&quot;token&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;hello world&quot;</span><span class="hljs-punctuation">,</span><br>      <span class="hljs-attr">&quot;start_offset&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">3</span><span class="hljs-punctuation">,</span><br>      <span class="hljs-attr">&quot;end_offset&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">15</span><span class="hljs-punctuation">,</span><br>      <span class="hljs-attr">&quot;type&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;word&quot;</span><span class="hljs-punctuation">,</span><br>      <span class="hljs-attr">&quot;position&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">0</span><br>    <span class="hljs-punctuation">&#125;</span><br>  <span class="hljs-punctuation">]</span><br><span class="hljs-punctuation">&#125;</span><br></code></pre></td></tr></table></figure>
+<p>此配置移除了文本中的 <code>&lt;b&gt;&lt;/b&gt;</code> HTML 标签，只保留了纯文本 “hello world”。</p>
+<h4 id="Path-Hierarchy-Tokenizer"><a href="#Path-Hierarchy-Tokenizer" class="headerlink" title="Path Hierarchy Tokenizer"></a><strong>Path Hierarchy Tokenizer</strong></h4><p><code>path_hierarchy</code> tokenizer 用于处理文件路径等层级结构的数据，将路径按分隔符（如 <code>/</code>）切割。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash">POST _analyze<br>&#123;<br>  <span class="hljs-string">&quot;tokenizer&quot;</span>: <span class="hljs-string">&quot;path_hierarchy&quot;</span>,  <span class="hljs-comment"># 使用路径层级分词器</span><br>  <span class="hljs-string">&quot;text&quot;</span>: <span class="hljs-string">&quot;/user/ymruan/a/b/c/d/e&quot;</span><br>&#125;<br></code></pre></td></tr></table></figure>
+<p>输出会将路径按 <code>/</code> 切分：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs json"><span class="hljs-punctuation">&#123;</span><br>  <span class="hljs-attr">&quot;tokens&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><br>    <span class="hljs-punctuation">&#123;</span><br>      <span class="hljs-attr">&quot;token&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;/user/ymruan/a/b/c/d/e&quot;</span><span class="hljs-punctuation">,</span><br>      <span class="hljs-attr">&quot;start_offset&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">0</span><span class="hljs-punctuation">,</span><br>      <span class="hljs-attr">&quot;end_offset&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">21</span><span class="hljs-punctuation">,</span><br>      <span class="hljs-attr">&quot;type&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;word&quot;</span><span class="hljs-punctuation">,</span><br>      <span class="hljs-attr">&quot;position&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">0</span><br>    <span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-punctuation">&#123;</span><br>      <span class="hljs-attr">&quot;token&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;/user/ymruan/a/b/c/d&quot;</span><span class="hljs-punctuation">,</span><br>      <span class="hljs-attr">&quot;start_offset&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">0</span><span class="hljs-punctuation">,</span><br>      <span class="hljs-attr">&quot;end_offset&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">16</span><span class="hljs-punctuation">,</span><br>      <span class="hljs-attr">&quot;type&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;word&quot;</span><span class="hljs-punctuation">,</span><br>      <span class="hljs-attr">&quot;position&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">1</span><br>    <span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span><br>    ...<br>  <span class="hljs-punctuation">]</span><br><span class="hljs-punctuation">&#125;</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="2-Char-Filter-替换符号"><a href="#2-Char-Filter-替换符号" class="headerlink" title="2. Char Filter 替换符号"></a><strong>2. Char Filter 替换符号</strong></h3><p>字符过滤器可以用于替换文本中的特定符号或字符。例如，使用 <code>mapping</code> 类型的 <code>char_filter</code>，可以替换文本中的字符（如将 <code>-</code> 替换为 <code>_</code>）。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs bash">POST _analyze<br>&#123;<br>  <span class="hljs-string">&quot;tokenizer&quot;</span>: <span class="hljs-string">&quot;standard&quot;</span>,  <span class="hljs-comment"># 使用标准分词器</span><br>  <span class="hljs-string">&quot;char_filter&quot;</span>: [<br>    &#123;<br>      <span class="hljs-string">&quot;type&quot;</span>: <span class="hljs-string">&quot;mapping&quot;</span>,  <span class="hljs-comment"># 使用字符映射过滤器</span><br>      <span class="hljs-string">&quot;mappings&quot;</span>: [<span class="hljs-string">&quot;- =&gt; _&quot;</span>]<br>    &#125;<br>  ],<br>  <span class="hljs-string">&quot;text&quot;</span>: <span class="hljs-string">&quot;123-456, I-test! test-990 650-555-1234&quot;</span><br>&#125;<br></code></pre></td></tr></table></figure>
+<p>此配置将文本中的 <code>-</code> 替换为 <code>_</code>，输出将是：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs json"><span class="hljs-punctuation">&#123;</span><br>  <span class="hljs-attr">&quot;tokens&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><br>    <span class="hljs-punctuation">&#123;</span><br>      <span class="hljs-attr">&quot;token&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;123_456&quot;</span><span class="hljs-punctuation">,</span><br>      <span class="hljs-attr">&quot;start_offset&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">0</span><span class="hljs-punctuation">,</span><br>      <span class="hljs-attr">&quot;end_offset&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">7</span><span class="hljs-punctuation">,</span><br>      <span class="hljs-attr">&quot;type&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;word&quot;</span><span class="hljs-punctuation">,</span><br>      <span class="hljs-attr">&quot;position&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">0</span><br>    <span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span><br>    ...<br>  <span class="hljs-punctuation">]</span><br><span class="hljs-punctuation">&#125;</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="3-Char-Filter-替换表情符号"><a href="#3-Char-Filter-替换表情符号" class="headerlink" title="3. Char Filter 替换表情符号"></a><strong>3. Char Filter 替换表情符号</strong></h3><p>你还可以使用字符过滤器将表情符号替换为特定的文本（如将 <code>:)</code> 替换为 <code>happy</code>，<code>:(</code> 替换为 <code>sad</code>）。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs bash">POST _analyze<br>&#123;<br>  <span class="hljs-string">&quot;tokenizer&quot;</span>: <span class="hljs-string">&quot;standard&quot;</span>,<br>  <span class="hljs-string">&quot;char_filter&quot;</span>: [<br>    &#123;<br>      <span class="hljs-string">&quot;type&quot;</span>: <span class="hljs-string">&quot;mapping&quot;</span>,<br>      <span class="hljs-string">&quot;mappings&quot;</span>: [<span class="hljs-string">&quot;:) =&gt; happy&quot;</span>, <span class="hljs-string">&quot;:( =&gt; sad&quot;</span>]<br>    &#125;<br>  ],<br>  <span class="hljs-string">&quot;text&quot;</span>: [<span class="hljs-string">&quot;I am felling :)&quot;</span>, <span class="hljs-string">&quot;Feeling :( today&quot;</span>]<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>输出：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><code class="hljs json"><span class="hljs-punctuation">&#123;</span><br>  <span class="hljs-attr">&quot;tokens&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><br>    <span class="hljs-punctuation">&#123;</span><br>      <span class="hljs-attr">&quot;token&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;I&quot;</span><span class="hljs-punctuation">,</span><br>      <span class="hljs-attr">&quot;start_offset&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">0</span><span class="hljs-punctuation">,</span><br>      <span class="hljs-attr">&quot;end_offset&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">1</span><span class="hljs-punctuation">,</span><br>      <span class="hljs-attr">&quot;type&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;word&quot;</span><span class="hljs-punctuation">,</span><br>      <span class="hljs-attr">&quot;position&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">0</span><br>    <span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-punctuation">&#123;</span><br>      <span class="hljs-attr">&quot;token&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;am&quot;</span><span class="hljs-punctuation">,</span><br>      <span class="hljs-attr">&quot;start_offset&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">2</span><span class="hljs-punctuation">,</span><br>      <span class="hljs-attr">&quot;end_offset&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">4</span><span class="hljs-punctuation">,</span><br>      <span class="hljs-attr">&quot;type&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;word&quot;</span><span class="hljs-punctuation">,</span><br>      <span class="hljs-attr">&quot;position&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">1</span><br>    <span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-punctuation">&#123;</span><br>      <span class="hljs-attr">&quot;token&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;felling&quot;</span><span class="hljs-punctuation">,</span><br>      <span class="hljs-attr">&quot;start_offset&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">5</span><span class="hljs-punctuation">,</span><br>      <span class="hljs-attr">&quot;end_offset&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">12</span><span class="hljs-punctuation">,</span><br>      <span class="hljs-attr">&quot;type&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;word&quot;</span><span class="hljs-punctuation">,</span><br>      <span class="hljs-attr">&quot;position&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">2</span><br>    <span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-punctuation">&#123;</span><br>      <span class="hljs-attr">&quot;token&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;happy&quot;</span><span class="hljs-punctuation">,</span>  # 替换表情符号<span class="hljs-punctuation">:</span>) 为 happy<br>      <span class="hljs-attr">&quot;start_offset&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">13</span><span class="hljs-punctuation">,</span><br>      <span class="hljs-attr">&quot;end_offset&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">18</span><span class="hljs-punctuation">,</span><br>      <span class="hljs-attr">&quot;type&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;word&quot;</span><span class="hljs-punctuation">,</span><br>      <span class="hljs-attr">&quot;position&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">3</span><br>    <span class="hljs-punctuation">&#125;</span><br>  <span class="hljs-punctuation">]</span><br><span class="hljs-punctuation">&#125;</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="4-使用-Stop-和-Snowball-过滤器"><a href="#4-使用-Stop-和-Snowball-过滤器" class="headerlink" title="4. 使用 Stop 和 Snowball 过滤器"></a><strong>4. 使用 Stop 和 Snowball 过滤器</strong></h3><p>使用 <code>stop</code> 过滤器来删除常见的停用词，使用 <code>snowball</code> 过滤器进行词干提取（如将 “playing” 转换为 “play”）。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs bash">GET _analyze<br>&#123;<br>  <span class="hljs-string">&quot;tokenizer&quot;</span>: <span class="hljs-string">&quot;whitespace&quot;</span>,  <span class="hljs-comment"># 使用空格分词器</span><br>  <span class="hljs-string">&quot;filter&quot;</span>: [<span class="hljs-string">&quot;stop&quot;</span>, <span class="hljs-string">&quot;snowball&quot;</span>],  <span class="hljs-comment"># 使用停用词和词干提取</span><br>  <span class="hljs-string">&quot;text&quot;</span>: [<span class="hljs-string">&quot;The girls in China are playing this game!&quot;</span>]<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>输出：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs json"><span class="hljs-punctuation">&#123;</span><br>  <span class="hljs-attr">&quot;tokens&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><br>    <span class="hljs-punctuation">&#123;</span><br>      <span class="hljs-attr">&quot;token&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;girl&quot;</span><span class="hljs-punctuation">,</span><br>      <span class="hljs-attr">&quot;start_offset&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">4</span><span class="hljs-punctuation">,</span><br>      <span class="hljs-attr">&quot;end_offset&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">9</span><span class="hljs-punctuation">,</span><br>      <span class="hljs-attr">&quot;type&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;word&quot;</span><span class="hljs-punctuation">,</span><br>      <span class="hljs-attr">&quot;position&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">0</span><br>    <span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-punctuation">&#123;</span><br>      <span class="hljs-attr">&quot;token&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;china&quot;</span><span class="hljs-punctuation">,</span><br>      <span class="hljs-attr">&quot;start_offset&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">14</span><span class="hljs-punctuation">,</span><br>      <span class="hljs-attr">&quot;end_offset&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">19</span><span class="hljs-punctuation">,</span><br>      <span class="hljs-attr">&quot;type&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;word&quot;</span><span class="hljs-punctuation">,</span><br>      <span class="hljs-attr">&quot;position&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">1</span><br>    <span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span><br>    ...<br>  <span class="hljs-punctuation">]</span><br><span class="hljs-punctuation">&#125;</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="5-正则表达式替换"><a href="#5-正则表达式替换" class="headerlink" title="5. 正则表达式替换"></a><strong>5. 正则表达式替换</strong></h3><p>通过 <code>pattern_replace</code> 字符过滤器，您可以根据正则表达式来替换文本中的特定部分。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs bash">POST _analyze<br>&#123;<br>  <span class="hljs-string">&quot;tokenizer&quot;</span>: <span class="hljs-string">&quot;standard&quot;</span>,<br>  <span class="hljs-string">&quot;char_filter&quot;</span>: [<br>    &#123;<br>      <span class="hljs-string">&quot;type&quot;</span>: <span class="hljs-string">&quot;pattern_replace&quot;</span>,<br>      <span class="hljs-string">&quot;pattern&quot;</span>: <span class="hljs-string">&quot;http://(.*)&quot;</span>,<br>      <span class="hljs-string">&quot;replacement&quot;</span>: <span class="hljs-string">&quot;<span class="hljs-variable">$1</span>&quot;</span><br>    &#125;<br>  ],<br>  <span class="hljs-string">&quot;text&quot;</span>: <span class="hljs-string">&quot;http://www.elastic.co&quot;</span><br>&#125;<br></code></pre></td></tr></table></figure>
+<p>此配置将 <code>http://</code> 替换为一个空字符串，结果为：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs json"><span class="hljs-punctuation">&#123;</span><br>  <span class="hljs-attr">&quot;tokens&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><br>    <span class="hljs-punctuation">&#123;</span><br>      <span class="hljs-attr">&quot;token&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;www.elastic.co&quot;</span><span class="hljs-punctuation">,</span><br>      <span class="hljs-attr">&quot;start_offset&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">7</span><span class="hljs-punctuation">,</span><br>      <span class="hljs-attr">&quot;end_offset&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">23</span><span class="hljs-punctuation">,</span><br>      <span class="hljs-attr">&quot;type&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;word&quot;</span><span class="hljs-punctuation">,</span><br>      <span class="hljs-attr">&quot;position&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">0</span><br>    <span class="hljs-punctuation">&#125;</span><br>  <span class="hljs-punctuation">]</span><br><span class="hljs-punctuation">&#125;</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="总结："><a href="#总结：" class="headerlink" title="总结："></a><strong>总结：</strong></h3><ul>
+<li><strong>Tokenizer</strong>: 负责将输入文本切割成词条（token）。如 <code>keyword</code>, <code>standard</code>, <code>path_hierarchy</code>。</li>
+<li><strong>Char Filter</strong>: 处理文本中的字符替换、去除特殊符号或HTML标签等，如 <code>html_strip</code>, <code>mapping</code>, <code>pattern_replace</code>。</li>
+<li><strong>Filter</strong>: 用于文本处理，如去除停用词（<code>stop</code>）或词干提取（<code>snowball</code>）。</li>
+</ul>
+<p>这些工具的组合允许您灵活地处理和分析文本数据，并针对特定的业务需求优化索引和搜索行为。</p>
+<p>在 Elasticsearch 中，<strong>Index Templates</strong> 和 <strong>Dynamic Templates</strong> 是两种强大的工具，用于控制如何定义和管理索引的映射和设置。以下是这两者的详细解释和示例。</p>
+<h3 id="1-Index-Templates-索引模板"><a href="#1-Index-Templates-索引模板" class="headerlink" title="1. Index Templates (索引模板)"></a><strong>1. Index Templates (索引模板)</strong></h3><p><strong>Index Templates</strong> 是一种配置模板，用于为匹配特定模式的索引自动配置设置、映射和其他配置。当创建一个新索引时，如果该索引匹配模板中的 <code>index_patterns</code> 配置，模板中的设置、映射和其他配置就会自动应用到新索引上。</p>
+<h4 id="创建默认模板"><a href="#创建默认模板" class="headerlink" title="创建默认模板"></a><strong>创建默认模板</strong></h4><p>下面是创建一个默认模板的示例：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs bash">PUT _template/template_default<br>&#123;<br>  <span class="hljs-string">&quot;index_patterns&quot;</span>: [<span class="hljs-string">&quot;*&quot;</span>],  <span class="hljs-comment"># 匹配所有索引</span><br>  <span class="hljs-string">&quot;order&quot;</span>: 0,<br>  <span class="hljs-string">&quot;version&quot;</span>: 1,<br>  <span class="hljs-string">&quot;settings&quot;</span>: &#123;<br>    <span class="hljs-string">&quot;number_of_shards&quot;</span>: 1,<br>    <span class="hljs-string">&quot;number_of_replicas&quot;</span>: 1<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>这会为所有索引设置一个模板，其中包含分片数量为1、副本数量为1。</p>
+<h4 id="为特定模式创建模板"><a href="#为特定模式创建模板" class="headerlink" title="为特定模式创建模板"></a><strong>为特定模式创建模板</strong></h4><p>另一个例子是为 <code>test*</code> 开头的索引创建模板：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs bash">PUT /_template/template_test<br>&#123;<br>  <span class="hljs-string">&quot;index_patterns&quot;</span>: [<span class="hljs-string">&quot;test*&quot;</span>],  <span class="hljs-comment"># 匹配所有以test开头的索引</span><br>  <span class="hljs-string">&quot;order&quot;</span>: 1,<br>  <span class="hljs-string">&quot;settings&quot;</span>: &#123;<br>    <span class="hljs-string">&quot;number_of_shards&quot;</span>: 1,<br>    <span class="hljs-string">&quot;number_of_replicas&quot;</span>: 2<br>  &#125;,<br>  <span class="hljs-string">&quot;mappings&quot;</span>: &#123;<br>    <span class="hljs-string">&quot;date_detection&quot;</span>: <span class="hljs-literal">false</span>,  <span class="hljs-comment"># 禁止自动检测日期字段</span><br>    <span class="hljs-string">&quot;numeric_detection&quot;</span>: <span class="hljs-literal">true</span>  <span class="hljs-comment"># 自动检测数字字段</span><br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h4 id="查看模板"><a href="#查看模板" class="headerlink" title="查看模板"></a><strong>查看模板</strong></h4><p>你可以查看已定义的模板：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">GET /_template/template_default<br>GET /_template/temp*  <span class="hljs-comment"># 查看所有模板</span><br></code></pre></td></tr></table></figure>
+
+<h4 id="删除模板"><a href="#删除模板" class="headerlink" title="删除模板"></a><strong>删除模板</strong></h4><p>删除模板的命令如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">DELETE /_template/template_default<br>DELETE /_template/template_test<br></code></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="2-Dynamic-Templates-动态模板"><a href="#2-Dynamic-Templates-动态模板" class="headerlink" title="2. Dynamic Templates (动态模板)"></a><strong>2. Dynamic Templates (动态模板)</strong></h3><p><strong>Dynamic Templates</strong> 用于在创建索引时自动匹配字段类型和名称，根据这些动态模板来生成字段的映射规则。可以根据字段的类型（例如字符串、数字）和字段名称（例如以某些字符开头的字段）来定义映射。</p>
+<h4 id="自动映射数字字符串和日期字符串"><a href="#自动映射数字字符串和日期字符串" class="headerlink" title="自动映射数字字符串和日期字符串"></a><strong>自动映射数字字符串和日期字符串</strong></h4><p>例如，数字字符串会被映射为 <code>text</code> 类型，日期字符串会被映射为日期类型：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs bash">PUT ttemplate/_doc/1<br>&#123;<br>  <span class="hljs-string">&quot;someNumber&quot;</span>: <span class="hljs-string">&quot;1&quot;</span>,        <span class="hljs-comment"># 字符串数字</span><br>  <span class="hljs-string">&quot;someDate&quot;</span>: <span class="hljs-string">&quot;2019/01/01&quot;</span>  <span class="hljs-comment"># 字符串日期</span><br>&#125;<br>GET ttemplate/_mapping<br></code></pre></td></tr></table></figure>
+<p>在这个例子中，<code>someNumber</code> 会被映射成 <code>text</code> 类型，而 <code>someDate</code> 会被映射成 <code>date</code> 类型。</p>
+<h4 id="定义动态模板映射规则"><a href="#定义动态模板映射规则" class="headerlink" title="定义动态模板映射规则"></a><strong>定义动态模板映射规则</strong></h4><p>使用 <code>dynamic_templates</code> 可以根据字段类型和名称定义映射。例如，以下动态模板将以 <code>is*</code> 开头的字符串字段映射为 <code>boolean</code> 类型，其他字符串字段映射为 <code>keyword</code> 类型：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs bash">DELETE my_index<br><br>PUT my_index<br>&#123;<br>  <span class="hljs-string">&quot;mappings&quot;</span>: &#123;<br>    <span class="hljs-string">&quot;dynamic_templates&quot;</span>: [<br>      &#123;<br>        <span class="hljs-string">&quot;strings_as_boolean&quot;</span>: &#123;<br>          <span class="hljs-string">&quot;match_mapping_type&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,   <span class="hljs-comment"># 匹配所有字符串类型</span><br>          <span class="hljs-string">&quot;match&quot;</span>: <span class="hljs-string">&quot;is*&quot;</span>,  <span class="hljs-comment"># 字段名称以is开头</span><br>          <span class="hljs-string">&quot;mapping&quot;</span>: &#123;<br>            <span class="hljs-string">&quot;type&quot;</span>: <span class="hljs-string">&quot;boolean&quot;</span><br>          &#125;<br>        &#125;<br>      &#125;,<br>      &#123;<br>        <span class="hljs-string">&quot;strings_as_keywords&quot;</span>: &#123;<br>          <span class="hljs-string">&quot;match_mapping_type&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,   <span class="hljs-comment"># 匹配所有字符串类型</span><br>          <span class="hljs-string">&quot;mapping&quot;</span>: &#123;<br>            <span class="hljs-string">&quot;type&quot;</span>: <span class="hljs-string">&quot;keyword&quot;</span><br>          &#125;<br>        &#125;<br>      &#125;<br>    ]<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>在这个示例中，<code>isVIP</code> 字段会被映射为 <code>boolean</code> 类型，而其他字符串类型的字段则会被映射为 <code>keyword</code> 类型。</p>
+<h4 id="结合路径匹配"><a href="#结合路径匹配" class="headerlink" title="结合路径匹配"></a><strong>结合路径匹配</strong></h4><p>动态模板不仅可以基于字段名称，还可以基于字段的路径。例如，以下模板会将 <code>name.*</code> 路径下的所有字段映射为 <code>text</code> 类型，并将这些字段复制到 <code>full_name</code> 字段中：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs bash">PUT my_index<br>&#123;<br>  <span class="hljs-string">&quot;mappings&quot;</span>: &#123;<br>    <span class="hljs-string">&quot;dynamic_templates&quot;</span>: [<br>      &#123;<br>        <span class="hljs-string">&quot;full_name&quot;</span>: &#123;<br>          <span class="hljs-string">&quot;path_match&quot;</span>: <span class="hljs-string">&quot;name.*&quot;</span>,  <span class="hljs-comment"># 匹配name下的所有字段</span><br>          <span class="hljs-string">&quot;path_unmatch&quot;</span>: <span class="hljs-string">&quot;*.middle&quot;</span>,  <span class="hljs-comment"># 排除middle字段</span><br>          <span class="hljs-string">&quot;mapping&quot;</span>: &#123;<br>            <span class="hljs-string">&quot;type&quot;</span>: <span class="hljs-string">&quot;text&quot;</span>,<br>            <span class="hljs-string">&quot;copy_to&quot;</span>: <span class="hljs-string">&quot;full_name&quot;</span>  <span class="hljs-comment"># 将值复制到full_name字段</span><br>          &#125;<br>        &#125;<br>      &#125;<br>    ]<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>然后，插入以下数据：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs bash">PUT my_index/_doc/1<br>&#123;<br>  <span class="hljs-string">&quot;name&quot;</span>: &#123;<br>    <span class="hljs-string">&quot;first&quot;</span>: <span class="hljs-string">&quot;John&quot;</span>,<br>    <span class="hljs-string">&quot;middle&quot;</span>: <span class="hljs-string">&quot;Winston&quot;</span>,<br>    <span class="hljs-string">&quot;last&quot;</span>: <span class="hljs-string">&quot;Lennon&quot;</span><br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>在这个例子中，<code>first</code> 和 <code>last</code> 字段将被映射为 <code>text</code> 类型，并且它们的内容会被复制到 <code>full_name</code> 字段中。</p>
+<h4 id="搜索字段"><a href="#搜索字段" class="headerlink" title="搜索字段"></a><strong>搜索字段</strong></h4><p>可以通过 <code>full_name</code> 字段来搜索：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">GET my_index/_search?q=full_name:John<br></code></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="总结：-1"><a href="#总结：-1" class="headerlink" title="总结："></a><strong>总结：</strong></h3><ul>
+<li><strong>Index Templates</strong> 是为匹配特定索引模式（<code>index_patterns</code>）的所有索引自动配置设置和映射的模板。</li>
+<li><strong>Dynamic Templates</strong> 用于根据字段类型和字段名称自动映射索引字段。你可以根据字段类型（如 <code>string</code>）或字段路径（如 <code>name.*</code>）来定义映射规则。</li>
+</ul>
+<p>这些配置使得索引的创建和管理更加灵活，可以根据实际数据自动推断和调整映射，从而提高了 Elasticsearch 的可用性和效率。</p>
+<p>Elasticsearch 提供了强大的 <strong>聚合</strong> 功能，用于对数据进行汇总和分析。聚合是 Elasticsearch 搜索的一个核心功能，允许你通过多种方式对数据进行分组、统计、求最大&#x2F;最小值、计算平均值等操作。以下是一些常见的聚合分析操作和示例：</p>
+<h3 id="1-基本的聚合分析：按目的地分桶统计"><a href="#1-基本的聚合分析：按目的地分桶统计" class="headerlink" title="1. 基本的聚合分析：按目的地分桶统计"></a><strong>1. 基本的聚合分析：按目的地分桶统计</strong></h3><p>在这个示例中，我们按航班的目的地（<code>DestCountry</code>）进行分桶统计，查看每个目的地的航班数量：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs bash">GET kibana_sample_data_flights/_search<br>&#123;<br>  <span class="hljs-string">&quot;size&quot;</span>: 0,  <span class="hljs-comment"># 不返回实际的文档数据，只返回聚合结果</span><br>  <span class="hljs-string">&quot;aggs&quot;</span>: &#123;<br>    <span class="hljs-string">&quot;flight_dest&quot;</span>: &#123;<br>      <span class="hljs-string">&quot;terms&quot;</span>: &#123;<br>        <span class="hljs-string">&quot;field&quot;</span>: <span class="hljs-string">&quot;DestCountry&quot;</span>  <span class="hljs-comment"># 按目的地国家分桶</span><br>      &#125;<br>    &#125;<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>在这个聚合查询中，<code>terms</code> 聚合用于对 <code>DestCountry</code> 字段的值进行分桶，返回每个目的地国家的航班数量。</p>
+<h3 id="2-增加更多统计：平均、最大、最小价格"><a href="#2-增加更多统计：平均、最大、最小价格" class="headerlink" title="2. 增加更多统计：平均、最大、最小价格"></a><strong>2. 增加更多统计：平均、最大、最小价格</strong></h3><p>你可以在分桶内部添加更多聚合来获取其他统计信息，如每个目的地的平均票价、最高票价和最低票价：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><code class="hljs bash">GET kibana_sample_data_flights/_search<br>&#123;<br>  <span class="hljs-string">&quot;size&quot;</span>: 0,<br>  <span class="hljs-string">&quot;aggs&quot;</span>: &#123;<br>    <span class="hljs-string">&quot;flight_dest&quot;</span>: &#123;<br>      <span class="hljs-string">&quot;terms&quot;</span>: &#123;<br>        <span class="hljs-string">&quot;field&quot;</span>: <span class="hljs-string">&quot;DestCountry&quot;</span><br>      &#125;,<br>      <span class="hljs-string">&quot;aggs&quot;</span>: &#123;<br>        <span class="hljs-string">&quot;avg_price&quot;</span>: &#123;<br>          <span class="hljs-string">&quot;avg&quot;</span>: &#123;<br>            <span class="hljs-string">&quot;field&quot;</span>: <span class="hljs-string">&quot;AvgTicketPrice&quot;</span>  <span class="hljs-comment"># 计算平均票价</span><br>          &#125;<br>        &#125;,<br>        <span class="hljs-string">&quot;max_price&quot;</span>: &#123;<br>          <span class="hljs-string">&quot;max&quot;</span>: &#123;<br>            <span class="hljs-string">&quot;field&quot;</span>: <span class="hljs-string">&quot;AvgTicketPrice&quot;</span>  <span class="hljs-comment"># 计算最高票价</span><br>          &#125;<br>        &#125;,<br>        <span class="hljs-string">&quot;min_price&quot;</span>: &#123;<br>          <span class="hljs-string">&quot;min&quot;</span>: &#123;<br>            <span class="hljs-string">&quot;field&quot;</span>: <span class="hljs-string">&quot;AvgTicketPrice&quot;</span>  <span class="hljs-comment"># 计算最低票价</span><br>          &#125;<br>        &#125;<br>      &#125;<br>    &#125;<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>在这个查询中，我们为每个目的地添加了三个聚合：<code>avg_price</code>、<code>max_price</code> 和 <code>min_price</code>，分别计算每个目的地的平均票价、最大票价和最小票价。</p>
+<h3 id="3-聚合价格与天气信息：统计与多重聚合"><a href="#3-聚合价格与天气信息：统计与多重聚合" class="headerlink" title="3. 聚合价格与天气信息：统计与多重聚合"></a><strong>3. 聚合价格与天气信息：统计与多重聚合</strong></h3><p>如果你还想结合天气信息（如 <code>DestWeather</code> 字段）与航班价格统计一起进行聚合，可以使用嵌套聚合：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs bash">GET kibana_sample_data_flights/_search<br>&#123;<br>  <span class="hljs-string">&quot;size&quot;</span>: 0,<br>  <span class="hljs-string">&quot;aggs&quot;</span>: &#123;<br>    <span class="hljs-string">&quot;flight_dest&quot;</span>: &#123;<br>      <span class="hljs-string">&quot;terms&quot;</span>: &#123;<br>        <span class="hljs-string">&quot;field&quot;</span>: <span class="hljs-string">&quot;DestCountry&quot;</span><br>      &#125;,<br>      <span class="hljs-string">&quot;aggs&quot;</span>: &#123;<br>        <span class="hljs-string">&quot;stats_price&quot;</span>: &#123;<br>          <span class="hljs-string">&quot;stats&quot;</span>: &#123;<br>            <span class="hljs-string">&quot;field&quot;</span>: <span class="hljs-string">&quot;AvgTicketPrice&quot;</span>  <span class="hljs-comment"># 计算票价的多项统计信息</span><br>          &#125;<br>        &#125;,<br>        <span class="hljs-string">&quot;weather&quot;</span>: &#123;<br>          <span class="hljs-string">&quot;terms&quot;</span>: &#123;<br>            <span class="hljs-string">&quot;field&quot;</span>: <span class="hljs-string">&quot;DestWeather&quot;</span>,  <span class="hljs-comment"># 按天气类型分桶</span><br>            <span class="hljs-string">&quot;size&quot;</span>: 5  <span class="hljs-comment"># 只返回前5个天气类型</span><br>          &#125;<br>        &#125;<br>      &#125;<br>    &#125;<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>在这个示例中，我们不仅计算了每个目的地的票价统计信息（如平均票价、最大票价等），还将天气信息作为另一个 <code>terms</code> 聚合，显示每个目的地的天气类型，并限制返回的天气类型数量为 5 个。</p>
+<hr>
+<h3 id="常见的聚合类型："><a href="#常见的聚合类型：" class="headerlink" title="常见的聚合类型："></a><strong>常见的聚合类型：</strong></h3><ul>
+<li><strong><code>terms</code> 聚合</strong>：将文档按某个字段的值进行分桶，常用于统计词频或其他分类数据。</li>
+<li><strong><code>avg</code> 聚合</strong>：计算某个数值字段的平均值。</li>
+<li><strong><code>sum</code> 聚合</strong>：计算某个数值字段的总和。</li>
+<li><strong><code>min</code> 聚合</strong>：返回某个数值字段的最小值。</li>
+<li><strong><code>max</code> 聚合</strong>：返回某个数值字段的最大值。</li>
+<li><strong><code>stats</code> 聚合</strong>：返回字段的统计信息（包括：最小值、最大值、平均值、总和和文档数量）。</li>
+<li><strong><code>date_histogram</code> 聚合</strong>：按日期进行分桶，适用于时间序列数据。</li>
+<li><strong><code>histogram</code> 聚合</strong>：按数值区间进行分桶，常用于数值数据的统计。</li>
+</ul>
+<hr>
+<h3 id="相关阅读："><a href="#相关阅读：" class="headerlink" title="相关阅读："></a><strong>相关阅读：</strong></h3><ul>
+<li><a target="_blank" rel="noopener" href="https://www.elastic.co/guide/en/elasticsearch/reference/7.1/search-aggregations.html">Elasticsearch 聚合文档</a> 详细介绍了各种聚合的使用方式和示例。</li>
+</ul>
+<p>聚合功能非常强大，能帮助你从海量数据中提取有价值的信息，适用于各种数据分析场景。</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>es常用命令</div>
+      <div>https://candyadmin.github.io/elasticsearch/es常用命令/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>candy</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2025年2月27日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/elasticsearch/es%E4%B8%AD%E5%9F%BA%E7%A1%80%E6%90%9C%E7%B4%A2-%E6%9F%A5%E8%AF%A2%E4%BC%98%E5%8C%96-%E5%88%86%E5%B8%83%E5%BC%8F%E6%9E%B6%E6%9E%84-%E8%81%9A%E5%90%88%E5%88%86%E6%9E%90-%E6%95%B0%E6%8D%AE%E5%BB%BA%E6%A8%A1%E5%92%8C%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/" title="es中基础搜索|查询优化|分布式架构|聚合分析|数据建模和最佳实践">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">es中基础搜索|查询优化|分布式架构|聚合分析|数据建模和最佳实践</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/elasticsearch/logstach%E5%AE%89%E8%A3%85%E5%92%8C%E5%AF%BC%E5%85%A5%E6%95%B0%E6%8D%AE/" title="logstach安装和导入数据">
+                        <span class="hidden-mobile">logstach安装和导入数据</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div class="cusdis" style="width:100%">
+    <div id="cusdis_thread"
+      data-host="https://cusdis.com"
+      data-app-id="734976ba-6b52-4980-ac19-811b035f8fe6"
+      data-page-id="d40da13ff7a42844e370d8ffc575455c"
+      data-page-url="elasticsearch/es常用命令/"
+      data-page-title="es常用命令"
+      data-theme="auto"
+    >
+    </div>
+  </div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#cusdis_thread', function() {
+      Fluid.utils.createScript('https://cusdis.com/js/widget/lang/zh-cn.js');
+      Fluid.utils.createScript('https://cusdis.com/js/cusdis.es.js');
+      var schema = document.documentElement.getAttribute('data-user-color-scheme');
+      if (schema) {
+        document.querySelector('#cusdis_thread').dataset.theme = schema
+      }
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://candyadmin.github.io/" target="_blank" rel="nofollow noopener"><span>点到为止</span></a> <i class="iconfont icon-love"></i> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
