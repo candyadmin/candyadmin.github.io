@@ -16,22 +16,21 @@
   <meta name="author" content="candy">
   <meta name="keywords" content="">
   
-    <meta name="description" content="#使用docker运行chrome 123456789docker run -d -p 4444:4444 -p 5900:5900 --name selenium-chrome-debug selenium&#x2F;standalone-chrome-debugdocker run -d -p 4444:4444 -p 5900:5900 \  --name selenium-chrome-debug">
+    <meta name="description" content="求向量 $\mathbf{a} &#x3D; (a_1, a_2, a_3) $ 与坐标轴的夹角余弦值时，首先可以利用向量的定义和夹角余弦的公式。 1. 向量与坐标轴的夹角余弦值对于向量  $ \mathbf{a} &#x3D; (a_1, a_2, a_3)  $，它与各坐标轴的夹角余弦值分别为：  与 ( x )-轴的夹角余弦值  $ \cos \alpha_x $： $$ \cos \alp">
 <meta property="og:type" content="article">
-<meta property="og:title" content="docker中运行chrome并使用代码控制">
-<meta property="og:url" content="https://candyadmin.github.io/docker/docker%E4%B8%AD%E8%BF%90%E8%A1%8Cchrome%E5%B9%B6%E4%BD%BF%E7%94%A8%E4%BB%A3%E7%A0%81%E6%8E%A7%E5%88%B6/index.html">
+<meta property="og:title" content="向量与坐标轴的夹角余弦值">
+<meta property="og:url" content="https://candyadmin.github.io/%E6%95%B0%E5%AD%A6/%E5%90%91%E9%87%8F%E4%B8%8E%E5%9D%90%E6%A0%87%E8%BD%B4%E7%9A%84%E5%A4%B9%E8%A7%92%E4%BD%99%E5%BC%A6%E5%80%BC/index.html">
 <meta property="og:site_name" content="点到为止">
-<meta property="og:description" content="#使用docker运行chrome 123456789docker run -d -p 4444:4444 -p 5900:5900 --name selenium-chrome-debug selenium&#x2F;standalone-chrome-debugdocker run -d -p 4444:4444 -p 5900:5900 \  --name selenium-chrome-debug">
+<meta property="og:description" content="求向量 $\mathbf{a} &#x3D; (a_1, a_2, a_3) $ 与坐标轴的夹角余弦值时，首先可以利用向量的定义和夹角余弦的公式。 1. 向量与坐标轴的夹角余弦值对于向量  $ \mathbf{a} &#x3D; (a_1, a_2, a_3)  $，它与各坐标轴的夹角余弦值分别为：  与 ( x )-轴的夹角余弦值  $ \cos \alpha_x $： $$ \cos \alp">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2025-03-18T07:38:54.000Z">
-<meta property="article:modified_time" content="2025-03-20T02:58:32.717Z">
+<meta property="article:published_time" content="2025-03-19T02:11:47.000Z">
+<meta property="article:modified_time" content="2025-03-19T06:36:03.009Z">
 <meta property="article:author" content="candy">
-<meta property="article:tag" content="chrome">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>docker中运行chrome并使用代码控制 - 点到为止</title>
+  <title>向量与坐标轴的夹角余弦值 - 点到为止</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -197,7 +196,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="docker中运行chrome并使用代码控制"></span>
+            <span id="subtitle" data-typed-text="向量与坐标轴的夹角余弦值"></span>
           
         </div>
 
@@ -208,8 +207,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2025-03-18 15:38" pubdate>
-          2025年3月18日 下午
+        <time datetime="2025-03-19 10:11" pubdate>
+          2025年3月19日 上午
         </time>
       </span>
     
@@ -220,7 +219,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          227 字
+          215 字
         
       </span>
     
@@ -268,15 +267,28 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">docker中运行chrome并使用代码控制</h1>
+            <h1 id="seo-header">向量与坐标轴的夹角余弦值</h1>
             
             
               <div class="markdown-body">
                 
-                <p>#使用docker运行chrome</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs shell">docker run -d -p 4444:4444 -p 5900:5900 --name selenium-chrome-debug selenium/standalone-chrome-debug<br>docker run -d -p 4444:4444 -p 5900:5900 \<br>  --name selenium-chrome-debug \<br>  -e TZ=&quot;US/Pacific&quot; \<br>  -v /dev/shm:/dev/shm \<br>  -v /opt/chrome/chrome-data:/home/seluser/.cache --privileged \<br>  selenium/standalone-chrome-debug<br><br><br></code></pre></td></tr></table></figure>
-<p>#使用java代码控制chrome</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> org.example;<br><br><span class="hljs-keyword">import</span> org.openqa.selenium.By;<br><span class="hljs-keyword">import</span> org.openqa.selenium.WebDriver;<br><span class="hljs-keyword">import</span> org.openqa.selenium.WebElement;<br><span class="hljs-keyword">import</span> org.openqa.selenium.chrome.ChromeOptions;<br><span class="hljs-keyword">import</span> org.openqa.selenium.remote.RemoteWebDriver;<br><span class="hljs-keyword">import</span> java.net.MalformedURLException;<br><span class="hljs-keyword">import</span> java.net.URL;<br><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">SeleniumDockerTest</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> &#123;<br>        <span class="hljs-type">ChromeOptions</span> <span class="hljs-variable">options</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ChromeOptions</span>();<br>        options.addArguments(<span class="hljs-string">&quot;--disable-dev-shm-usage&quot;</span>);  <span class="hljs-comment">// 解决 Chrome 崩溃问题</span><br>        options.addArguments(<span class="hljs-string">&quot;--no-sandbox&quot;</span>);  <span class="hljs-comment">// 避免 Chrome 在容器中受限制</span><br><span class="hljs-comment">//        options.addArguments(&quot;--user-data-dir=/home/seluser&quot;);  // 设置 Chrome 用户数据目录</span><br><br>        <span class="hljs-type">WebDriver</span> <span class="hljs-variable">driver</span> <span class="hljs-operator">=</span> <span class="hljs-literal">null</span>;<br>        <span class="hljs-keyword">try</span> &#123;<br>            driver = <span class="hljs-keyword">new</span> <span class="hljs-title class_">RemoteWebDriver</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">URL</span>(<span class="hljs-string">&quot;http://10.8.0.5:4444/wd/hub&quot;</span>), options);<br><br>            driver.get(<span class="hljs-string">&quot;https://www.jd.com&quot;</span>);<br>            System.out.println(<span class="hljs-string">&quot;页面标题: &quot;</span> + driver.getTitle());<br>            <span class="hljs-type">WebElement</span> <span class="hljs-variable">body</span> <span class="hljs-operator">=</span> driver.findElement(By.cssSelector(<span class="hljs-string">&quot;#J_cate &gt; ul&quot;</span>));<br>            System.out.println(<span class="hljs-string">&quot;页面内容: &quot;</span> + body.getText());<br>            System.in.read();<br>        &#125; <span class="hljs-keyword">catch</span> (Exception e) &#123;<br>            e.printStackTrace();<br>            System.out.println(<span class="hljs-string">&quot;错误: &quot;</span> + e.getMessage());<br>        &#125; <span class="hljs-keyword">finally</span> &#123;<br>            <span class="hljs-keyword">if</span> (driver != <span class="hljs-literal">null</span>) &#123;<br>                driver.quit();<br>            &#125;<br>        &#125;<br>    &#125;<br>&#125;<br><br></code></pre></td></tr></table></figure>
+                <p>求向量 $\mathbf{a} &#x3D; (a_1, a_2, a_3) $ 与坐标轴的夹角余弦值时，首先可以利用向量的定义和夹角余弦的公式。</p>
+<h3 id="1-向量与坐标轴的夹角余弦值"><a href="#1-向量与坐标轴的夹角余弦值" class="headerlink" title="1. 向量与坐标轴的夹角余弦值"></a>1. 向量与坐标轴的夹角余弦值</h3><p>对于向量  $ \mathbf{a} &#x3D; (a_1, a_2, a_3)  $，它与各坐标轴的夹角余弦值分别为：</p>
+<ul>
+<li><p>与 ( x )-轴的夹角余弦值  $ \cos \alpha_x $：</p>
+<p>$$ \cos \alpha_x &#x3D; \frac{a_1}{|\mathbf{a}|} $$</p>
+</li>
+<li><p>与 ( y )-轴的夹角余弦值  $\cos \alpha_y $：</p>
+<p>$$ \cos \alpha_y &#x3D; \frac{a_2}{|\mathbf{a}|} $$</p>
+</li>
+<li><p>与 ( z )-轴的夹角余弦值  $\cos \alpha_z $：</p>
+<p>$$ \cos \alpha_z &#x3D; \frac{a_3}{|\mathbf{a}|} $$</p>
+</li>
+</ul>
+<h3 id="2-向量的模（大小）"><a href="#2-向量的模（大小）" class="headerlink" title="2. 向量的模（大小）"></a>2. 向量的模（大小）</h3><p>向量  $ \mathbf{a} &#x3D; (a_1, a_2, a_3)  $ 的模为：</p>
+<p>$$ |\mathbf{a}| &#x3D; \sqrt{a_1^2 + a_2^2 + a_3^2} $$</p>
+<h3 id="3-夹角余弦值的解释"><a href="#3-夹角余弦值的解释" class="headerlink" title="3. 夹角余弦值的解释"></a>3. 夹角余弦值的解释</h3><p>这些余弦值表示了向量  $ \mathbf{a}  $ 在各坐标轴上的分量比例。例如 $\cos \alpha_x $ 表示向量在 ( x )-轴方向上的分量占总长度的比例。</p>
+
                 
               </div>
             
@@ -284,34 +296,6 @@
             <div>
               <div class="post-metas my-3">
   
-    <div class="post-meta mr-3 d-flex align-items-center">
-      <i class="iconfont icon-category"></i>
-      
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/docker/" class="category-chain-item">docker</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-    </div>
-  
-  
-    <div class="post-meta">
-      <i class="iconfont icon-tags"></i>
-      
-        <a href="/tags/chrome/" class="print-no-link">#chrome</a>
-      
-    </div>
   
 </div>
 
@@ -321,8 +305,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>docker中运行chrome并使用代码控制</div>
-      <div>https://candyadmin.github.io/docker/docker中运行chrome并使用代码控制/</div>
+      <div>向量与坐标轴的夹角余弦值</div>
+      <div>https://candyadmin.github.io/数学/向量与坐标轴的夹角余弦值/</div>
     </div>
     <div class="license-meta">
       
@@ -334,7 +318,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2025年3月18日</div>
+          <div>2025年3月19日</div>
         </div>
       
       
@@ -366,9 +350,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/%E6%95%B0%E5%AD%A6/%E5%90%91%E9%87%8F%E4%B8%8E%E5%9D%90%E6%A0%87%E8%BD%B4%E7%9A%84%E5%A4%B9%E8%A7%92%E4%BD%99%E5%BC%A6%E5%80%BC/" title="向量与坐标轴的夹角余弦值">
+                      <a href="/english/sentence-example/" title="sentence example">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">向量与坐标轴的夹角余弦值</span>
+                        <span class="hidden-mobile">sentence example</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -376,8 +360,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/%E4%BA%A4%E6%98%93/%E4%BA%A4%E6%98%93%E7%AD%96%E7%95%A5%E6%80%BB%E7%BB%93/" title="交易策略总结">
-                        <span class="hidden-mobile">交易策略总结</span>
+                      <a href="/docker/docker%E4%B8%AD%E8%BF%90%E8%A1%8Cchrome%E5%B9%B6%E4%BD%BF%E7%94%A8%E4%BB%A3%E7%A0%81%E6%8E%A7%E5%88%B6/" title="docker中运行chrome并使用代码控制">
+                        <span class="hidden-mobile">docker中运行chrome并使用代码控制</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
@@ -396,9 +380,9 @@
     <div id="cusdis_thread"
       data-host="https://cusdis.com"
       data-app-id="734976ba-6b52-4980-ac19-811b035f8fe6"
-      data-page-id="d8443d51ec9ef8241362591e42628319"
-      data-page-url="docker/docker中运行chrome并使用代码控制/"
-      data-page-title="docker中运行chrome并使用代码控制"
+      data-page-id="33b0edc38b05a35d4e59e62236d13955"
+      data-page-url="数学/向量与坐标轴的夹角余弦值/"
+      data-page-title="向量与坐标轴的夹角余弦值"
       data-theme="auto"
     >
     </div>

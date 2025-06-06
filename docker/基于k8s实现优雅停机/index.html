@@ -16,22 +16,22 @@
   <meta name="author" content="candy">
   <meta name="keywords" content="">
   
-    <meta name="description" content="#使用docker运行chrome 123456789docker run -d -p 4444:4444 -p 5900:5900 --name selenium-chrome-debug selenium&#x2F;standalone-chrome-debugdocker run -d -p 4444:4444 -p 5900:5900 \  --name selenium-chrome-debug">
+    <meta name="description" content="在 Kubernetes 中，默认情况下 pod 会在接收到 SIGTERM 信号（例如升级、删除等场景）后，立即从 Service 的负载列表中摘除（Endpoint 移除），然后再执行 preStop 钩子以及进入 terminationGracePeriodSeconds 等步骤。 你说的需求是：  在发版时，Pod 收到停止信号后，不要立即摘除它的 IP 和端口（即不立即从服务列表中剔除）">
 <meta property="og:type" content="article">
-<meta property="og:title" content="docker中运行chrome并使用代码控制">
-<meta property="og:url" content="https://candyadmin.github.io/docker/docker%E4%B8%AD%E8%BF%90%E8%A1%8Cchrome%E5%B9%B6%E4%BD%BF%E7%94%A8%E4%BB%A3%E7%A0%81%E6%8E%A7%E5%88%B6/index.html">
+<meta property="og:title" content="基于k8s实现优雅停机">
+<meta property="og:url" content="https://candyadmin.github.io/docker/%E5%9F%BA%E4%BA%8Ek8s%E5%AE%9E%E7%8E%B0%E4%BC%98%E9%9B%85%E5%81%9C%E6%9C%BA/index.html">
 <meta property="og:site_name" content="点到为止">
-<meta property="og:description" content="#使用docker运行chrome 123456789docker run -d -p 4444:4444 -p 5900:5900 --name selenium-chrome-debug selenium&#x2F;standalone-chrome-debugdocker run -d -p 4444:4444 -p 5900:5900 \  --name selenium-chrome-debug">
+<meta property="og:description" content="在 Kubernetes 中，默认情况下 pod 会在接收到 SIGTERM 信号（例如升级、删除等场景）后，立即从 Service 的负载列表中摘除（Endpoint 移除），然后再执行 preStop 钩子以及进入 terminationGracePeriodSeconds 等步骤。 你说的需求是：  在发版时，Pod 收到停止信号后，不要立即摘除它的 IP 和端口（即不立即从服务列表中剔除）">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2025-03-18T07:38:54.000Z">
-<meta property="article:modified_time" content="2025-03-20T02:58:32.717Z">
+<meta property="article:published_time" content="2025-06-06T04:27:16.000Z">
+<meta property="article:modified_time" content="2025-06-06T04:27:45.872Z">
 <meta property="article:author" content="candy">
 <meta property="article:tag" content="chrome">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>docker中运行chrome并使用代码控制 - 点到为止</title>
+  <title>基于k8s实现优雅停机 - 点到为止</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -197,7 +197,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="docker中运行chrome并使用代码控制"></span>
+            <span id="subtitle" data-typed-text="基于k8s实现优雅停机"></span>
           
         </div>
 
@@ -208,8 +208,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2025-03-18 15:38" pubdate>
-          2025年3月18日 下午
+        <time datetime="2025-06-06 12:27" pubdate>
+          2025年6月6日 中午
         </time>
       </span>
     
@@ -220,7 +220,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          227 字
+          654 字
         
       </span>
     
@@ -231,7 +231,7 @@
         
         
         
-          2 分钟
+          6 分钟
         
       </span>
     
@@ -268,15 +268,74 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">docker中运行chrome并使用代码控制</h1>
+            <h1 id="seo-header">基于k8s实现优雅停机</h1>
             
             
               <div class="markdown-body">
                 
-                <p>#使用docker运行chrome</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs shell">docker run -d -p 4444:4444 -p 5900:5900 --name selenium-chrome-debug selenium/standalone-chrome-debug<br>docker run -d -p 4444:4444 -p 5900:5900 \<br>  --name selenium-chrome-debug \<br>  -e TZ=&quot;US/Pacific&quot; \<br>  -v /dev/shm:/dev/shm \<br>  -v /opt/chrome/chrome-data:/home/seluser/.cache --privileged \<br>  selenium/standalone-chrome-debug<br><br><br></code></pre></td></tr></table></figure>
-<p>#使用java代码控制chrome</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> org.example;<br><br><span class="hljs-keyword">import</span> org.openqa.selenium.By;<br><span class="hljs-keyword">import</span> org.openqa.selenium.WebDriver;<br><span class="hljs-keyword">import</span> org.openqa.selenium.WebElement;<br><span class="hljs-keyword">import</span> org.openqa.selenium.chrome.ChromeOptions;<br><span class="hljs-keyword">import</span> org.openqa.selenium.remote.RemoteWebDriver;<br><span class="hljs-keyword">import</span> java.net.MalformedURLException;<br><span class="hljs-keyword">import</span> java.net.URL;<br><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">SeleniumDockerTest</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> &#123;<br>        <span class="hljs-type">ChromeOptions</span> <span class="hljs-variable">options</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ChromeOptions</span>();<br>        options.addArguments(<span class="hljs-string">&quot;--disable-dev-shm-usage&quot;</span>);  <span class="hljs-comment">// 解决 Chrome 崩溃问题</span><br>        options.addArguments(<span class="hljs-string">&quot;--no-sandbox&quot;</span>);  <span class="hljs-comment">// 避免 Chrome 在容器中受限制</span><br><span class="hljs-comment">//        options.addArguments(&quot;--user-data-dir=/home/seluser&quot;);  // 设置 Chrome 用户数据目录</span><br><br>        <span class="hljs-type">WebDriver</span> <span class="hljs-variable">driver</span> <span class="hljs-operator">=</span> <span class="hljs-literal">null</span>;<br>        <span class="hljs-keyword">try</span> &#123;<br>            driver = <span class="hljs-keyword">new</span> <span class="hljs-title class_">RemoteWebDriver</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">URL</span>(<span class="hljs-string">&quot;http://10.8.0.5:4444/wd/hub&quot;</span>), options);<br><br>            driver.get(<span class="hljs-string">&quot;https://www.jd.com&quot;</span>);<br>            System.out.println(<span class="hljs-string">&quot;页面标题: &quot;</span> + driver.getTitle());<br>            <span class="hljs-type">WebElement</span> <span class="hljs-variable">body</span> <span class="hljs-operator">=</span> driver.findElement(By.cssSelector(<span class="hljs-string">&quot;#J_cate &gt; ul&quot;</span>));<br>            System.out.println(<span class="hljs-string">&quot;页面内容: &quot;</span> + body.getText());<br>            System.in.read();<br>        &#125; <span class="hljs-keyword">catch</span> (Exception e) &#123;<br>            e.printStackTrace();<br>            System.out.println(<span class="hljs-string">&quot;错误: &quot;</span> + e.getMessage());<br>        &#125; <span class="hljs-keyword">finally</span> &#123;<br>            <span class="hljs-keyword">if</span> (driver != <span class="hljs-literal">null</span>) &#123;<br>                driver.quit();<br>            &#125;<br>        &#125;<br>    &#125;<br>&#125;<br><br></code></pre></td></tr></table></figure>
+                <p>在 Kubernetes 中，<strong>默认情况下 pod 会在接收到 <code>SIGTERM</code> 信号（例如升级、删除等场景）后，立即从 Service 的负载列表中摘除（Endpoint 移除）</strong>，然后再执行 <code>preStop</code> 钩子以及进入 <code>terminationGracePeriodSeconds</code> 等步骤。</p>
+<p>你说的需求是：</p>
+<blockquote>
+<p><strong>在发版时，Pod 收到停止信号后，不要立即摘除它的 IP 和端口（即不立即从服务列表中剔除），而是等到你主动完成一些操作（如优雅停机通知）后，再摘除。</strong></p>
+</blockquote>
+<p>这个需求在 Kubernetes 中可以通过以下几种方式实现：</p>
+<hr>
+<h2 id="✅-实现目标：控制-Pod-在-SIGTERM-时-延迟摘除-IP-和端口"><a href="#✅-实现目标：控制-Pod-在-SIGTERM-时-延迟摘除-IP-和端口" class="headerlink" title="✅ 实现目标：控制 Pod 在 SIGTERM 时 延迟摘除 IP 和端口"></a>✅ 实现目标：控制 Pod 在 <code>SIGTERM</code> 时 <strong>延迟摘除 IP 和端口</strong></h2><hr>
+<h2 id="🧩-方法一：使用-terminationGracePeriodSeconds-延迟摘除逻辑"><a href="#🧩-方法一：使用-terminationGracePeriodSeconds-延迟摘除逻辑" class="headerlink" title="🧩 方法一：使用 terminationGracePeriodSeconds + 延迟摘除逻辑"></a>🧩 方法一：使用 <code>terminationGracePeriodSeconds</code> + 延迟摘除逻辑</h2><p>Kubernetes 的<strong>摘除 Endpoint 行为</strong>是这样的：</p>
+<ul>
+<li>Pod 一旦进入 Terminating 状态，<strong>会立即从 Service 的 endpoints 中移除</strong></li>
+<li>并不是等 <code>preStop</code> 或 <code>terminationGracePeriodSeconds</code> 完成后才移除</li>
+</ul>
+<p>因此想“暂时保留 IP 不被摘除”——<strong>需要规避 Pod 直接进入 Terminating 状态</strong></p>
+<h3 id="🧠-核心方案：控制流量的移除时机，而不是控制-Pod-的下线时机"><a href="#🧠-核心方案：控制流量的移除时机，而不是控制-Pod-的下线时机" class="headerlink" title="🧠 核心方案：控制流量的移除时机，而不是控制 Pod 的下线时机"></a>🧠 核心方案：<strong>控制流量的移除时机，而不是控制 Pod 的下线时机</strong></h3><hr>
+<h2 id="✅-方法二：使用-Readiness-Probe-控制流量摘除时机（推荐）"><a href="#✅-方法二：使用-Readiness-Probe-控制流量摘除时机（推荐）" class="headerlink" title="✅ 方法二：使用 [Readiness Probe] 控制流量摘除时机（推荐）"></a>✅ 方法二：使用 [<strong>Readiness Probe</strong>] 控制流量摘除时机（推荐）</h2><h3 id="步骤如下："><a href="#步骤如下：" class="headerlink" title="步骤如下："></a>步骤如下：</h3><ol>
+<li>Pod 启动时设置 <code>readinessProbe</code>，只有探针通过时才参与服务</li>
+<li>停机前，在 <code>preStop</code> 阶段<strong>手动设置为 NotReady</strong>（流量会被摘除，但 Pod 仍在）</li>
+</ol>
+<hr>
+<h3 id="✅-实现方式（推荐）"><a href="#✅-实现方式（推荐）" class="headerlink" title="✅ 实现方式（推荐）"></a>✅ 实现方式（推荐）</h3><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">livenessProbe:</span><br>  <span class="hljs-attr">httpGet:</span><br>    <span class="hljs-attr">path:</span> <span class="hljs-string">/actuator/health</span><br>    <span class="hljs-attr">port:</span> <span class="hljs-number">8080</span><br>  <span class="hljs-attr">initialDelaySeconds:</span> <span class="hljs-number">10</span><br>  <span class="hljs-attr">periodSeconds:</span> <span class="hljs-number">10</span><br><br><span class="hljs-attr">readinessProbe:</span><br>  <span class="hljs-attr">httpGet:</span><br>    <span class="hljs-attr">path:</span> <span class="hljs-string">/actuator/health/readiness</span><br>    <span class="hljs-attr">port:</span> <span class="hljs-number">8080</span><br>  <span class="hljs-attr">initialDelaySeconds:</span> <span class="hljs-number">5</span><br>  <span class="hljs-attr">periodSeconds:</span> <span class="hljs-number">5</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="⚙️-preStop-阶段“手动设置为不健康”"><a href="#⚙️-preStop-阶段“手动设置为不健康”" class="headerlink" title="⚙️ preStop 阶段“手动设置为不健康”"></a>⚙️ preStop 阶段“手动设置为不健康”</h3><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">lifecycle:</span><br>  <span class="hljs-attr">preStop:</span><br>    <span class="hljs-attr">exec:</span><br>      <span class="hljs-attr">command:</span><br>        <span class="hljs-bullet">-</span> <span class="hljs-string">/bin/sh</span><br>        <span class="hljs-bullet">-</span> <span class="hljs-string">-c</span><br>        <span class="hljs-bullet">-</span> <span class="hljs-string">|</span><br><span class="hljs-string">          echo &quot;Notifying service to stop sending traffic&quot;</span><br><span class="hljs-string">          curl -X POST http://localhost:8080/shutdown-hook</span><br><span class="hljs-string">          sleep 30  # 等待流量转移 + 优雅停机</span><br></code></pre></td></tr></table></figure>
+
+<p>在 Spring Boot 中可以结合 actuator 管理健康状态：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@RestController</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">ShutdownController</span> &#123;<br><br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> ApplicationAvailability availability;<br><br>    <span class="hljs-meta">@Autowired</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-title function_">ShutdownController</span><span class="hljs-params">(ApplicationAvailability availability)</span> &#123;<br>        <span class="hljs-built_in">this</span>.availability = availability;<br>    &#125;<br><br>    <span class="hljs-meta">@PostMapping(&quot;/shutdown-hook&quot;)</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">shutdown</span><span class="hljs-params">()</span> &#123;<br>        <span class="hljs-comment">// 手动设置为不可用（也可以切换 readiness probe 的状态）</span><br>        <span class="hljs-comment">// 若使用 spring-boot-actuator 2.3+ 可切换 Readiness</span><br>        System.out.println(<span class="hljs-string">&quot;Application is preparing to shutdown...&quot;</span>);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="❗-为什么不能“阻止-IP-被摘除”"><a href="#❗-为什么不能“阻止-IP-被摘除”" class="headerlink" title="❗ 为什么不能“阻止 IP 被摘除”"></a>❗ 为什么不能“阻止 IP 被摘除”</h2><p>K8s 的 Endpoint Controller 一旦发现 Pod 是 Terminating 状态（即使你还在 <code>preStop</code> 和 <code>terminationGracePeriodSeconds</code> 里），就会从 Service 中移除 Endpoint（也就是从 DNS 或网关负载中摘除 IP）。</p>
+<blockquote>
+<p>所以，要想“发版时不立即摘掉 IP”，你要避免一开始就让 Pod 进入 Terminating，而是<strong>先标记为 NotReady</strong>，等处理完毕再删除 Pod。</p>
+</blockquote>
+<hr>
+<h2 id="✅-总结推荐配置"><a href="#✅-总结推荐配置" class="headerlink" title="✅ 总结推荐配置"></a>✅ 总结推荐配置</h2><table>
+<thead>
+<tr>
+<th>项目</th>
+<th>推荐配置</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>readinessProbe</code></td>
+<td>用于控制服务是否接受流量</td>
+</tr>
+<tr>
+<td><code>preStop</code> hook</td>
+<td>优雅通知微服务关闭，并 sleep 等待</td>
+</tr>
+<tr>
+<td><code>terminationGracePeriodSeconds</code></td>
+<td>设置为 ≥ <code>preStop</code> 脚本耗时，例如 60s</td>
+</tr>
+<tr>
+<td><code>Spring Boot readiness endpoint</code></td>
+<td>建议使用 actuator + readiness 实现接口健康状态动态切换</td>
+</tr>
+</tbody></table>
+<hr>
+<h3 id="💡-示例完整配置片段"><a href="#💡-示例完整配置片段" class="headerlink" title="💡 示例完整配置片段"></a>💡 示例完整配置片段</h3><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">spec:</span><br>  <span class="hljs-attr">containers:</span><br>    <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">trade</span><br>      <span class="hljs-attr">image:</span> <span class="hljs-string">trade:latest</span><br>      <span class="hljs-attr">lifecycle:</span><br>        <span class="hljs-attr">preStop:</span><br>          <span class="hljs-attr">exec:</span><br>            <span class="hljs-attr">command:</span><br>              <span class="hljs-bullet">-</span> <span class="hljs-string">/bin/sh</span><br>              <span class="hljs-bullet">-</span> <span class="hljs-string">-c</span><br>              <span class="hljs-bullet">-</span> <span class="hljs-string">|</span><br><span class="hljs-string">                curl -X POST http://localhost:8080/shutdown-hook</span><br><span class="hljs-string">                sleep 30</span><br><span class="hljs-string"></span>      <span class="hljs-attr">readinessProbe:</span><br>        <span class="hljs-attr">httpGet:</span><br>          <span class="hljs-attr">path:</span> <span class="hljs-string">/actuator/health/readiness</span><br>          <span class="hljs-attr">port:</span> <span class="hljs-number">8080</span><br>        <span class="hljs-attr">initialDelaySeconds:</span> <span class="hljs-number">5</span><br>        <span class="hljs-attr">periodSeconds:</span> <span class="hljs-number">5</span><br>  <span class="hljs-attr">terminationGracePeriodSeconds:</span> <span class="hljs-number">60</span><br></code></pre></td></tr></table></figure>
+
+<hr>
+<p>如你想结合 Spring Boot actuator 做动态健康状态切换（比如调用 <code>/actuator/health/readiness</code> 返回 <code>DOWN</code> 状态）。</p>
+
                 
               </div>
             
@@ -294,7 +353,7 @@
     
       <span class="category-chain">
         
-  <a href="/categories/docker/" class="category-chain-item">docker</a>
+  <a href="/categories/k8s/" class="category-chain-item">k8s</a>
   
   
 
@@ -321,8 +380,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>docker中运行chrome并使用代码控制</div>
-      <div>https://candyadmin.github.io/docker/docker中运行chrome并使用代码控制/</div>
+      <div>基于k8s实现优雅停机</div>
+      <div>https://candyadmin.github.io/docker/基于k8s实现优雅停机/</div>
     </div>
     <div class="license-meta">
       
@@ -334,7 +393,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2025年3月18日</div>
+          <div>2025年6月6日</div>
         </div>
       
       
@@ -366,18 +425,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/%E6%95%B0%E5%AD%A6/%E5%90%91%E9%87%8F%E4%B8%8E%E5%9D%90%E6%A0%87%E8%BD%B4%E7%9A%84%E5%A4%B9%E8%A7%92%E4%BD%99%E5%BC%A6%E5%80%BC/" title="向量与坐标轴的夹角余弦值">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">向量与坐标轴的夹角余弦值</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/%E4%BA%A4%E6%98%93/%E4%BA%A4%E6%98%93%E7%AD%96%E7%95%A5%E6%80%BB%E7%BB%93/" title="交易策略总结">
-                        <span class="hidden-mobile">交易策略总结</span>
+                      <a href="/mysql/mysql%E5%BC%82%E5%B8%B8%E6%8E%92%E6%9F%A5sql/" title="mysql异常排查sql">
+                        <span class="hidden-mobile">mysql异常排查sql</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
@@ -396,9 +449,9 @@
     <div id="cusdis_thread"
       data-host="https://cusdis.com"
       data-app-id="734976ba-6b52-4980-ac19-811b035f8fe6"
-      data-page-id="d8443d51ec9ef8241362591e42628319"
-      data-page-url="docker/docker中运行chrome并使用代码控制/"
-      data-page-title="docker中运行chrome并使用代码控制"
+      data-page-id="dad78f28e80f86ef33a06c6c41a7df64"
+      data-page-url="docker/基于k8s实现优雅停机/"
+      data-page-title="基于k8s实现优雅停机"
       data-theme="auto"
     >
     </div>
