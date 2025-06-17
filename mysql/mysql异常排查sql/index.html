@@ -24,7 +24,7 @@
 <meta property="og:description" content="###查找持续时间超过 60s 的事务 1select * from information_schema.innodb_trx where TIME_TO_SEC(timediff(now(),trx_started))&gt;60 ###指定sql的引擎 1create table test(c int) engine&#x3D;InnoDB; ###查看 transaction-isolation 的">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2025-06-04T16:09:57.000Z">
-<meta property="article:modified_time" content="2025-06-06T01:39:17.936Z">
+<meta property="article:modified_time" content="2025-06-16T02:55:53.802Z">
 <meta property="article:author" content="candy">
 <meta property="article:tag" content="备份">
 <meta name="twitter:card" content="summary_large_image">
@@ -220,7 +220,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          539 字
+          828 字
         
       </span>
     
@@ -231,7 +231,7 @@
         
         
         
-          5 分钟
+          7 分钟
         
       </span>
     
@@ -283,7 +283,44 @@
 <h3 id="防止出现死锁，设置加锁超时时间"><a href="#防止出现死锁，设置加锁超时时间" class="headerlink" title="防止出现死锁，设置加锁超时时间"></a>防止出现死锁，设置加锁超时时间</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">SHOW</span> <span class="hljs-keyword">GLOBAL</span> VARIABLES <span class="hljs-keyword">LIKE</span> <span class="hljs-string">&#x27;innodb_lock_wait_timeout&#x27;</span>;<br><span class="hljs-keyword">SET</span> <span class="hljs-keyword">GLOBAL</span> innodb_lock_wait_timeout<span class="hljs-operator">=</span><span class="hljs-number">120</span>;<br></code></pre></td></tr></table></figure>
 <h3 id="发起死锁检测，主动回滚死锁链条中的某一个事务，让其他事务得以继续执行。将参数-innodb-deadlock-detect-设置为-on，表示开启这个逻辑。"><a href="#发起死锁检测，主动回滚死锁链条中的某一个事务，让其他事务得以继续执行。将参数-innodb-deadlock-detect-设置为-on，表示开启这个逻辑。" class="headerlink" title="发起死锁检测，主动回滚死锁链条中的某一个事务，让其他事务得以继续执行。将参数 innodb_deadlock_detect 设置为 on，表示开启这个逻辑。"></a>发起死锁检测，主动回滚死锁链条中的某一个事务，让其他事务得以继续执行。将参数 innodb_deadlock_detect 设置为 on，表示开启这个逻辑。</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">SHOW</span> <span class="hljs-keyword">GLOBAL</span> VARIABLES <span class="hljs-keyword">LIKE</span> <span class="hljs-string">&#x27;innodb_deadlock_detect&#x27;</span>;<br><span class="hljs-keyword">SET</span> <span class="hljs-keyword">GLOBAL</span> innodb_deadlock_detect<span class="hljs-operator">=</span><span class="hljs-keyword">on</span>;<br></code></pre></td></tr></table></figure>
 
-
+<h3 id="统计索引情况"><a href="#统计索引情况" class="headerlink" title="统计索引情况"></a>统计索引情况</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">SELECT</span> TABLE_NAME, INDEX_NAME, NON_UNIQUE, SEQ_IN_INDEX, COLUMN_NAME, INDEX_TYPE<br><span class="hljs-keyword">FROM</span> information_schema.STATISTICS<br><span class="hljs-keyword">WHERE</span> TABLE_SCHEMA <span class="hljs-operator">=</span> <span class="hljs-string">&#x27;mt5_bybit_demo&#x27;</span><br>  <span class="hljs-keyword">AND</span> TABLE_NAME <span class="hljs-keyword">IN</span> (<br>                     <span class="hljs-string">&#x27;mt5_orders&#x27;</span>,<br>                     <span class="hljs-string">&#x27;mt5_position&#x27;</span>,<br>                     <span class="hljs-string">&#x27;mt5_orders_history&#x27;</span>,<br>                     <span class="hljs-string">&#x27;mt5_deals&#x27;</span>,<br>                     <span class="hljs-string">&#x27;mt5_accounts&#x27;</span>,<br>                     <span class="hljs-string">&#x27;mt5_groups&#x27;</span>,<br>                     <span class="hljs-string">&#x27;mt5_users&#x27;</span><br>    )<br><span class="hljs-keyword">ORDER</span> <span class="hljs-keyword">BY</span> TABLE_NAME, INDEX_NAME, SEQ_IN_INDEX;<br><br></code></pre></td></tr></table></figure>
+<h3 id="普通数据库备份命令"><a href="#普通数据库备份命令" class="headerlink" title="普通数据库备份命令"></a>普通数据库备份命令</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql">mysqldump <span class="hljs-operator">-</span>u root <span class="hljs-operator">-</span>p <span class="hljs-comment">--databases mt5_bybit_demo --result-file=/home/mysql_backup/mt5_bybit_demo.sql</span><br></code></pre></td></tr></table></figure>
+<h3 id="基于-InnoDB-存储引擎-MySQL做一致性备份的一种可行方案"><a href="#基于-InnoDB-存储引擎-MySQL做一致性备份的一种可行方案" class="headerlink" title="基于 InnoDB 存储引擎 + MySQL做一致性备份的一种可行方案"></a>基于 InnoDB 存储引擎 + MySQL做一致性备份的一种可行方案</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-comment">-- Q1: 设置当前会话的事务隔离级别为 RR（可重复读）</span><br><span class="hljs-keyword">SET</span> SESSION TRANSACTION ISOLATION LEVEL REPEATABLE READ;<br><br><span class="hljs-comment">-- Q2: 启动事务，并创建一个一致性快照，确保整个会话读到的数据一致</span><br><span class="hljs-keyword">START</span> TRANSACTION <span class="hljs-keyword">WITH</span> CONSISTENT SNAPSHOT;<br><br><span class="hljs-comment">-- Q3: 设置保存点（可选，主要用于 rollback）</span><br><span class="hljs-keyword">SAVEPOINT</span> sp;<br><br><span class="hljs-comment">-- Q4: 获取表结构</span><br><span class="hljs-keyword">SHOW</span> <span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> `t1`;<br><br><span class="hljs-comment">-- Q5: 获取表数据（在一致性视图下）</span><br><span class="hljs-keyword">SELECT</span> <span class="hljs-operator">*</span> <span class="hljs-keyword">FROM</span> `t1`;<br><br><span class="hljs-comment">-- Q6: 回滚到保存点（用于清理状态，通常可选）</span><br><span class="hljs-keyword">ROLLBACK</span> <span class="hljs-keyword">TO</span> <span class="hljs-keyword">SAVEPOINT</span> sp;<br><br><span class="hljs-comment">-- 最后提交事务或回滚（如果只是读取，其实可以不用提交）</span><br><span class="hljs-keyword">ROLLBACK</span>;<br></code></pre></td></tr></table></figure>
+<h3 id="查看刷盘配置-innodb-io-capacity"><a href="#查看刷盘配置-innodb-io-capacity" class="headerlink" title="查看刷盘配置 innodb_io_capacity ,"></a>查看刷盘配置 innodb_io_capacity ,</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">SHOW</span> <span class="hljs-keyword">GLOBAL</span> VARIABLES <span class="hljs-keyword">LIKE</span> <span class="hljs-string">&#x27;innodb_io_capacity&#x27;</span>;<br></code></pre></td></tr></table></figure>
+<table>
+<thead>
+<tr>
+<th>硬盘类型</th>
+<th>类型说明</th>
+<th><code>innodb_io_capacity</code></th>
+<th><code>innodb_io_capacity_max</code></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>机械硬盘（HDD）</td>
+<td>7200 RPM 普通硬盘</td>
+<td>100 ~ 200</td>
+<td>200 ~ 400</td>
+</tr>
+<tr>
+<td>SATA 固态（SSD）</td>
+<td>2.5英寸，SATA 接口</td>
+<td>300 ~ 800</td>
+<td>1000 ~ 2000</td>
+</tr>
+<tr>
+<td>M.2 NVMe 固态（高速）</td>
+<td>PCIe 3.0&#x2F;4.0 NVMe（高速 SSD）</td>
+<td>1000 ~ 2000</td>
+<td>3000 ~ 10000</td>
+</tr>
+<tr>
+<td>企业级 SSD（高IO）</td>
+<td>高端 NVMe 企业硬盘&#x2F;RAID阵列</td>
+<td>2000 ~ 4000+</td>
+<td>5000 ~ 20000+</td>
+</tr>
+</tbody></table>
 <h1 id="MySQL-中-SELECT-与-ALTER-TABLE-操作对表锁定的影响比较"><a href="#MySQL-中-SELECT-与-ALTER-TABLE-操作对表锁定的影响比较" class="headerlink" title="MySQL 中 SELECT 与 ALTER TABLE 操作对表锁定的影响比较"></a>MySQL 中 SELECT 与 ALTER TABLE 操作对表锁定的影响比较</h1><h2 id="一、SELECT-查询的表锁定行为"><a href="#一、SELECT-查询的表锁定行为" class="headerlink" title="一、SELECT 查询的表锁定行为"></a>一、SELECT 查询的表锁定行为</h2><table>
 <thead>
 <tr>
