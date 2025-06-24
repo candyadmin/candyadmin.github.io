@@ -16,22 +16,22 @@
   <meta name="author" content="candy">
   <meta name="keywords" content="">
   
-    <meta name="description" content="在 Kubernetes 中，默认情况下 pod 会在接收到 SIGTERM 信号（例如升级、删除等场景）后，立即从 Service 的负载列表中摘除（Endpoint 移除），然后再执行 preStop 钩子以及进入 terminationGracePeriodSeconds 等步骤。 你说的需求是：  在发版时，Pod 收到停止信号后，不要立即摘除它的 IP 和端口（即不立即从服务列表中剔除）">
+    <meta name="description" content="在生产环境中将流量复制（或称流量镜像、shadow traffic &#x2F; traffic mirroring）到预生产环境，是一种非常常见的预发布验证、压测、安全测试手段。 下面是一个完整的实现方案，包含多个常见做法、工具和注意事项。  🧭 一、核心目标 从生产环境获取真实请求流量 将流量同时复制一份（不影响真实用户） 发送到预生产环境的服务进行验证或压测 预生产环境的返回值不影响真实用">
 <meta property="og:type" content="article">
-<meta property="og:title" content="基于k8s实现优雅停机">
-<meta property="og:url" content="https://candyadmin.github.io/docker/%E5%9F%BA%E4%BA%8Ek8s%E5%AE%9E%E7%8E%B0%E4%BC%98%E9%9B%85%E5%81%9C%E6%9C%BA/index.html">
+<meta property="og:title" content="将生产的流量镜像到预生产环境的一些思考">
+<meta property="og:url" content="https://candyadmin.github.io/k8s/%E5%B0%86%E7%94%9F%E4%BA%A7%E7%9A%84%E6%B5%81%E9%87%8F%E9%95%9C%E5%83%8F%E5%88%B0%E9%A2%84%E7%94%9F%E4%BA%A7%E7%8E%AF%E5%A2%83%E7%9A%84%E4%B8%80%E4%BA%9B%E6%80%9D%E8%80%83/index.html">
 <meta property="og:site_name" content="点到为止">
-<meta property="og:description" content="在 Kubernetes 中，默认情况下 pod 会在接收到 SIGTERM 信号（例如升级、删除等场景）后，立即从 Service 的负载列表中摘除（Endpoint 移除），然后再执行 preStop 钩子以及进入 terminationGracePeriodSeconds 等步骤。 你说的需求是：  在发版时，Pod 收到停止信号后，不要立即摘除它的 IP 和端口（即不立即从服务列表中剔除）">
+<meta property="og:description" content="在生产环境中将流量复制（或称流量镜像、shadow traffic &#x2F; traffic mirroring）到预生产环境，是一种非常常见的预发布验证、压测、安全测试手段。 下面是一个完整的实现方案，包含多个常见做法、工具和注意事项。  🧭 一、核心目标 从生产环境获取真实请求流量 将流量同时复制一份（不影响真实用户） 发送到预生产环境的服务进行验证或压测 预生产环境的返回值不影响真实用">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2025-06-06T04:27:16.000Z">
-<meta property="article:modified_time" content="2025-06-06T04:27:45.872Z">
+<meta property="article:published_time" content="2025-06-24T07:06:47.000Z">
+<meta property="article:modified_time" content="2025-06-24T07:07:35.789Z">
 <meta property="article:author" content="candy">
-<meta property="article:tag" content="chrome">
+<meta property="article:tag" content="k8s">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>基于k8s实现优雅停机 - 点到为止</title>
+  <title>将生产的流量镜像到预生产环境的一些思考 - 点到为止</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -197,7 +197,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="基于k8s实现优雅停机"></span>
+            <span id="subtitle" data-typed-text="将生产的流量镜像到预生产环境的一些思考"></span>
           
         </div>
 
@@ -208,8 +208,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2025-06-06 12:27" pubdate>
-          2025年6月6日 中午
+        <time datetime="2025-06-24 15:06" pubdate>
+          2025年6月24日 下午
         </time>
       </span>
     
@@ -220,7 +220,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          654 字
+          892 字
         
       </span>
     
@@ -231,7 +231,7 @@
         
         
         
-          6 分钟
+          8 分钟
         
       </span>
     
@@ -268,73 +268,140 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">基于k8s实现优雅停机</h1>
+            <h1 id="seo-header">将生产的流量镜像到预生产环境的一些思考</h1>
             
             
               <div class="markdown-body">
                 
-                <p>在 Kubernetes 中，<strong>默认情况下 pod 会在接收到 <code>SIGTERM</code> 信号（例如升级、删除等场景）后，立即从 Service 的负载列表中摘除（Endpoint 移除）</strong>，然后再执行 <code>preStop</code> 钩子以及进入 <code>terminationGracePeriodSeconds</code> 等步骤。</p>
-<p>你说的需求是：</p>
-<blockquote>
-<p><strong>在发版时，Pod 收到停止信号后，不要立即摘除它的 IP 和端口（即不立即从服务列表中剔除），而是等到你主动完成一些操作（如优雅停机通知）后，再摘除。</strong></p>
-</blockquote>
-<p>这个需求在 Kubernetes 中可以通过以下几种方式实现：</p>
+                <p>在生产环境中将流量复制（或称<strong>流量镜像</strong>、<strong>shadow traffic &#x2F; traffic mirroring</strong>）到预生产环境，是一种非常常见的<strong>预发布验证、压测、安全测试手段</strong>。</p>
+<p>下面是一个完整的实现方案，包含多个常见做法、工具和注意事项。</p>
 <hr>
-<h2 id="✅-实现目标：控制-Pod-在-SIGTERM-时-延迟摘除-IP-和端口"><a href="#✅-实现目标：控制-Pod-在-SIGTERM-时-延迟摘除-IP-和端口" class="headerlink" title="✅ 实现目标：控制 Pod 在 SIGTERM 时 延迟摘除 IP 和端口"></a>✅ 实现目标：控制 Pod 在 <code>SIGTERM</code> 时 <strong>延迟摘除 IP 和端口</strong></h2><hr>
-<h2 id="🧩-方法一：使用-terminationGracePeriodSeconds-延迟摘除逻辑"><a href="#🧩-方法一：使用-terminationGracePeriodSeconds-延迟摘除逻辑" class="headerlink" title="🧩 方法一：使用 terminationGracePeriodSeconds + 延迟摘除逻辑"></a>🧩 方法一：使用 <code>terminationGracePeriodSeconds</code> + 延迟摘除逻辑</h2><p>Kubernetes 的<strong>摘除 Endpoint 行为</strong>是这样的：</p>
-<ul>
-<li>Pod 一旦进入 Terminating 状态，<strong>会立即从 Service 的 endpoints 中移除</strong></li>
-<li>并不是等 <code>preStop</code> 或 <code>terminationGracePeriodSeconds</code> 完成后才移除</li>
+<h2 id="🧭-一、核心目标"><a href="#🧭-一、核心目标" class="headerlink" title="🧭 一、核心目标"></a>🧭 一、核心目标</h2><ul>
+<li><strong>从生产环境获取真实请求流量</strong></li>
+<li><strong>将流量同时复制一份（不影响真实用户）</strong></li>
+<li><strong>发送到预生产环境的服务进行验证或压测</strong></li>
+<li><strong>预生产环境的返回值不影响真实用户</strong></li>
 </ul>
-<p>因此想“暂时保留 IP 不被摘除”——<strong>需要规避 Pod 直接进入 Terminating 状态</strong></p>
-<h3 id="🧠-核心方案：控制流量的移除时机，而不是控制-Pod-的下线时机"><a href="#🧠-核心方案：控制流量的移除时机，而不是控制-Pod-的下线时机" class="headerlink" title="🧠 核心方案：控制流量的移除时机，而不是控制 Pod 的下线时机"></a>🧠 核心方案：<strong>控制流量的移除时机，而不是控制 Pod 的下线时机</strong></h3><hr>
-<h2 id="✅-方法二：使用-Readiness-Probe-控制流量摘除时机（推荐）"><a href="#✅-方法二：使用-Readiness-Probe-控制流量摘除时机（推荐）" class="headerlink" title="✅ 方法二：使用 [Readiness Probe] 控制流量摘除时机（推荐）"></a>✅ 方法二：使用 [<strong>Readiness Probe</strong>] 控制流量摘除时机（推荐）</h2><h3 id="步骤如下："><a href="#步骤如下：" class="headerlink" title="步骤如下："></a>步骤如下：</h3><ol>
-<li>Pod 启动时设置 <code>readinessProbe</code>，只有探针通过时才参与服务</li>
-<li>停机前，在 <code>preStop</code> 阶段<strong>手动设置为 NotReady</strong>（流量会被摘除，但 Pod 仍在）</li>
-</ol>
 <hr>
-<h3 id="✅-实现方式（推荐）"><a href="#✅-实现方式（推荐）" class="headerlink" title="✅ 实现方式（推荐）"></a>✅ 实现方式（推荐）</h3><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">livenessProbe:</span><br>  <span class="hljs-attr">httpGet:</span><br>    <span class="hljs-attr">path:</span> <span class="hljs-string">/actuator/health</span><br>    <span class="hljs-attr">port:</span> <span class="hljs-number">8080</span><br>  <span class="hljs-attr">initialDelaySeconds:</span> <span class="hljs-number">10</span><br>  <span class="hljs-attr">periodSeconds:</span> <span class="hljs-number">10</span><br><br><span class="hljs-attr">readinessProbe:</span><br>  <span class="hljs-attr">httpGet:</span><br>    <span class="hljs-attr">path:</span> <span class="hljs-string">/actuator/health/readiness</span><br>    <span class="hljs-attr">port:</span> <span class="hljs-number">8080</span><br>  <span class="hljs-attr">initialDelaySeconds:</span> <span class="hljs-number">5</span><br>  <span class="hljs-attr">periodSeconds:</span> <span class="hljs-number">5</span><br></code></pre></td></tr></table></figure>
-
-<h3 id="⚙️-preStop-阶段“手动设置为不健康”"><a href="#⚙️-preStop-阶段“手动设置为不健康”" class="headerlink" title="⚙️ preStop 阶段“手动设置为不健康”"></a>⚙️ preStop 阶段“手动设置为不健康”</h3><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">lifecycle:</span><br>  <span class="hljs-attr">preStop:</span><br>    <span class="hljs-attr">exec:</span><br>      <span class="hljs-attr">command:</span><br>        <span class="hljs-bullet">-</span> <span class="hljs-string">/bin/sh</span><br>        <span class="hljs-bullet">-</span> <span class="hljs-string">-c</span><br>        <span class="hljs-bullet">-</span> <span class="hljs-string">|</span><br><span class="hljs-string">          echo &quot;Notifying service to stop sending traffic&quot;</span><br><span class="hljs-string">          curl -X POST http://localhost:8080/shutdown-hook</span><br><span class="hljs-string">          sleep 30  # 等待流量转移 + 优雅停机</span><br></code></pre></td></tr></table></figure>
-
-<p>在 Spring Boot 中可以结合 actuator 管理健康状态：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@RestController</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">ShutdownController</span> &#123;<br><br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> ApplicationAvailability availability;<br><br>    <span class="hljs-meta">@Autowired</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-title function_">ShutdownController</span><span class="hljs-params">(ApplicationAvailability availability)</span> &#123;<br>        <span class="hljs-built_in">this</span>.availability = availability;<br>    &#125;<br><br>    <span class="hljs-meta">@PostMapping(&quot;/shutdown-hook&quot;)</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">shutdown</span><span class="hljs-params">()</span> &#123;<br>        <span class="hljs-comment">// 手动设置为不可用（也可以切换 readiness probe 的状态）</span><br>        <span class="hljs-comment">// 若使用 spring-boot-actuator 2.3+ 可切换 Readiness</span><br>        System.out.println(<span class="hljs-string">&quot;Application is preparing to shutdown...&quot;</span>);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
-
-<hr>
-<h2 id="❗-为什么不能“阻止-IP-被摘除”"><a href="#❗-为什么不能“阻止-IP-被摘除”" class="headerlink" title="❗ 为什么不能“阻止 IP 被摘除”"></a>❗ 为什么不能“阻止 IP 被摘除”</h2><p>K8s 的 Endpoint Controller 一旦发现 Pod 是 Terminating 状态（即使你还在 <code>preStop</code> 和 <code>terminationGracePeriodSeconds</code> 里），就会从 Service 中移除 Endpoint（也就是从 DNS 或网关负载中摘除 IP）。</p>
-<blockquote>
-<p>所以，要想“发版时不立即摘掉 IP”，你要避免一开始就让 Pod 进入 Terminating，而是<strong>先标记为 NotReady</strong>，等处理完毕再删除 Pod。</p>
-</blockquote>
-<hr>
-<h2 id="✅-总结推荐配置"><a href="#✅-总结推荐配置" class="headerlink" title="✅ 总结推荐配置"></a>✅ 总结推荐配置</h2><table>
+<h2 id="🧰-二、可选方案汇总（推荐方式在前）"><a href="#🧰-二、可选方案汇总（推荐方式在前）" class="headerlink" title="🧰 二、可选方案汇总（推荐方式在前）"></a>🧰 二、可选方案汇总（推荐方式在前）</h2><table>
 <thead>
 <tr>
-<th>项目</th>
-<th>推荐配置</th>
+<th>方法</th>
+<th>是否推荐</th>
+<th>说明</th>
 </tr>
 </thead>
 <tbody><tr>
-<td><code>readinessProbe</code></td>
-<td>用于控制服务是否接受流量</td>
+<td>✅ <strong>使用服务网关流量镜像功能（如 Envoy、Istio）</strong></td>
+<td>⭐⭐⭐⭐</td>
+<td>自动镜像请求，业界主流做法</td>
 </tr>
 <tr>
-<td><code>preStop</code> hook</td>
-<td>优雅通知微服务关闭，并 sleep 等待</td>
+<td>✅ <strong>使用 Nginx + mirror 模块</strong></td>
+<td>⭐⭐⭐</td>
+<td>简单可靠，适用于中小项目</td>
 </tr>
 <tr>
-<td><code>terminationGracePeriodSeconds</code></td>
-<td>设置为 ≥ <code>preStop</code> 脚本耗时，例如 60s</td>
+<td>✅ <strong>代码层拦截 &amp; 异步复制（如 Spring Gateway Filter）</strong></td>
+<td>⭐⭐</td>
+<td>可控性强，但开发成本高</td>
 </tr>
 <tr>
-<td><code>Spring Boot readiness endpoint</code></td>
-<td>建议使用 actuator + readiness 实现接口健康状态动态切换</td>
+<td>❌ <strong>通过日志回放&#x2F;抓包再重放</strong></td>
+<td>⭐</td>
+<td>不是真实“实时”流量，仅适用于离线分析</td>
 </tr>
 </tbody></table>
 <hr>
-<h3 id="💡-示例完整配置片段"><a href="#💡-示例完整配置片段" class="headerlink" title="💡 示例完整配置片段"></a>💡 示例完整配置片段</h3><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">spec:</span><br>  <span class="hljs-attr">containers:</span><br>    <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">trade</span><br>      <span class="hljs-attr">image:</span> <span class="hljs-string">trade:latest</span><br>      <span class="hljs-attr">lifecycle:</span><br>        <span class="hljs-attr">preStop:</span><br>          <span class="hljs-attr">exec:</span><br>            <span class="hljs-attr">command:</span><br>              <span class="hljs-bullet">-</span> <span class="hljs-string">/bin/sh</span><br>              <span class="hljs-bullet">-</span> <span class="hljs-string">-c</span><br>              <span class="hljs-bullet">-</span> <span class="hljs-string">|</span><br><span class="hljs-string">                curl -X POST http://localhost:8080/shutdown-hook</span><br><span class="hljs-string">                sleep 30</span><br><span class="hljs-string"></span>      <span class="hljs-attr">readinessProbe:</span><br>        <span class="hljs-attr">httpGet:</span><br>          <span class="hljs-attr">path:</span> <span class="hljs-string">/actuator/health/readiness</span><br>          <span class="hljs-attr">port:</span> <span class="hljs-number">8080</span><br>        <span class="hljs-attr">initialDelaySeconds:</span> <span class="hljs-number">5</span><br>        <span class="hljs-attr">periodSeconds:</span> <span class="hljs-number">5</span><br>  <span class="hljs-attr">terminationGracePeriodSeconds:</span> <span class="hljs-number">60</span><br></code></pre></td></tr></table></figure>
+<h2 id="🧩-三、主流方式详解"><a href="#🧩-三、主流方式详解" class="headerlink" title="🧩 三、主流方式详解"></a>🧩 三、主流方式详解</h2><hr>
+<h3 id="✅-方式一：Envoy-Istio-流量镜像（推荐）"><a href="#✅-方式一：Envoy-Istio-流量镜像（推荐）" class="headerlink" title="✅ 方式一：Envoy &#x2F; Istio 流量镜像（推荐）"></a>✅ 方式一：<strong>Envoy &#x2F; Istio 流量镜像（推荐）</strong></h3><p>适用于微服务、Kubernetes、服务网格环境。</p>
+<h4 id="示例配置（Envoy）"><a href="#示例配置（Envoy）" class="headerlink" title="示例配置（Envoy）"></a>示例配置（Envoy）</h4><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">http_filters:</span><br><span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">envoy.filters.http.router</span><br>  <span class="hljs-attr">typed_config:</span><br>    <span class="hljs-string">&quot;@type&quot;</span><span class="hljs-string">:</span> <span class="hljs-string">type.googleapis.com/envoy.extensions.filters.http.router.v3.Router</span><br>    <span class="hljs-attr">shadow_policy:</span><br>      <span class="hljs-attr">cluster:</span> <span class="hljs-string">mirror-preprod</span><br>      <span class="hljs-attr">runtime_fraction:</span><br>        <span class="hljs-attr">default_value:</span><br>          <span class="hljs-attr">numerator:</span> <span class="hljs-number">100</span><br>          <span class="hljs-attr">denominator:</span> <span class="hljs-string">HUNDRED</span><br></code></pre></td></tr></table></figure>
 
+<p>说明：</p>
+<ul>
+<li>请求发往主 cluster（生产）</li>
+<li>同时 shadow 一份给 <code>mirror-preprod</code>（预发布）</li>
+</ul>
 <hr>
-<p>如你想结合 Spring Boot actuator 做动态健康状态切换（比如调用 <code>/actuator/health/readiness</code> 返回 <code>DOWN</code> 状态）。</p>
+<h3 id="✅-方式二：Nginx-mirror-模块"><a href="#✅-方式二：Nginx-mirror-模块" class="headerlink" title="✅ 方式二：Nginx mirror 模块"></a>✅ 方式二：<strong>Nginx <code>mirror</code> 模块</strong></h3><p>适合非服务网格场景，只要你在入口使用的是 Nginx 就能支持。</p>
+<h4 id="示例配置："><a href="#示例配置：" class="headerlink" title="示例配置："></a>示例配置：</h4><figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs nginx"><span class="hljs-section">server</span> &#123;<br>    <span class="hljs-attribute">listen</span> <span class="hljs-number">80</span>;<br><br>    <span class="hljs-section">location</span> / &#123;<br>        <span class="hljs-attribute">mirror</span> /mirror;<br>        <span class="hljs-attribute">mirror_request_body</span> <span class="hljs-literal">on</span>;<br><br>        <span class="hljs-attribute">proxy_pass</span> http://prod_backend;<br>    &#125;<br><br>    <span class="hljs-section">location</span> = /mirror &#123;<br>        internal;<br>        <span class="hljs-attribute">proxy_pass</span> http://preprod_backend;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>说明：</p>
+<ul>
+<li><code>mirror</code> 指令会将请求复制给 <code>/mirror</code> 路径</li>
+<li>通过 <code>internal</code> 不影响正常响应</li>
+</ul>
+<hr>
+<h3 id="✅-方式三：代码层拦截-异步复制（Spring-Gateway、Filter等）"><a href="#✅-方式三：代码层拦截-异步复制（Spring-Gateway、Filter等）" class="headerlink" title="✅ 方式三：代码层拦截 + 异步复制（Spring Gateway、Filter等）"></a>✅ 方式三：<strong>代码层拦截 + 异步复制（Spring Gateway、Filter等）</strong></h3><p>适合你自己控制网关&#x2F;服务逻辑时使用。</p>
+<h4 id="Spring-Gateway-示例（伪代码）："><a href="#Spring-Gateway-示例（伪代码）：" class="headerlink" title="Spring Gateway 示例（伪代码）："></a>Spring Gateway 示例（伪代码）：</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">TrafficMirrorFilter</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">GlobalFilter</span> &#123;<br>    <span class="hljs-keyword">public</span> Mono&lt;Void&gt; <span class="hljs-title function_">filter</span><span class="hljs-params">(ServerWebExchange exchange, GatewayFilterChain chain)</span> &#123;<br>        <span class="hljs-comment">// 复制请求</span><br>        <span class="hljs-type">HttpRequest</span> <span class="hljs-variable">originalRequest</span> <span class="hljs-operator">=</span> exchange.getRequest();<br>        sendAsyncToPreProd(originalRequest);<br>        <span class="hljs-keyword">return</span> chain.filter(exchange);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>注意：</p>
+<ul>
+<li>要 <strong>异步发送</strong>，不能阻塞主请求</li>
+<li>可使用 <code>WebClient</code>、<code>HttpClient</code> 等发往预发布地址</li>
+</ul>
+<hr>
+<h2 id="🛑-注意事项"><a href="#🛑-注意事项" class="headerlink" title="🛑 注意事项"></a>🛑 注意事项</h2><table>
+<thead>
+<tr>
+<th>事项</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>不应影响主业务</td>
+<td>镜像流量<strong>不能影响</strong>生产系统响应</td>
+</tr>
+<tr>
+<td>不应对预发布写入数据</td>
+<td>如果是下单&#x2F;删除类操作，要避免在预发布环境<strong>真的执行</strong></td>
+</tr>
+<tr>
+<td>考虑敏感信息保护</td>
+<td>请求中可能包含用户 token、手机号等，要做脱敏或隔离</td>
+</tr>
+<tr>
+<td>QPS 限流</td>
+<td>预发布环境性能较低，需做限流或镜像比例控制</td>
+</tr>
+<tr>
+<td>日志区分</td>
+<td>镜像请求日志要能明显区分，以免干扰监控&#x2F;告警</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="✅-推荐实施步骤"><a href="#✅-推荐实施步骤" class="headerlink" title="✅ 推荐实施步骤"></a>✅ 推荐实施步骤</h2><ol>
+<li><p><strong>网关接入层选型</strong></p>
+<ul>
+<li>如果你有 API Gateway（如 Kong、Nginx、Istio、Envoy）→ 推荐用网关层做镜像</li>
+</ul>
+</li>
+<li><p><strong>选定目标镜像路径</strong></p>
+<ul>
+<li>一般是 <code>/api/**</code> 类接口，但不包括登录、上传大文件等</li>
+</ul>
+</li>
+<li><p><strong>开启灰度镜像（比例复制）</strong></p>
+<ul>
+<li>初期可设置 10% 流量镜像，避免打垮预发布</li>
+</ul>
+</li>
+<li><p><strong>在预发布环境配置完整监控</strong></p>
+<ul>
+<li>确保响应时间、错误率、业务一致性能追踪</li>
+</ul>
+</li>
+<li><p><strong>观察一段时间后扩大镜像比例或做回归测试</strong></p>
+</li>
+</ol>
+<hr>
+<h2 id="🎯-实战建议"><a href="#🎯-实战建议" class="headerlink" title="🎯 实战建议"></a>🎯 实战建议</h2><ul>
+<li>如果你在使用 <strong>K8s</strong> 或微服务架构：优先考虑 Envoy &#x2F; Istio 实现</li>
+<li>如果你用的是 <strong>Nginx 接入层</strong>：可优先尝试 <code>mirror</code> 模块</li>
+<li>如果你想要 <strong>精细控制、低流量镜像</strong>：代码级实现最灵活</li>
+</ul>
+<hr>
+<p>如你告诉我你当前系统是基于什么架构（Spring Boot？K8s？Nginx？API Gateway？），我可以为你定制一套镜像流量配置模板或代码方案。是否需要？</p>
 
                 
               </div>
@@ -353,7 +420,7 @@
     
       <span class="category-chain">
         
-  <a href="/categories/k8s/" class="category-chain-item">k8s</a>
+  <a href="/categories/%E7%94%9F%E4%BA%A7%E7%8E%AF%E5%A2%83/" class="category-chain-item">生产环境</a>
   
   
 
@@ -368,7 +435,7 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/chrome/" class="print-no-link">#chrome</a>
+        <a href="/tags/k8s/" class="print-no-link">#k8s</a>
       
     </div>
   
@@ -380,8 +447,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>基于k8s实现优雅停机</div>
-      <div>https://candyadmin.github.io/docker/基于k8s实现优雅停机/</div>
+      <div>将生产的流量镜像到预生产环境的一些思考</div>
+      <div>https://candyadmin.github.io/k8s/将生产的流量镜像到预生产环境的一些思考/</div>
     </div>
     <div class="license-meta">
       
@@ -393,7 +460,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2025年6月6日</div>
+          <div>2025年6月24日</div>
         </div>
       
       
@@ -425,18 +492,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/k8s/%E5%B0%86%E7%94%9F%E4%BA%A7%E7%9A%84%E6%B5%81%E9%87%8F%E9%95%9C%E5%83%8F%E5%88%B0%E9%A2%84%E7%94%9F%E4%BA%A7%E7%8E%AF%E5%A2%83%E7%9A%84%E4%B8%80%E4%BA%9B%E6%80%9D%E8%80%83/" title="将生产的流量镜像到预生产环境的一些思考">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">将生产的流量镜像到预生产环境的一些思考</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/mysql/mysql%E5%BC%82%E5%B8%B8%E6%8E%92%E6%9F%A5sql/" title="mysql异常排查sql">
-                        <span class="hidden-mobile">mysql异常排查sql</span>
+                      <a href="/docker/%E5%9F%BA%E4%BA%8Ek8s%E5%AE%9E%E7%8E%B0%E4%BC%98%E9%9B%85%E5%81%9C%E6%9C%BA/" title="基于k8s实现优雅停机">
+                        <span class="hidden-mobile">基于k8s实现优雅停机</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
@@ -455,9 +516,9 @@
     <div id="cusdis_thread"
       data-host="https://cusdis.com"
       data-app-id="734976ba-6b52-4980-ac19-811b035f8fe6"
-      data-page-id="dad78f28e80f86ef33a06c6c41a7df64"
-      data-page-url="docker/基于k8s实现优雅停机/"
-      data-page-title="基于k8s实现优雅停机"
+      data-page-id="4ada685c6bd45f78fc787679c61db4a1"
+      data-page-url="k8s/将生产的流量镜像到预生产环境的一些思考/"
+      data-page-title="将生产的流量镜像到预生产环境的一些思考"
       data-theme="auto"
     >
     </div>
