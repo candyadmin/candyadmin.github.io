@@ -1,0 +1,736 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"><title>iPhone实现通话录音不提示AirBeep | 点到为止</title><meta name="keywords" content="iPhone"><meta name="author" content="candy"><meta name="copyright" content="candy"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#f7f9fe"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-touch-fullscreen" content="yes"><meta name="apple-mobile-web-app-title" content="iPhone实现通话录音不提示AirBeep"><meta name="application-name" content="iPhone实现通话录音不提示AirBeep"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="#f7f9fe"><meta property="og:type" content="article"><meta property="og:title" content="iPhone实现通话录音不提示AirBeep"><meta property="og:url" content="https://candyadmin.github.io/%E9%BB%91%E5%AE%A2/iPhone%E5%AE%9E%E7%8E%B0%E9%80%9A%E8%AF%9D%E5%BD%95%E9%9F%B3%E4%B8%8D%E6%8F%90%E7%A4%BAAirBeep/index.html"><meta property="og:site_name" content="点到为止"><meta property="og:description" content="AirBeep（iOS 27.0）逐步引导安装教程：Mac + iLoader + SideStore 用途与限制： 本教程按“每次只做一步、完成后检查结果”的方式整理，用于安装、配对和维护 AirBeep。AirBeep 官方说明该工具会替换 iOS 内置的通话录音开始&amp;#x2F;结束提示音；这可"><meta property="og:locale" content="zh-CN"><meta property="og:image" content="https://bu.dusays.com/2023/04/27/64496e511b09c.jpg"><meta property="article:author" content="candy"><meta property="article:tag"><meta name="twitter:card" content="summary"><meta name="twitter:image" content="https://bu.dusays.com/2023/04/27/64496e511b09c.jpg"><meta name="description" content="AirBeep（iOS 27.0）逐步引导安装教程：Mac + iLoader + SideStore 用途与限制： 本教程按“每次只做一步、完成后检查结果”的方式整理，用于安装、配对和维护 AirBeep。AirBeep 官方说明该工具会替换 iOS 内置的通话录音开始&amp;#x2F;结束提示音；这可"><link rel="shortcut icon" href="/favicon.ico"><link rel="canonical" href="https://candyadmin.github.io/%E9%BB%91%E5%AE%A2/iPhone%E5%AE%9E%E7%8E%B0%E9%80%9A%E8%AF%9D%E5%BD%95%E9%9F%B3%E4%B8%8D%E6%8F%90%E7%A4%BAAirBeep/"><link rel="preconnect" href="//cdn.cbd.int"/><meta name="google-site-verification" content="xxx"/><meta name="baidu-site-verification" content="code-xxx"/><meta name="msvalidate.01" content="xxx"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.cbd.int/node-snackbar@0.1.16/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.cbd.int/@fancyapps/ui@5.0.28/dist/fancybox/fancybox.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  linkPageTop: undefined,
+  peoplecanvas: {"enable":true,"img":"https://upload-bbs.miyoushe.com/upload/2024/07/27/125766904/ba62475f396df9de3316a08ed9e65d86_5680958632268053399..png"},
+  postHeadAiDescription: {"enable":true,"gptName":"AnZhiYu","mode":"local","switchBtn":false,"btnLink":"https://afdian.net/item/886a79d4db6711eda42a52540025c377","randomNum":3,"basicWordCount":1000,"key":"xxxx","Referer":"https://xx.xx/"},
+  diytitle: {"enable":true,"leaveTitle":"w(ﾟДﾟ)w 不要走！再看看嘛！","backTitle":"♪(^∇^*)欢迎肥来！"},
+  LA51: undefined,
+  greetingBox: {"enable":true,"default":"晚上好👋","list":[{"greeting":"晚安😴","startTime":0,"endTime":5},{"greeting":"早上好鸭👋, 祝你一天好心情！","startTime":6,"endTime":9},{"greeting":"上午好👋, 状态很好，鼓励一下～","startTime":10,"endTime":10},{"greeting":"11点多啦, 在坚持一下就吃饭啦～","startTime":11,"endTime":11},{"greeting":"午安👋, 宝贝","startTime":12,"endTime":14},{"greeting":"🌈充实的一天辛苦啦！","startTime":14,"endTime":18},{"greeting":"19点喽, 奖励一顿丰盛的大餐吧🍔。","startTime":19,"endTime":19},{"greeting":"晚上好👋, 在属于自己的时间好好放松😌~","startTime":20,"endTime":24}]},
+  twikooEnvId: '',
+  commentBarrageConfig:undefined,
+  music_page_default: "nav_music",
+  root: '/',
+  preloader: {"source":3},
+  friends_vue_info: undefined,
+  navMusic: true,
+  mainTone: {"mode":"api","api":"https://img2color-go.vercel.app/api?img=","cover_change":true},
+  authorStatus: {"skills":["🤖️ 数码科技爱好者","🔍 分享与热心帮助","🏠 智能家居小能手","🔨 设计开发一条龙","🤝 专修交互与设计","🏃 脚踏实地行动派","🧱 团队小组发动机","💢 壮汉人狠话不多"]},
+  algolia: undefined,
+  localSearch: undefined,
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"简","rightMenuMsgToTraditionalChinese":"转为繁体","rightMenuMsgToSimplifiedChinese":"转为简体"},
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":330},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    simplehomepage: true,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"copy":true,"copyrightEbable":false,"limitCount":50,"languages":{"author":"作者: candy","link":"链接: ","source":"来源: 点到为止","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。","copySuccess":"复制成功，复制和转载请标注本文地址"}},
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#425AEF","bgDark":"#1f1f1f","position":"top-center"},
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.cbd.int/flickr-justified-gallery@2.1.2/dist/fjGallery.min.js',
+      css: 'https://cdn.cbd.int/flickr-justified-gallery@2.1.2/dist/fjGallery.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isAnchor: false,
+  shortcutKey: undefined,
+  autoDarkmode: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  configTitle: '点到为止',
+  title: 'iPhone实现通话录音不提示AirBeep',
+  postAI: '',
+  pageFillDescription: 'AirBeep（iOS 27.0）逐步引导安装教程：Mac + iLoader + SideStore, 流程总览, 第 1 步：在 Mac 上下载并安装 iLoader, 这一阶段的目标, 操作, 完成检查, 如果出现安全警告, 第 2 步：用 USB 将 iPhone 连接到 Mac, 操作, 完成检查, 如果 Finder 没有显示 iPhone, 第 3 步：在 iLoader 中选择 iPhone, 操作, 关于 Apple 账户登录, 操作, 完成检查, 第 4 步：通过 iLoader 安装 SideStore, 操作, 完成检查, 如果安装失败, 第 5 步：首次打开 SideStore并处理系统信任提示, 操作, 完成检查, 如果要求开启开发者模式, 第 6 步：开启 iPhone 开发者模式（如果系统要求）, 操作, 完成检查, 安全提醒, 第 7 步：连接 LocalDevVPN, 操作, 完成检查, 如果连接失败, 第 8 步：完成 SideStore 首次设置与刷新, 操作, 完成检查, 如果 SideStore 要求登录但你不确定登录页面是否可信, 第 9 步：从 AirBeep 官方发布页下载 IPA, 操作, 完成检查, 如果 Assets 中找不到 IPA, 第 10 步：用 SideStore 导入并安装 AirBeep, 操作, 完成检查, 如果无法选中 IPA, 如果签名或安装失败, 第 11 步：首次打开 AirBeep, 操作, 完成检查, 版本提醒, 第 12 步：按应用提示完成配对, 操作, 完成检查, 如果开发者模式中没有出现 Pair with AirBeep, 如果配对后无法继续, 第 13 步：日常维护与常见影响, SideStore 与签名有效期, LocalDevVPN, 开发者模式, 卸载应用, 第 14 步：恢复系统原始提示音与故障处理, 故障排查速查表, 重要的隐私与法律提醒, 官方链接汇总逐步引导安装教程用途与限制本教程按每次只做一步完成后检查结果的方式整理用于安装配对和维护官方说明该工具会替换内置的通话录音开始结束提示音这可能影响通话参与者是否会被告知录音正在进行因此本文不提供关闭或规避录音提示音的操作步骤请遵守所在地法律并在适用时事先告知参与者取得必要同意若要恢复系统原始提示音请参阅文末的恢复说明本文根据一次实际流程整理设备环境为电脑已安装已安装通过安装通过导入安装官方资源仓库最新发布页官方仓库安装文档前置条件下载前请重新查看官方发布说明和支持系统范围依赖非公开的系统行为更新后兼容性可能变化官方仓库说明的支持范围可能随版本调整流程总览建议按以下顺序完成每一步成功后再继续在上核实并安装通过连接并让识别手机用将安装到在上信任开发者应用如系统提示并按要求开启开发者模式连接首次打开并刷新从官方下载兼容的在中导入并完成安装打开按界面提示完成配对验证应用能够正常打开并检查维护与恢复方法第步在上下载并安装这一阶段的目标让上有可运行的应用请只从项目声明的官方来源下载操作在上打开或你常用的浏览器访问官方仓库在仓库页面找到打开最新的正式发布在下载文件列表通常名为中选择适用于的安装包不要下载源码压缩包来代替安装包下载完成后打开安装包并按显示的步骤完成安装在应用程序文件夹或启动台中找到并打开完成检查能正常启动下载来源确认为官方仓库或官方网站如果出现安全警告先停止操作核对下载来源和发布说明不要因为想继续安装就盲目绕过的安全保护也不要运行来源不明的脚本或安装器第步用将连接到操作用支持数据传输的数据线连接和仅支持充电的线可能无法完成连接解锁并保持屏幕处于解锁状态如果弹出信任此电脑先确认这是你自己的再点击信任按提示输入的锁屏密码在上打开查看左侧边栏的位置确认是否出现名称完成检查的位置下能看到如果没有显示确认手机已经解锁拔下数据线再插一次或换一个端口如果没有弹出信任提示先重新连接并检查手机屏幕仍然无法识别时不要继续安装先排查数据线端口和电脑识别问题第步在中选择操作确认仍与保持连接打开在设备列表中找到自己的并点击选中检查设备名称确认不是其他设备关于账户登录的官方安装指南包含账户登录步骤登录前请确认你下载的是官方版本你理解该登录流程并愿意承担第三方工具处理账户认证信息的风险绝不向任何人分享密码或双重认证验证码使用他人的账户前应获得账户所有者明确许可更稳妥的选择是使用自己控制的账户不要使用来路不明的共享账户如果登录页面域名或提示与官方说明不符请暂停不要输入密码操作只有在确认来源和登录流程可信后才按的界面完成所需登录如果界面要求选择安装动作继续到下一步完成检查能识别且界面中可以选择安装的操作第步通过安装操作在中确认选中的是自己的找到安装稳定版选项点击该选项阅读显示的提示再按界面要求继续等待安装结束安装期间不要拔掉数据线也不要关闭安装完成后在主屏幕或资源库中查找图标完成检查显示安装完成上能找到图标如果安装失败记录完整错误信息不要只记失败检查连接是否稳定核对是否为官方版本可查阅官方仓库的故障排查说明不要下载陌生网站提供的修复版第步首次打开并处理系统信任提示操作拔线前先确认已完成安装之后可以拔掉线在主屏幕点开如果系统提示开发者应用尚未受信任打开的设置根据当前界面查找通用与设备管理或系统提示中的开发者应用入口在开发者下找到与本次安装对应的开发者项目确认这是刚刚安装时使用的项目后再点信任或系统提供的相应选项返回主屏幕再尝试打开完成检查可以打开并显示主界面如果要求开启开发者模式按第步继续若提示文字与这里不同先记录提示不要随意删除开发者条目第步开启开发者模式如果系统要求操作在打开设置进入隐私与安全性向下滚动查找开发者模式打开开发者模式开关按系统提示点击重新启动手机重启后解锁如果屏幕再次询问是否启用开发者模式阅读提示后点击启用并按要求输入锁屏密码重启完成后再次打开完成检查开发者模式显示为开启能打开安全提醒开发者模式会降低部分安全防护仅在你确实需要运行自行侧载的应用时开启不要把开发者模式页面中不认识的项目直接删除若看到类似的项目先核对来源和用途第步连接官方说明安装更新或刷新侧载应用时需要启用其配套的本地操作在上找到并打开点击应用中的连接开关或按钮如果显示允许添加配置确认操作由你刚打开的发起后点击允许按系统要求输入锁屏密码或通过验证返回等待状态显示为已连接如有需要也可在设置查看连接状态完成检查显示已连接可以正常使用网络如果连接失败先查看的具体错误提示确认已连接且网络能够访问互联网不要安装陌生人提供的配置文件在尚未连接时不要反复执行刷新操作第步完成首次设置与刷新操作确保处于已连接状态打开如果要求使用账户登录按照官方安装流程使用与安装时相符的账户完成登录进入我的应用页面找到自身的应用条目如果条目右侧显示或剩余有效期计数点击该计数以执行刷新如果出现创建或撤销签名证书立即刷新等提示先阅读内容并确认这是预期的系统流程再按界面提示继续等待刷新操作结束过程中保持连接不要强制关闭完成检查回到主界面且没有新的错误提示中显示条目及其有效期信息如果要求登录但你不确定登录页面是否可信暂停不要输入密码先确认应用版本登录页面说明和官方文档页面在应用内部并不等于凭据绝对安全不要将密码验证码或会话信息发给任何人第步从官方发布页下载操作在上打开访问官方发布页查看最上方的最新正式版本和发行说明确认版本支持你的版本不要只根据版本号猜测兼容性展开该版本下方的找到以结尾的安装文件发布页可能提供名称中带的侧载流程通常需要对其进行签名点击文件下载并等待下载完成打开文件进入浏览下载项或下载列表所对应的位置确认文件名以结尾且下载没有显示为未完成完成检查在文件中找到了的如果中找不到重新展开查看发行说明确认该版本是否提供不要从第三方网盘或不明链接下载替代文件第步用导入并安装操作先确认仍然连接打开找到添加应用入口不同版本的界面可能不同通常在应用列表或页面中会有添加应用或导入的选项点击添加导入入口在文件选择器中进入浏览下载项选择刚才下载的文件确认选择的文件名与下载文件一致按界面提示开始签名和安装等待操作结束保持连接不要强制退出返回主屏幕查看是否出现图标完成检查没有显示安装错误主屏幕上能看到如果无法选中在文件中确认下载完成确认选择器打开的是文件而不是照片或其他位置再次从的添加导入应用入口进入文件选择器如果签名或安装失败记录完整报错内容检查是否连接检查的有效期刷新状态不要在短时间内连续重复签名也不要为解决问题而向陌生网站提交账户信息第步首次打开操作回到主屏幕点击图标等待应用进入主界面如果弹出系统提示先阅读提示确认与刚安装的应用有关后再处理如果应用无法打开记录完整提示不要立刻删除应用或重新设置手机完成检查能显示主界面没有无法验证应用应用不可用或其他错误提示版本提醒官方仓库说明它使用非公开的系统行为兼容性可能随版本改变遇到系统升级或异常时先查阅最新和发行说明第步按应用提示完成配对本步骤只说明如何完成设备配对不涉及关闭通话录音提示音的开关操作操作确认已正常打开在主界面查看是否有配对入口或开始配对按钮点击开始配对如果系统切换到设置按屏幕提示进入设置隐私与安全性开发者模式或系统指定的配对界面查看界面是否出现如果出现该项目确认它对应的是你刚刚打开的再按系统提示继续如果系统要求确认配对或输入手机锁屏密码仔细阅读提示后再操作如果显示配对码只在自己的设备间按应用提示输入不要把配对码发送给其他人等待系统或应用提示配对完成返回确认是否显示配对成功完成检查系统完成配对返回后没有出现配对错误如果开发者模式中没有出现不要点击或删除不认识的开发者项目返回主屏幕重新打开再查看是否仍正常打开以及界面是否仍显示配对入口按的当前界面提示重新发起一次配对请求如果仍然没有出现记录版本版本和界面提示并查阅官方发行说明不要重置手机或删除其他开发者项目来碰运气如果配对后无法继续查看是否出现具体错误确认安装版本与系统版本兼容如果项目提供日志导出功能可按官方说明导出日志但不要公开包含个人信息的日志文件第步日常维护与常见影响与签名有效期需要安装更新或刷新侧载应用时先确认已连接打开并进入查看和其他侧载应用的有效期状态如果剩余时间不足按官方说明刷新应用如刷新失败记录完整错误再按照官方排查流程处理卸载并不一定会立即删除已安装的应用但之后你可能无法通过它刷新签名签名过期后应用可能无法打开是安装更新和刷新流程所需的本地组件不要在刷新侧载应用时随意关闭它本身在每种情况下是否依赖此连接应以当前版本的官方说明和实际表现为准开发者模式关闭开发者模式可能影响依赖开发者功能或配对机制的应用如果是你的工作流程所需先查看官方说明再决定是否关闭重新开启开发者模式也不保证所有问题会自动修复卸载应用卸载提供的功能将无法继续通过该应用使用卸载可能影响之后刷新或重新安装侧载应用卸载可能影响的刷新流程上的安装完成后通常不需要一直运行但之后维护设备或重新安装时可能用得到第步恢复系统原始提示音与故障处理官方仓库说明应用会在首次修改前备份原始提示音并提供恢复原始文件的能力如果你需要恢复系统原始提示音打开阅读应用界面当前显示的状态和操作说明选择应用明确标注为恢复还原原始提示音的操作具体按钮名称以当前版本为准操作过程中不要退出应用等待它明确提示完成如果提示音异常停止继续操作并查阅官方故障排查说明如果无法正常打开或恢复失败不要删除备份文件或手动覆盖系统文件查看的关于页面是否提供日志导出查阅官方仓库的发行说明和提交问题前移除日志中可能存在的个人信息设备标识和账户信息故障排查速查表现象先检查什么不建议做什么看不到数据线端口手机是否解锁是否信任不要继续安装步骤直到识别恢复看不到设备是否识别是否官方版本不要下载陌生的修复工具要求登录应用来源官方登录说明账户是否由自己控制不要在不明界面输入密码或共享验证码无法刷新应用有效期不要连续反复刷新或随意撤销证书无法导入文件是否完整扩展名是否为是否正常不要使用来历不明的无法打开签名有效期系统兼容性完整错误信息不要立即重置手机找不到是否正常打开版本与系统兼容性不要随意删除不认识的开发者项目配对后运行异常当前发行说明应用日志系统版本不要手动改写系统文件重要的隐私与法律提醒通话录音及录音提示要求因地区而异官方明确提醒更改录音披露音可能影响其他参与者是否会被告知通话正在录音请仅在当地法律允许并已完成所需告知和同意的情况下使用通话录音功能不要把本教程用于秘密录音或规避他人的知情权官方链接汇总项目主页官方仓库中文安装文档中文前置条件',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2026-10-12 10:41:37',
+  postMainColor: '',
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#18171d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#f7f9fe')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+          const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+          const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+          const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+          if (t === undefined) {
+            if (isLightMode) activateLightMode()
+            else if (isDarkMode) activateDarkMode()
+            else if (isNotSpecified || hasNoSupport) {
+              const now = new Date()
+              const hour = now.getHours()
+              const isNight = hour <= 6 || hour >= 18
+              isNight ? activateDarkMode() : activateLightMode()
+            }
+            window.matchMedia('(prefers-color-scheme: dark)').addListener(e => {
+              if (saveToLocal.get('theme') === undefined) {
+                e.matches ? activateDarkMode() : activateLightMode()
+              }
+            })
+          } else if (t === 'light') activateLightMode()
+          else activateDarkMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 7.3.0"></head><body data-type="anzhiyu"><div id="web_bg"></div><div id="an_music_bg"></div><div id="loading-box" onclick="document.getElementById(&quot;loading-box&quot;).classList.add(&quot;loaded&quot;)"><div class="loading-bg"><img class="loading-img nolazyload" alt="加载头像" src="https://npm.elemecdn.com/anzhiyu-blog-static@1.0.4/img/avatar.jpg"/><div class="loading-image-dot"></div></div></div><script>const preloader = {
+  endLoading: () => {
+    document.getElementById('loading-box').classList.add("loaded");
+  },
+  initLoading: () => {
+    document.getElementById('loading-box').classList.remove("loaded")
+  }
+}
+window.addEventListener('load',()=> { preloader.endLoading() })
+setTimeout(function(){preloader.endLoading();},10000)
+
+if (true) {
+  document.addEventListener('pjax:send', () => { preloader.initLoading() })
+  document.addEventListener('pjax:complete', () => { preloader.endLoading() })
+}</script><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.1.10/progress_bar/progress_bar.css"/><script async="async" src="https://cdn.cbd.int/pace-js@1.2.4/pace.min.js" data-pace-options="{ &quot;restartOnRequestAfter&quot;:false,&quot;eventLag&quot;:false}"></script><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><div id="nav-group"><span id="blog_name"><div class="back-home-button"><i class="anzhiyufont anzhiyu-icon-grip-vertical"></i><div class="back-menu-list-groups"><div class="back-menu-list-group"><div class="back-menu-list-title">网页</div><div class="back-menu-list"><a class="back-menu-item" href="https://candyadmin.github.io/" title="博客"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/favicon.ico" alt="博客"/><span class="back-menu-item-text">博客</span></a></div></div></div></div><a id="site-name" href="/" accesskey="h"><div class="title">点到为止</div><i class="anzhiyufont anzhiyu-icon-house-chimney"></i></a><div id="he-plugin-simple"></div><script>var WIDGET = {
+  "CONFIG": {
+    "modules": "0124",
+    "background": "2",
+    "tmpColor": "FFFFFF",
+    "tmpSize": "16",
+    "cityColor": "FFFFFF",
+    "citySize": "16",
+    "aqiColor": "E8D87B",
+    "aqiSize": "16",
+    "weatherIconSize": "24",
+    "alertIconSize": "18",
+    "padding": "10px 10px 10px 10px",
+    "shadow": "0",
+    "language": "auto",
+    "borderRadius": "20",
+    "fixed": "true",
+    "vertical": "top",
+    "horizontal": "left",
+    "left": "20",
+    "top": "7.1",
+    "key": "df245676fb434a0691ead1c63341cd94"
+  }
+}
+</script><link rel="stylesheet" href="https://widget.qweather.net/simple/static/css/he-simple.css?v=1.4.0"/><script src="https://widget.qweather.net/simple/static/js/he-simple.js?v=1.4.0"></script></span><div class="mask-name-container"><div id="name-container"><a id="page-name" href="javascript:anzhiyu.scrollToDest(0, 500)">PAGE_NAME</a></div></div><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span> 文章</span></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/archives/"><i class="anzhiyufont anzhiyu-icon-box-archive faa-tada" style="font-size: 0.9em;"></i><span> 隧道</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/categories/"><i class="anzhiyufont anzhiyu-icon-shapes faa-tada" style="font-size: 0.9em;"></i><span> 分类</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/tags/"><i class="anzhiyufont anzhiyu-icon-tags faa-tada" style="font-size: 0.9em;"></i><span> 标签</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span> 友链</span></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/link/"><i class="anzhiyufont anzhiyu-icon-link faa-tada" style="font-size: 0.9em;"></i><span> 友人帐</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/fcircle/"><i class="anzhiyufont anzhiyu-icon-artstation faa-tada" style="font-size: 0.9em;"></i><span> 朋友圈</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/comments/"><i class="anzhiyufont anzhiyu-icon-envelope faa-tada" style="font-size: 0.9em;"></i><span> 留言板</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span> 我的</span></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/music/"><i class="anzhiyufont anzhiyu-icon-music faa-tada" style="font-size: 0.9em;"></i><span> 音乐馆</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/bangumis/"><i class="anzhiyufont anzhiyu-icon-bilibili faa-tada" style="font-size: 0.9em;"></i><span> 追番页</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/album/"><i class="anzhiyufont anzhiyu-icon-images faa-tada" style="font-size: 0.9em;"></i><span> 相册集</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/air-conditioner/"><i class="anzhiyufont anzhiyu-icon-fan faa-tada" style="font-size: 0.9em;"></i><span> 小空调</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span> 关于</span></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/about/"><i class="anzhiyufont anzhiyu-icon-paper-plane faa-tada" style="font-size: 0.9em;"></i><span> 关于本人</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/essay/"><i class="anzhiyufont anzhiyu-icon-lightbulb faa-tada" style="font-size: 0.9em;"></i><span> 闲言碎语</span></a></li><li><a class="site-page child faa-parent animated-hover" href="javascript:toRandomPost()"><i class="anzhiyufont anzhiyu-icon-shoe-prints1 faa-tada" style="font-size: 0.9em;"></i><span> 随便逛逛</span></a></li></ul></div></div></div><div id="nav-right"><div class="nav-button" id="randomPost_button"><a class="site-page" onclick="toRandomPost()" title="随机前往一个文章" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-dice"></i></a></div><input id="center-console" type="checkbox"/><label class="widget" for="center-console" title="中控台" onclick="anzhiyu.switchConsole();"><i class="left"></i><i class="widget center"></i><i class="widget right"></i></label><div id="console"><div class="console-card-group-reward"><ul class="reward-all console-card"><li class="reward-item"><a href="https://candyadmin.github.io/49172c7d-e632-47b4-9bc4-f792ae82b980.jpeg" target="_blank"><img class="post-qr-code-img" alt="微信" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://candyadmin.github.io/49172c7d-e632-47b4-9bc4-f792ae82b980.jpeg"/></a><div class="post-qr-code-desc">微信</div></li></ul></div><div class="console-card-group"><div class="console-card-group-left"><div class="console-card" id="card-newest-comments"><div class="card-content"><div class="author-content-item-tips">互动</div><span class="author-content-item-title"> 最新评论</span></div><div class="aside-list"><span>正在加载中...</span></div></div></div><div class="console-card-group-right"><div class="console-card tags"><div class="card-content"><div class="author-content-item-tips">兴趣点</div><span class="author-content-item-title">寻找你感兴趣的领域</span><div class="card-tags"><div class="item-headline"></div><div class="card-tag-cloud"><a href="/tags/JNI/" style="font-size: 1.05rem;">JNI<sup>1</sup></a><a href="/tags/RSocket%E9%AB%98%E6%80%A7%E8%83%BDTCP%E5%A4%9A%E8%B7%AF%E5%A4%8D%E7%94%A8/" style="font-size: 1.05rem;">RSocket高性能TCP多路复用<sup>1</sup></a><a href="/tags/arthas/" style="font-size: 1.05rem;">arthas<sup>1</sup></a><a href="/tags/chrome/" style="font-size: 1.05rem;">chrome<sup>2</sup></a><a href="/tags/docker/" style="font-size: 1.05rem;">docker<sup>1</sup></a><a href="/tags/docker%E9%83%A8%E7%BD%B2/" style="font-size: 1.05rem;">docker部署<sup>1</sup></a><a href="/tags/git/" style="font-size: 1.05rem;">git<sup>1</sup></a><a href="/tags/grafana-prometheus-springboot/" style="font-size: 1.05rem;">grafana,prometheus,springboot<sup>1</sup></a><a href="/tags/k8s/" style="font-size: 1.05rem;">k8s<sup>1</sup></a><a href="/tags/nginx/" style="font-size: 1.05rem;">nginx<sup>2</sup></a><a href="/tags/openvpn/" style="font-size: 1.05rem;">openvpn<sup>2</sup></a><a href="/tags/spring-boot-configuration-processor/" style="font-size: 1.05rem;">spring-boot-configuration-processor<sup>1</sup></a><a href="/tags/%E4%BA%8B%E5%8A%A1/" style="font-size: 1.05rem;">事务<sup>1</sup></a><a href="/tags/%E4%BA%A4%E6%98%93%E7%AD%96%E7%95%A5/" style="font-size: 1.05rem;">交易策略<sup>1</sup></a><a href="/tags/%E4%BA%A4%E6%98%93%E7%B3%BB%E7%BB%9F%E4%B8%93%E5%AE%B6/" style="font-size: 1.05rem;">交易系统专家<sup>1</sup></a><a href="/tags/%E5%82%B2%E4%BA%BA%E7%9A%84%E5%86%99%E6%B3%95/" style="font-size: 1.05rem;">傲人的写法<sup>1</sup></a><a href="/tags/%E5%86%B7%E7%9F%A5%E8%AF%86/" style="font-size: 1.05rem;">冷知识<sup>1</sup></a><a href="/tags/%E5%88%9D%E5%A7%8B%E5%8C%96%E6%96%B0%E6%89%8B%E6%9C%BA/" style="font-size: 1.05rem;">初始化新手机<sup>1</sup></a><a href="/tags/%E5%91%BD%E4%BB%A4/" style="font-size: 1.05rem;">命令<sup>1</sup></a><a href="/tags/%E5%A4%87%E4%BB%BD/" style="font-size: 1.05rem;">备份<sup>2</sup></a><a href="/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" style="font-size: 1.05rem;">学习笔记<sup>2</sup></a><a href="/tags/%E5%AE%9E%E6%97%B6%E6%95%B0%E6%8D%AE%E5%90%8C%E6%AD%A5/" style="font-size: 1.05rem;">实时数据同步<sup>1</sup></a><a href="/tags/%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/" style="font-size: 1.05rem;">常用命令<sup>1</sup></a><a href="/tags/%E5%B9%B6%E5%8F%91/" style="font-size: 1.05rem;">并发<sup>1</sup></a><a href="/tags/%E5%BC%80%E6%9C%BA%E8%87%AA%E5%90%AF/" style="font-size: 1.05rem;">开机自启<sup>1</sup></a><a href="/tags/%E6%89%93%E5%8D%B0%E5%BC%82%E5%B8%B8%E6%97%A5%E5%BF%97/" style="font-size: 1.05rem;">打印异常日志<sup>1</sup></a><a href="/tags/%E6%89%A9%E5%AE%B9%E7%A3%81%E7%9B%98/" style="font-size: 1.05rem;">扩容磁盘<sup>2</sup></a><a href="/tags/%E6%8A%A5%E8%AD%A6/" style="font-size: 1.05rem;">报警<sup>1</sup></a><a href="/tags/%E6%90%AD%E5%BB%BAvalkey/" style="font-size: 1.05rem;">搭建valkey<sup>1</sup></a><a href="/tags/%E6%9F%A5%E6%89%BE%E8%BF%9B%E7%A8%8B/" style="font-size: 1.05rem;">查找进程<sup>1</sup></a><a href="/tags/%E6%BC%8F%E6%B4%9E/" style="font-size: 1.05rem;">漏洞<sup>1</sup></a><a href="/tags/%E7%8A%B6%E6%80%81%E6%9C%BA/" style="font-size: 1.05rem;">状态机<sup>1</sup></a><a href="/tags/%E7%A7%91%E5%AD%A6%E5%B8%B8%E8%AF%86/" style="font-size: 1.05rem;">科学常识<sup>1</sup></a><a href="/tags/%E7%AC%94%E8%AE%B0%E6%9C%AC%E5%90%88%E7%9B%96/" style="font-size: 1.05rem;">笔记本合盖<sup>1</sup></a><a href="/tags/%E7%BD%91%E7%AB%99%E8%B5%84%E6%BA%90/" style="font-size: 1.05rem;">网站资源<sup>1</sup></a><a href="/tags/%E7%BD%91%E7%BB%9C/" style="font-size: 1.05rem;">网络<sup>1</sup></a><a href="/tags/%E7%BF%BB%E5%A2%99/" style="font-size: 1.05rem;">翻墙<sup>1</sup></a><a href="/tags/%E8%A1%A8%E8%AE%BE%E8%AE%A1/" style="font-size: 1.05rem;">表设计<sup>1</sup></a><a href="/tags/%E8%AE%B0%E5%BD%95/" style="font-size: 1.05rem;">记录<sup>1</sup></a><a href="/tags/%E8%B4%A6%E6%88%B7%E8%B5%84%E9%87%91/" style="font-size: 1.05rem;">账户资金<sup>1</sup></a></div></div><hr/></div></div><div class="console-card history"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-box-archiv"></i><span>文章</span></div><div class="card-archives"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-archive"></i><span>归档</span><a class="card-more-btn" href="/archives/" title="查看更多">
+    <i class="anzhiyufont anzhiyu-icon-angle-right"></i></a></div><ul class="card-archive-list"><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2026/10/"><span class="card-archive-list-date">十月 2026</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">1</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2026/07/"><span class="card-archive-list-date">七月 2026</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">1</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2026/06/"><span class="card-archive-list-date">六月 2026</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">2</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2026/05/"><span class="card-archive-list-date">五月 2026</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">2</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2026/04/"><span class="card-archive-list-date">四月 2026</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">2</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2026/02/"><span class="card-archive-list-date">二月 2026</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">2</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2026/01/"><span class="card-archive-list-date">一月 2026</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">1</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2025/12/"><span class="card-archive-list-date">十二月 2025</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">3</span><span>篇</span></div></a></li></ul></div><hr/></div></div></div><div class="button-group"><div class="console-btn-item"><a class="darkmode_switchbutton" title="显示模式切换" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-moon"></i></a></div><div class="console-btn-item" id="consoleHideAside" onclick="anzhiyu.hideAsideBtn()" title="边栏显示控制"><a class="asideSwitch"><i class="anzhiyufont anzhiyu-icon-arrows-left-right"></i></a></div><div class="console-btn-item" id="consoleMusic" onclick="anzhiyu.musicToggle()" title="音乐开关"><a class="music-switch"><i class="anzhiyufont anzhiyu-icon-music"></i></a></div></div><div class="console-mask" onclick="anzhiyu.hideConsole()" href="javascript:void(0);"></div></div><div class="nav-button" id="nav-totop"><a class="totopbtn" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i><span id="percent" onclick="anzhiyu.scrollToDest(0,500)">0</span></a></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);" title="切换"><i class="anzhiyufont anzhiyu-icon-bars"></i></a></div></div></div></nav><div id="post-info"><div id="post-firstinfo"><div class="meta-firstline"><a class="post-meta-original">原创</a><span class="post-meta-categories"><span class="post-meta-separator"></span><i class="anzhiyufont anzhiyu-icon-inbox post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E9%BB%91%E5%AE%A2/" itemprop="url">黑客</a></span><span class="article-meta tags"><a class="article-meta__tags" href="/tags/iPhone/" tabindex="-1" itemprop="url"> <span> <i class="anzhiyufont anzhiyu-icon-hashtag"></i>iPhone</span></a></span></div></div><h1 class="post-title" itemprop="name headline">iPhone实现通话录音不提示AirBeep</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="anzhiyufont anzhiyu-icon-calendar-days post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" itemprop="dateCreated datePublished" datetime="2026-10-12T02:37:50.000Z" title="发表于 2026-10-12 10:37:50">2026-10-12</time><span class="post-meta-separator"></span><i class="anzhiyufont anzhiyu-icon-history post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" itemprop="dateCreated datePublished" datetime="2026-10-12T02:41:37.644Z" title="更新于 2026-10-12 10:41:37">2026-10-12</time></span></div><div class="meta-secondline"><span class="post-meta-separator"></span><span class="post-meta-wordcount"><i class="anzhiyufont anzhiyu-icon-file-word post-meta-icon" title="文章字数"></i><span class="post-meta-label" title="文章字数">字数总计:</span><span class="word-count" title="文章字数">4.7k</span><span class="post-meta-separator"></span><i class="anzhiyufont anzhiyu-icon-clock post-meta-icon" title="阅读时长"></i><span class="post-meta-label" title="阅读时长">阅读时长:</span><span>14分钟</span></span><span class="post-meta-separator">       </span><span class="post-meta-position" title="作者IP属地为长沙"><i class="anzhiyufont anzhiyu-icon-location-dot"></i>长沙</span></div></div></div><section class="main-hero-waves-area waves-area"><svg class="waves-svg" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto"><defs><path id="gentle-wave" d="M -160 44 c 30 0 58 -18 88 -18 s 58 18 88 18 s 58 -18 88 -18 s 58 18 88 18 v 44 h -352 Z"></path></defs><g class="parallax"><use href="#gentle-wave" x="48" y="0"></use><use href="#gentle-wave" x="48" y="3"></use><use href="#gentle-wave" x="48" y="5"></use><use href="#gentle-wave" x="48" y="7"></use></g></svg></section><div id="post-top-cover"><img class="nolazyload" id="post-top-bg" src=""></div></header><main id="blog-container"><div class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container" itemscope itemtype="https://candyadmin.github.io/%E9%BB%91%E5%AE%A2/iPhone%E5%AE%9E%E7%8E%B0%E9%80%9A%E8%AF%9D%E5%BD%95%E9%9F%B3%E4%B8%8D%E6%8F%90%E7%A4%BAAirBeep/"><header><a class="post-meta-categories" href="/categories/%E9%BB%91%E5%AE%A2/" itemprop="url">黑客</a><a href="/tags/iPhone/" tabindex="-1" itemprop="url">iPhone</a><h1 id="CrawlerTitle" itemprop="name headline">iPhone实现通话录音不提示AirBeep</h1><span itemprop="author" itemscope itemtype="http://schema.org/Person">candy</span><time itemprop="dateCreated datePublished" datetime="2026-10-12T02:37:50.000Z" title="发表于 2026-10-12 10:37:50">2026-10-12</time><time itemprop="dateCreated datePublished" datetime="2026-10-12T02:41:37.644Z" title="更新于 2026-10-12 10:41:37">2026-10-12</time></header><h1 id="AirBeep（iOS-27-0）逐步引导安装教程：Mac-iLoader-SideStore"><a href="#AirBeep（iOS-27-0）逐步引导安装教程：Mac-iLoader-SideStore" class="headerlink" title="AirBeep（iOS 27.0）逐步引导安装教程：Mac + iLoader + SideStore"></a>AirBeep（iOS 27.0）逐步引导安装教程：Mac + iLoader + SideStore</h1><blockquote>
+<p><strong>用途与限制：</strong> 本教程按“每次只做一步、完成后检查结果”的方式整理，用于安装、配对和维护 AirBeep。AirBeep 官方说明该工具会替换 iOS 内置的通话录音开始&#x2F;结束提示音；这可能影响通话参与者是否会被告知录音正在进行。因此，本文不提供关闭或规避录音提示音的操作步骤。请遵守所在地法律，并在适用时事先告知参与者、取得必要同意。若要恢复系统原始提示音，请参阅文末的恢复说明。</p>
+</blockquote>
+<p>本文根据一次实际流程整理，设备环境为：</p>
+<ul>
+<li>iPhone：iOS 27.0</li>
+<li>电脑：Mac</li>
+<li>iLoader：已安装</li>
+<li>LocalDevVPN：已安装</li>
+<li>SideStore：通过 iLoader 安装</li>
+<li>AirBeep：通过 SideStore 导入 IPA 安装</li>
+</ul>
+<p><strong>官方资源</strong></p>
+<ul>
+<li>AirBeep 仓库：<a target="_blank" rel="noopener" href="https://github.com/LinkPass888/AirBeep">https://github.com/LinkPass888/AirBeep</a></li>
+<li>AirBeep 最新发布页：<a target="_blank" rel="noopener" href="https://github.com/LinkPass888/AirBeep/releases">https://github.com/LinkPass888/AirBeep/releases</a></li>
+<li>iLoader 官方仓库：<a target="_blank" rel="noopener" href="https://github.com/nab138/iloader">https://github.com/nab138/iloader</a></li>
+<li>SideStore 安装文档：<a target="_blank" rel="noopener" href="https://docs.sidestore.io/zh/docs/installation/install">https://docs.sidestore.io/zh/docs/installation/install</a></li>
+<li>SideStore 前置条件：<a target="_blank" rel="noopener" href="https://docs.sidestore.io/zh/docs/installation/prerequisites">https://docs.sidestore.io/zh/docs/installation/prerequisites</a></li>
+</ul>
+<blockquote>
+<p>下载前请重新查看官方发布说明和支持系统范围。AirBeep 依赖非公开的系统行为，iOS 更新后兼容性可能变化。官方仓库说明的支持范围可能随版本调整。</p>
+</blockquote>
+<hr>
+<h2 id="流程总览"><a href="#流程总览" class="headerlink" title="流程总览"></a>流程总览</h2><p>建议按以下顺序完成，每一步成功后再继续：</p>
+<ol>
+<li>在 Mac 上核实并安装 iLoader。</li>
+<li>通过 USB 连接 iPhone，并让 Finder 识别手机。</li>
+<li>用 iLoader 将 SideStore 安装到 iPhone。</li>
+<li>在 iPhone 上信任开发者应用（如系统提示），并按要求开启开发者模式。</li>
+<li>连接 LocalDevVPN，首次打开并刷新 SideStore。</li>
+<li>从 AirBeep 官方 Releases 下载兼容的 IPA。</li>
+<li>在 SideStore 中导入 IPA 并完成安装。</li>
+<li>打开 AirBeep，按界面提示完成配对。</li>
+<li>验证应用能够正常打开，并检查维护与恢复方法。</li>
+</ol>
+<hr>
+<h2 id="第-1-步：在-Mac-上下载并安装-iLoader"><a href="#第-1-步：在-Mac-上下载并安装-iLoader" class="headerlink" title="第 1 步：在 Mac 上下载并安装 iLoader"></a>第 1 步：在 Mac 上下载并安装 iLoader</h2><h3 id="这一阶段的目标"><a href="#这一阶段的目标" class="headerlink" title="这一阶段的目标"></a>这一阶段的目标</h3><p>让 Mac 上有可运行的 iLoader 应用。请只从 iLoader 项目声明的官方来源下载。</p>
+<h3 id="操作"><a href="#操作" class="headerlink" title="操作"></a>操作</h3><ol>
+<li>在 Mac 上打开 Safari 或你常用的浏览器。</li>
+<li>访问 iLoader 官方仓库：<a target="_blank" rel="noopener" href="https://github.com/nab138/iloader">https://github.com/nab138/iloader</a>。</li>
+<li>在仓库页面找到 <strong>Releases</strong>，打开最新的正式发布。</li>
+<li>在下载文件列表（通常名为 <strong>Assets</strong>）中，选择适用于 macOS 的安装包。不要下载源码压缩包来代替安装包。</li>
+<li>下载完成后，打开安装包并按 macOS 显示的步骤完成安装。</li>
+<li>在“应用程序”文件夹或启动台中找到 iLoader 并打开。</li>
+</ol>
+<h3 id="完成检查"><a href="#完成检查" class="headerlink" title="完成检查"></a>完成检查</h3><ul>
+<li>iLoader 能正常启动。</li>
+<li>下载来源确认为官方仓库或 iLoader 官方网站 <a target="_blank" rel="noopener" href="https://iloader.app/">https://iloader.app/</a>。</li>
+</ul>
+<h3 id="如果出现安全警告"><a href="#如果出现安全警告" class="headerlink" title="如果出现安全警告"></a>如果出现安全警告</h3><p>先停止操作，核对下载来源和发布说明。不要因为想继续安装就盲目绕过 macOS 的安全保护，也不要运行来源不明的脚本或安装器。</p>
+<hr>
+<h2 id="第-2-步：用-USB-将-iPhone-连接到-Mac"><a href="#第-2-步：用-USB-将-iPhone-连接到-Mac" class="headerlink" title="第 2 步：用 USB 将 iPhone 连接到 Mac"></a>第 2 步：用 USB 将 iPhone 连接到 Mac</h2><h3 id="操作-1"><a href="#操作-1" class="headerlink" title="操作"></a>操作</h3><ol>
+<li>用支持数据传输的 USB 数据线连接 iPhone 和 Mac；仅支持充电的线可能无法完成连接。</li>
+<li>解锁 iPhone，并保持屏幕处于解锁状态。</li>
+<li>如果 iPhone 弹出 <strong>“信任此电脑？”</strong>，先确认这是你自己的 Mac，再点击“信任”。</li>
+<li>按提示输入 iPhone 的锁屏密码。</li>
+<li>在 Mac 上打开 <strong>Finder</strong>。</li>
+<li>查看 Finder 左侧边栏的 <strong>“位置”</strong>，确认是否出现 iPhone 名称。</li>
+</ol>
+<h3 id="完成检查-1"><a href="#完成检查-1" class="headerlink" title="完成检查"></a>完成检查</h3><ul>
+<li>Finder 的“位置”下能看到 iPhone。</li>
+</ul>
+<h3 id="如果-Finder-没有显示-iPhone"><a href="#如果-Finder-没有显示-iPhone" class="headerlink" title="如果 Finder 没有显示 iPhone"></a>如果 Finder 没有显示 iPhone</h3><ol>
+<li>确认手机已经解锁。</li>
+<li>拔下数据线再插一次，或换一个 USB 端口。</li>
+<li>如果没有弹出信任提示，先重新连接并检查手机屏幕。</li>
+<li>仍然无法识别时，不要继续安装；先排查数据线、端口和电脑识别问题。</li>
+</ol>
+<hr>
+<h2 id="第-3-步：在-iLoader-中选择-iPhone"><a href="#第-3-步：在-iLoader-中选择-iPhone" class="headerlink" title="第 3 步：在 iLoader 中选择 iPhone"></a>第 3 步：在 iLoader 中选择 iPhone</h2><h3 id="操作-2"><a href="#操作-2" class="headerlink" title="操作"></a>操作</h3><ol>
+<li>确认 iPhone 仍与 Mac 保持 USB 连接。</li>
+<li>打开 iLoader。</li>
+<li>在设备列表中找到自己的 iPhone 并点击选中。</li>
+<li>检查设备名称，确认不是其他设备。</li>
+</ol>
+<h3 id="关于-Apple-账户登录"><a href="#关于-Apple-账户登录" class="headerlink" title="关于 Apple 账户登录"></a>关于 Apple 账户登录</h3><p>iLoader 的官方 SideStore 安装指南包含 Apple 账户登录步骤。登录前请确认：</p>
+<ul>
+<li>你下载的是 iLoader 官方版本；</li>
+<li>你理解该登录流程，并愿意承担第三方工具处理账户认证信息的风险；</li>
+<li>绝不向任何人分享密码或双重认证验证码。</li>
+</ul>
+<p>使用他人的 Apple 账户前，应获得账户所有者明确许可。更稳妥的选择是使用自己控制的账户；不要使用来路不明的共享账户。如果登录页面、域名或提示与官方说明不符，请暂停，不要输入密码。</p>
+<h3 id="操作-3"><a href="#操作-3" class="headerlink" title="操作"></a>操作</h3><ol start="5">
+<li>只有在确认来源和登录流程可信后，才按 iLoader 的界面完成所需登录。</li>
+<li>如果界面要求选择安装动作，继续到下一步。</li>
+</ol>
+<h3 id="完成检查-2"><a href="#完成检查-2" class="headerlink" title="完成检查"></a>完成检查</h3><ul>
+<li>iLoader 能识别 iPhone，且界面中可以选择安装 SideStore 的操作。</li>
+</ul>
+<hr>
+<h2 id="第-4-步：通过-iLoader-安装-SideStore"><a href="#第-4-步：通过-iLoader-安装-SideStore" class="headerlink" title="第 4 步：通过 iLoader 安装 SideStore"></a>第 4 步：通过 iLoader 安装 SideStore</h2><h3 id="操作-4"><a href="#操作-4" class="headerlink" title="操作"></a>操作</h3><ol>
+<li>在 iLoader 中确认选中的是自己的 iPhone。</li>
+<li>找到 <strong>“Install SideStore (Stable)”</strong>（安装 SideStore 稳定版）选项。</li>
+<li>点击该选项。</li>
+<li>阅读 iLoader 显示的提示，再按界面要求继续。</li>
+<li>等待安装结束。安装期间不要拔掉 USB 数据线，也不要关闭 iLoader。</li>
+<li>安装完成后，在 iPhone 主屏幕或 App 资源库中查找 <strong>SideStore</strong> 图标。</li>
+</ol>
+<h3 id="完成检查-3"><a href="#完成检查-3" class="headerlink" title="完成检查"></a>完成检查</h3><ul>
+<li>iLoader 显示安装完成；</li>
+<li>iPhone 上能找到 SideStore 图标。</li>
+</ul>
+<h3 id="如果安装失败"><a href="#如果安装失败" class="headerlink" title="如果安装失败"></a>如果安装失败</h3><ol>
+<li>记录完整错误信息，不要只记“失败”。</li>
+<li>检查 USB 连接是否稳定。</li>
+<li>核对 iLoader 是否为官方版本。</li>
+<li>可查阅 <a target="_blank" rel="noopener" href="https://github.com/nab138/iloader">iLoader 官方仓库</a> 的故障排查说明；不要下载陌生网站提供的“修复版”。</li>
+</ol>
+<hr>
+<h2 id="第-5-步：首次打开-SideStore，并处理系统信任提示"><a href="#第-5-步：首次打开-SideStore，并处理系统信任提示" class="headerlink" title="第 5 步：首次打开 SideStore，并处理系统信任提示"></a>第 5 步：首次打开 SideStore，并处理系统信任提示</h2><h3 id="操作-5"><a href="#操作-5" class="headerlink" title="操作"></a>操作</h3><ol>
+<li>拔线前先确认 iLoader 已完成安装；之后可以拔掉 USB 线。</li>
+<li>在 iPhone 主屏幕点开 <strong>SideStore</strong>。</li>
+<li>如果系统提示开发者应用尚未受信任，打开 iPhone 的“设置”。</li>
+<li>根据当前 iOS 界面，查找 <strong>“通用 → VPN 与设备管理”</strong> 或系统提示中的开发者应用入口。</li>
+<li>在“开发者 App”下找到与本次安装对应的开发者项目。</li>
+<li>确认这是刚刚安装 SideStore 时使用的项目后，再点“信任”或系统提供的相应选项。</li>
+<li>返回主屏幕，再尝试打开 SideStore。</li>
+</ol>
+<h3 id="完成检查-4"><a href="#完成检查-4" class="headerlink" title="完成检查"></a>完成检查</h3><ul>
+<li>SideStore 可以打开并显示主界面。</li>
+</ul>
+<h3 id="如果要求开启开发者模式"><a href="#如果要求开启开发者模式" class="headerlink" title="如果要求开启开发者模式"></a>如果要求开启开发者模式</h3><p>按第 6 步继续。若提示文字与这里不同，先记录提示，不要随意删除开发者条目。</p>
+<hr>
+<h2 id="第-6-步：开启-iPhone-开发者模式（如果系统要求）"><a href="#第-6-步：开启-iPhone-开发者模式（如果系统要求）" class="headerlink" title="第 6 步：开启 iPhone 开发者模式（如果系统要求）"></a>第 6 步：开启 iPhone 开发者模式（如果系统要求）</h2><h3 id="操作-6"><a href="#操作-6" class="headerlink" title="操作"></a>操作</h3><ol>
+<li>在 iPhone 打开 <strong>设置</strong>。</li>
+<li>进入 <strong>隐私与安全性</strong>。</li>
+<li>向下滚动，查找 <strong>开发者模式</strong>。</li>
+<li>打开开发者模式开关。</li>
+<li>按系统提示点击“重新启动”。</li>
+<li>手机重启后解锁。</li>
+<li>如果屏幕再次询问是否启用开发者模式，阅读提示后点击“启用”，并按要求输入锁屏密码。</li>
+<li>重启完成后，再次打开 SideStore。</li>
+</ol>
+<h3 id="完成检查-5"><a href="#完成检查-5" class="headerlink" title="完成检查"></a>完成检查</h3><ul>
+<li>开发者模式显示为开启；</li>
+<li>SideStore 能打开。</li>
+</ul>
+<h3 id="安全提醒"><a href="#安全提醒" class="headerlink" title="安全提醒"></a>安全提醒</h3><p>开发者模式会降低部分安全防护。仅在你确实需要运行自行侧载的应用时开启。不要把开发者模式页面中不认识的项目直接删除；若看到类似 <code>iloader-...</code> 的项目，先核对来源和用途。</p>
+<hr>
+<h2 id="第-7-步：连接-LocalDevVPN"><a href="#第-7-步：连接-LocalDevVPN" class="headerlink" title="第 7 步：连接 LocalDevVPN"></a>第 7 步：连接 LocalDevVPN</h2><p>SideStore 官方说明，安装、更新或刷新侧载应用时需要启用其配套的本地 VPN。</p>
+<h3 id="操作-7"><a href="#操作-7" class="headerlink" title="操作"></a>操作</h3><ol>
+<li>在 iPhone 上找到并打开 <strong>LocalDevVPN</strong>。</li>
+<li>点击应用中的 <strong>Connect（连接）</strong> 开关或按钮。</li>
+<li>如果 iOS 显示“允许添加 VPN 配置”，确认操作由你刚打开的 LocalDevVPN 发起后，点击“允许”。</li>
+<li>按系统要求输入锁屏密码或通过验证。</li>
+<li>返回 LocalDevVPN，等待状态显示为已连接。</li>
+<li>如有需要，也可在“设置 → VPN”查看连接状态。</li>
+</ol>
+<h3 id="完成检查-6"><a href="#完成检查-6" class="headerlink" title="完成检查"></a>完成检查</h3><ul>
+<li>LocalDevVPN 显示已连接；</li>
+<li>iPhone 可以正常使用 Wi‑Fi 网络。</li>
+</ul>
+<h3 id="如果连接失败"><a href="#如果连接失败" class="headerlink" title="如果连接失败"></a>如果连接失败</h3><ul>
+<li>先查看 LocalDevVPN 的具体错误提示；</li>
+<li>确认已连接 Wi‑Fi，且网络能够访问互联网；</li>
+<li>不要安装陌生人提供的 VPN 配置文件；</li>
+<li>在 VPN 尚未连接时，不要反复执行 SideStore 刷新操作。</li>
+</ul>
+<hr>
+<h2 id="第-8-步：完成-SideStore-首次设置与刷新"><a href="#第-8-步：完成-SideStore-首次设置与刷新" class="headerlink" title="第 8 步：完成 SideStore 首次设置与刷新"></a>第 8 步：完成 SideStore 首次设置与刷新</h2><h3 id="操作-8"><a href="#操作-8" class="headerlink" title="操作"></a>操作</h3><ol>
+<li>确保 LocalDevVPN 处于已连接状态。</li>
+<li>打开 SideStore。</li>
+<li>如果 SideStore 要求使用 Apple 账户登录，按照官方安装流程使用与 iLoader 安装时相符的账户完成登录。</li>
+<li>进入 <strong>My Apps（我的应用）</strong> 页面。</li>
+<li>找到 SideStore 自身的应用条目。</li>
+<li>如果条目右侧显示 <strong>“7 DAYS”</strong> 或剩余有效期计数，点击该计数以执行刷新。</li>
+<li>如果出现创建或撤销签名证书、立即刷新等提示，先阅读内容并确认这是预期的 SideStore 系统流程，再按界面提示继续。</li>
+<li>等待刷新操作结束。过程中保持 LocalDevVPN 连接，不要强制关闭 SideStore。</li>
+</ol>
+<h3 id="完成检查-7"><a href="#完成检查-7" class="headerlink" title="完成检查"></a>完成检查</h3><ul>
+<li>SideStore 回到主界面且没有新的错误提示；</li>
+<li>“My Apps”中显示 SideStore 条目及其有效期信息。</li>
+</ul>
+<h3 id="如果-SideStore-要求登录，但你不确定登录页面是否可信"><a href="#如果-SideStore-要求登录，但你不确定登录页面是否可信" class="headerlink" title="如果 SideStore 要求登录，但你不确定登录页面是否可信"></a>如果 SideStore 要求登录，但你不确定登录页面是否可信</h3><p>暂停，不要输入密码。先确认应用版本、登录页面说明和官方文档。页面在应用内部并不等于凭据绝对安全。不要将密码、验证码或会话信息发给任何人。</p>
+<hr>
+<h2 id="第-9-步：从-AirBeep-官方发布页下载-IPA"><a href="#第-9-步：从-AirBeep-官方发布页下载-IPA" class="headerlink" title="第 9 步：从 AirBeep 官方发布页下载 IPA"></a>第 9 步：从 AirBeep 官方发布页下载 IPA</h2><h3 id="操作-9"><a href="#操作-9" class="headerlink" title="操作"></a>操作</h3><ol>
+<li>在 iPhone 上打开 Safari。</li>
+<li>访问 AirBeep 官方发布页：<a target="_blank" rel="noopener" href="https://github.com/LinkPass888/AirBeep/releases">https://github.com/LinkPass888/AirBeep/releases</a>。</li>
+<li>查看最上方的最新正式版本和发行说明。</li>
+<li>确认版本支持你的 iOS 版本。不要只根据版本号猜测兼容性。</li>
+<li>展开该版本下方的 <strong>Assets</strong>。</li>
+<li>找到以 <code>.ipa</code> 结尾的安装文件。发布页可能提供名称中带 <code>unsigned</code> 的 IPA；侧载流程通常需要 SideStore 对其进行签名。</li>
+<li>点击文件下载，并等待 Safari 下载完成。</li>
+<li>打开“文件”App，进入“浏览 → 下载项”（或 Safari 下载列表所对应的位置）。</li>
+<li>确认文件名以 <code>.ipa</code> 结尾，且下载没有显示为未完成。</li>
+</ol>
+<h3 id="完成检查-8"><a href="#完成检查-8" class="headerlink" title="完成检查"></a>完成检查</h3><ul>
+<li>在“文件”App 中找到了 AirBeep 的 IPA。</li>
+</ul>
+<h3 id="如果-Assets-中找不到-IPA"><a href="#如果-Assets-中找不到-IPA" class="headerlink" title="如果 Assets 中找不到 IPA"></a>如果 Assets 中找不到 IPA</h3><ul>
+<li>重新展开 Assets；</li>
+<li>查看发行说明，确认该版本是否提供 IPA；</li>
+<li>不要从第三方网盘或不明链接下载替代文件。</li>
+</ul>
+<hr>
+<h2 id="第-10-步：用-SideStore-导入并安装-AirBeep"><a href="#第-10-步：用-SideStore-导入并安装-AirBeep" class="headerlink" title="第 10 步：用 SideStore 导入并安装 AirBeep"></a>第 10 步：用 SideStore 导入并安装 AirBeep</h2><h3 id="操作-10"><a href="#操作-10" class="headerlink" title="操作"></a>操作</h3><ol>
+<li>先确认 LocalDevVPN 仍然连接。</li>
+<li>打开 SideStore。</li>
+<li>找到添加应用入口。不同版本的界面可能不同，通常在应用列表或 <strong>My Apps</strong> 页面中会有 <code>+</code>、添加应用或导入 IPA 的选项。</li>
+<li>点击添加&#x2F;导入入口。</li>
+<li>在文件选择器中进入“浏览 → 下载项”。</li>
+<li>选择刚才下载的 AirBeep <code>.ipa</code> 文件。</li>
+<li>确认选择的文件名与下载文件一致。</li>
+<li>按 SideStore 界面提示开始签名和安装。</li>
+<li>等待操作结束。保持 LocalDevVPN 连接，不要强制退出 SideStore。</li>
+<li>返回 iPhone 主屏幕，查看是否出现 AirBeep 图标。</li>
+</ol>
+<h3 id="完成检查-9"><a href="#完成检查-9" class="headerlink" title="完成检查"></a>完成检查</h3><ul>
+<li>SideStore 没有显示安装错误；</li>
+<li>主屏幕上能看到 AirBeep。</li>
+</ul>
+<h3 id="如果无法选中-IPA"><a href="#如果无法选中-IPA" class="headerlink" title="如果无法选中 IPA"></a>如果无法选中 IPA</h3><ol>
+<li>在“文件”App 中确认 IPA 下载完成。</li>
+<li>确认选择器打开的是“文件”而不是照片或其他位置。</li>
+<li>再次从 SideStore 的添加&#x2F;导入应用入口进入文件选择器。</li>
+</ol>
+<h3 id="如果签名或安装失败"><a href="#如果签名或安装失败" class="headerlink" title="如果签名或安装失败"></a>如果签名或安装失败</h3><ol>
+<li>记录完整报错内容。</li>
+<li>检查 LocalDevVPN 是否连接。</li>
+<li>检查 SideStore 的有效期&#x2F;刷新状态。</li>
+<li>不要在短时间内连续重复签名，也不要为解决问题而向陌生网站提交 Apple 账户信息。</li>
+</ol>
+<hr>
+<h2 id="第-11-步：首次打开-AirBeep"><a href="#第-11-步：首次打开-AirBeep" class="headerlink" title="第 11 步：首次打开 AirBeep"></a>第 11 步：首次打开 AirBeep</h2><h3 id="操作-11"><a href="#操作-11" class="headerlink" title="操作"></a>操作</h3><ol>
+<li>回到 iPhone 主屏幕。</li>
+<li>点击 AirBeep 图标。</li>
+<li>等待应用进入主界面。</li>
+<li>如果 iOS 弹出系统提示，先阅读提示，确认与刚安装的应用有关后再处理。</li>
+<li>如果应用无法打开，记录完整提示，不要立刻删除应用或重新设置手机。</li>
+</ol>
+<h3 id="完成检查-10"><a href="#完成检查-10" class="headerlink" title="完成检查"></a>完成检查</h3><ul>
+<li>AirBeep 能显示主界面；</li>
+<li>没有“无法验证应用”“应用不可用”或其他错误提示。</li>
+</ul>
+<h3 id="版本提醒"><a href="#版本提醒" class="headerlink" title="版本提醒"></a>版本提醒</h3><p>AirBeep 官方仓库说明，它使用非公开的系统行为，兼容性可能随 iOS 版本改变。遇到系统升级或异常时，先查阅 <a target="_blank" rel="noopener" href="https://github.com/LinkPass888/AirBeep/releases">最新 Releases</a> 和发行说明。</p>
+<hr>
+<h2 id="第-12-步：按应用提示完成配对"><a href="#第-12-步：按应用提示完成配对" class="headerlink" title="第 12 步：按应用提示完成配对"></a>第 12 步：按应用提示完成配对</h2><blockquote>
+<p>本步骤只说明如何完成设备配对，不涉及关闭通话录音提示音的开关操作。</p>
+</blockquote>
+<h3 id="操作-12"><a href="#操作-12" class="headerlink" title="操作"></a>操作</h3><ol>
+<li>确认 AirBeep 已正常打开。</li>
+<li>在 AirBeep 主界面查看是否有配对入口或 <strong>“开始配对”</strong> 按钮。</li>
+<li>点击“开始配对”。</li>
+<li>如果系统切换到“设置”，按屏幕提示进入 <strong>设置 → 隐私与安全性 → 开发者模式</strong> 或系统指定的配对界面。</li>
+<li>查看界面是否出现 <strong>Pair with AirBeep</strong>。</li>
+<li>如果出现该项目，确认它对应的是你刚刚打开的 AirBeep，再按系统提示继续。</li>
+<li>如果系统要求确认配对或输入手机锁屏密码，仔细阅读提示后再操作。</li>
+<li>如果 AirBeep 显示配对码，只在自己的设备间按应用提示输入；不要把配对码发送给其他人。</li>
+<li>等待系统或应用提示配对完成。</li>
+<li>返回 AirBeep，确认是否显示配对成功。</li>
+</ol>
+<h3 id="完成检查-11"><a href="#完成检查-11" class="headerlink" title="完成检查"></a>完成检查</h3><ul>
+<li>系统完成配对；</li>
+<li>返回 AirBeep 后没有出现配对错误。</li>
+</ul>
+<h3 id="如果开发者模式中没有出现-Pair-with-AirBeep"><a href="#如果开发者模式中没有出现-Pair-with-AirBeep" class="headerlink" title="如果开发者模式中没有出现 Pair with AirBeep"></a>如果开发者模式中没有出现 <code>Pair with AirBeep</code></h3><ol>
+<li>不要点击或删除不认识的开发者项目。</li>
+<li>返回主屏幕，重新打开 AirBeep。</li>
+<li>再查看 AirBeep 是否仍正常打开，以及界面是否仍显示配对入口。</li>
+<li>按 AirBeep 的当前界面提示重新发起一次配对请求。</li>
+<li>如果仍然没有出现，记录 iOS 版本、AirBeep 版本和界面提示，并查阅官方 Issues&#x2F;发行说明；不要重置手机或删除其他开发者项目来碰运气。</li>
+</ol>
+<h3 id="如果配对后无法继续"><a href="#如果配对后无法继续" class="headerlink" title="如果配对后无法继续"></a>如果配对后无法继续</h3><ul>
+<li>查看 AirBeep 是否出现具体错误；</li>
+<li>确认安装版本与系统版本兼容；</li>
+<li>如果项目提供日志导出功能，可按官方说明导出日志，但不要公开包含个人信息的日志文件。</li>
+</ul>
+<hr>
+<h2 id="第-13-步：日常维护与常见影响"><a href="#第-13-步：日常维护与常见影响" class="headerlink" title="第 13 步：日常维护与常见影响"></a>第 13 步：日常维护与常见影响</h2><h3 id="SideStore-与签名有效期"><a href="#SideStore-与签名有效期" class="headerlink" title="SideStore 与签名有效期"></a>SideStore 与签名有效期</h3><ol>
+<li>需要安装、更新或刷新侧载应用时，先确认 LocalDevVPN 已连接。</li>
+<li>打开 SideStore 并进入 <strong>My Apps</strong>。</li>
+<li>查看 SideStore 和其他侧载应用的有效期状态。</li>
+<li>如果剩余时间不足，按 SideStore 官方说明刷新应用。</li>
+<li>如刷新失败，记录完整错误，再按照官方排查流程处理。</li>
+</ol>
+<p>卸载 SideStore 并不一定会立即删除已安装的应用，但之后你可能无法通过它刷新签名；签名过期后，应用可能无法打开。</p>
+<h3 id="LocalDevVPN"><a href="#LocalDevVPN" class="headerlink" title="LocalDevVPN"></a>LocalDevVPN</h3><p>LocalDevVPN 是 SideStore 安装、更新和刷新流程所需的本地 VPN 组件。不要在刷新侧载应用时随意关闭它。AirBeep 本身在每种情况下是否依赖此连接，应以 AirBeep 当前版本的官方说明和实际表现为准。</p>
+<h3 id="开发者模式"><a href="#开发者模式" class="headerlink" title="开发者模式"></a>开发者模式</h3><p>关闭开发者模式可能影响依赖开发者功能或配对机制的应用。如果 AirBeep 是你的工作流程所需，先查看官方说明再决定是否关闭。重新开启开发者模式也不保证所有问题会自动修复。</p>
+<h3 id="卸载应用"><a href="#卸载应用" class="headerlink" title="卸载应用"></a>卸载应用</h3><ul>
+<li><strong>卸载 AirBeep：</strong> AirBeep 提供的功能将无法继续通过该应用使用。</li>
+<li><strong>卸载 SideStore：</strong> 可能影响之后刷新或重新安装侧载应用。</li>
+<li><strong>卸载 LocalDevVPN：</strong> 可能影响 SideStore 的刷新流程。</li>
+<li><strong>Mac 上的 iLoader：</strong> 安装完成后通常不需要一直运行，但之后维护设备或重新安装时可能用得到。</li>
+</ul>
+<hr>
+<h2 id="第-14-步：恢复系统原始提示音与故障处理"><a href="#第-14-步：恢复系统原始提示音与故障处理" class="headerlink" title="第 14 步：恢复系统原始提示音与故障处理"></a>第 14 步：恢复系统原始提示音与故障处理</h2><p>AirBeep 官方仓库说明，应用会在首次修改前备份原始提示音，并提供恢复原始文件的能力。<strong>如果你需要恢复系统原始提示音：</strong></p>
+<ol>
+<li>打开 AirBeep。</li>
+<li>阅读应用界面当前显示的状态和操作说明。</li>
+<li>选择应用明确标注为恢复&#x2F;还原原始提示音的操作（具体按钮名称以当前版本为准）。</li>
+<li>操作过程中不要退出应用，等待它明确提示完成。</li>
+<li>如果提示音异常，停止继续操作并查阅官方故障排查说明。</li>
+</ol>
+<p>如果 AirBeep 无法正常打开或恢复失败：</p>
+<ol>
+<li>不要删除备份文件或手动覆盖系统文件。</li>
+<li>查看 AirBeep 的 About&#x2F;关于页面是否提供日志导出。</li>
+<li>查阅官方仓库的发行说明和 Issues：<a target="_blank" rel="noopener" href="https://github.com/LinkPass888/AirBeep/issues">https://github.com/LinkPass888/AirBeep/issues</a>。</li>
+<li>提交问题前移除日志中可能存在的个人信息、设备标识和账户信息。</li>
+</ol>
+<hr>
+<h2 id="故障排查速查表"><a href="#故障排查速查表" class="headerlink" title="故障排查速查表"></a>故障排查速查表</h2><table>
+<thead>
+<tr>
+<th>现象</th>
+<th>先检查什么</th>
+<th>不建议做什么</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Finder 看不到 iPhone</td>
+<td>数据线、USB 端口、手机是否解锁、是否信任 Mac</td>
+<td>不要继续安装步骤直到识别恢复</td>
+</tr>
+<tr>
+<td>iLoader 看不到设备</td>
+<td>Finder 是否识别、iLoader 是否官方版本</td>
+<td>不要下载陌生的修复工具</td>
+</tr>
+<tr>
+<td>SideStore 要求登录</td>
+<td>应用来源、官方登录说明、账户是否由自己控制</td>
+<td>不要在不明界面输入密码或共享验证码</td>
+</tr>
+<tr>
+<td>SideStore 无法刷新</td>
+<td>LocalDevVPN、Wi‑Fi、应用有效期</td>
+<td>不要连续反复刷新或随意撤销证书</td>
+</tr>
+<tr>
+<td>IPA 无法导入</td>
+<td>文件是否完整、扩展名是否为 <code>.ipa</code>、SideStore 是否正常</td>
+<td>不要使用来历不明的 IPA</td>
+</tr>
+<tr>
+<td>AirBeep 无法打开</td>
+<td>签名有效期、系统兼容性、完整错误信息</td>
+<td>不要立即重置手机</td>
+</tr>
+<tr>
+<td>找不到 Pair with AirBeep</td>
+<td>AirBeep 是否正常打开、版本与系统兼容性</td>
+<td>不要随意删除不认识的开发者项目</td>
+</tr>
+<tr>
+<td>配对后运行异常</td>
+<td>当前发行说明、应用日志、系统版本</td>
+<td>不要手动改写系统文件</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="重要的隐私与法律提醒"><a href="#重要的隐私与法律提醒" class="headerlink" title="重要的隐私与法律提醒"></a>重要的隐私与法律提醒</h2><p>通话录音及录音提示要求因地区而异。AirBeep 官方明确提醒：更改录音披露音可能影响其他参与者是否会被告知通话正在录音。请仅在当地法律允许、并已完成所需告知和同意的情况下使用通话录音功能。不要把本教程用于秘密录音或规避他人的知情权。</p>
+<h2 id="官方链接汇总"><a href="#官方链接汇总" class="headerlink" title="官方链接汇总"></a>官方链接汇总</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/LinkPass888/AirBeep">AirBeep 项目主页</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/LinkPass888/AirBeep/releases">AirBeep Releases</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/LinkPass888/AirBeep/issues">AirBeep Issues</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/nab138/iloader">iLoader 官方仓库</a></li>
+<li><a target="_blank" rel="noopener" href="https://docs.sidestore.io/zh/docs/installation/install">SideStore 中文安装文档</a></li>
+<li><a target="_blank" rel="noopener" href="https://docs.sidestore.io/zh/docs/installation/prerequisites">SideStore 中文前置条件</a></li>
+</ul>
+</article><div class="post-copyright"><div class="copyright-cc-box"><i class="anzhiyufont anzhiyu-icon-copyright"></i></div><div class="post-copyright__author_box"><a class="post-copyright__author_img" href="/" title="头像"><img class="post-copyright__author_img_back" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://bu.dusays.com/2023/04/27/64496e511b09c.jpg" title="头像" alt="头像"><img class="post-copyright__author_img_front" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://bu.dusays.com/2023/04/27/64496e511b09c.jpg" title="头像" alt="头像"></a><div class="post-copyright__author_name">candy</div><div class="post-copyright__author_desc">欢迎来到点到为止.</div></div><div class="post-copyright__post__info"><a class="post-copyright__original" title="该文章为原创文章，注意版权协议" href="https://candyadmin.github.io/%E9%BB%91%E5%AE%A2/iPhone%E5%AE%9E%E7%8E%B0%E9%80%9A%E8%AF%9D%E5%BD%95%E9%9F%B3%E4%B8%8D%E6%8F%90%E7%A4%BAAirBeep/">原创</a><a class="post-copyright-title"><span onclick="rm.copyPageUrl('https://candyadmin.github.io/%E9%BB%91%E5%AE%A2/iPhone%E5%AE%9E%E7%8E%B0%E9%80%9A%E8%AF%9D%E5%BD%95%E9%9F%B3%E4%B8%8D%E6%8F%90%E7%A4%BAAirBeep/')">iPhone实现通话录音不提示AirBeep</span></a></div><div class="post-tools" id="post-tools"><div class="post-tools-left"><div class="rewardLeftButton"></div><div class="shareRight"><div class="share-link mobile"><div class="share-qrcode"><div class="share-button" title="使用手机访问这篇文章"><i class="anzhiyufont anzhiyu-icon-qrcode"></i></div><div class="share-main"><div class="share-main-all"><div id="qrcode" title="https://candyadmin.github.io/%E9%BB%91%E5%AE%A2/iPhone%E5%AE%9E%E7%8E%B0%E9%80%9A%E8%AF%9D%E5%BD%95%E9%9F%B3%E4%B8%8D%E6%8F%90%E7%A4%BAAirBeep/"></div><div class="reward-dec">使用手机访问这篇文章</div></div></div></div></div><div class="share-link weibo"><a class="share-button" target="_blank" href="https://service.weibo.com/share/share.php?title=iPhone实现通话录音不提示AirBeep&amp;url=https://candyadmin.github.io/%E9%BB%91%E5%AE%A2/iPhone%E5%AE%9E%E7%8E%B0%E9%80%9A%E8%AF%9D%E5%BD%95%E9%9F%B3%E4%B8%8D%E6%8F%90%E7%A4%BAAirBeep/&amp;pic=" rel="external nofollow noreferrer noopener"><i class="anzhiyufont anzhiyu-icon-weibo"></i></a></div><script>function copyCurrentPageUrl() {
+  var currentPageUrl = window.location.href;
+  var input = document.createElement("input");
+  input.setAttribute("value", currentPageUrl);
+  document.body.appendChild(input);
+  input.select();
+  input.setSelectionRange(0, 99999);
+  document.execCommand("copy");
+  document.body.removeChild(input);
+}</script><div class="share-link copyurl"><div class="share-button" id="post-share-url" title="复制链接" onclick="copyCurrentPageUrl()"><i class="anzhiyufont anzhiyu-icon-link"></i></div></div></div></div></div><div class="post-copyright__notice"><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://candyadmin.github.io" target="_blank">点到为止</a>！</span></div></div><div class="post-tools-right"><div class="tag_share"><div class="post-meta__box"><div class="post-meta__box__tag-list"><a class="post-meta__box__tags" href="/tags/iPhone/"><span class="tags-punctuation"> <i class="anzhiyufont anzhiyu-icon-tag"></i></span>iPhone<span class="tagsPageCount">1</span></a></div></div></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-full"><a href="/note/2026-07-02-%E6%97%A5%E8%AE%B0-%E4%B8%AA%E4%BA%BA%E6%83%85%E5%86%B5%E5%A4%A7%E8%87%B4%E8%AE%B0%E5%BD%95/"><img class="prev-cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">2026-07-02-日记-个人情况大致记录</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="card-content"><div class="author-info__sayhi" id="author-info__sayhi" onclick="anzhiyu.changeSayHelloText()"></div><div class="author-info-avatar"><img class="avatar-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://bu.dusays.com/2023/04/27/64496e511b09c.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/><div class="author-status"><img class="g-status" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://bu.dusays.com/2023/08/24/64e6ce9c507bb.png" alt="status"/></div></div><div class="author-info__description"></div></div></div><div class="card-widget anzhiyu-right-widget" id="card-wechat" onclick="null"><div id="flip-wrapper"><div id="flip-content"><div class="face" style="background: url(https://bu.dusays.com/2023/01/13/63c02edf44033.png) center center / 100% no-repeat"></div><div class="back face" style="background: url(https://bu.dusays.com/2023/05/13/645fa415e8694.png) center center / 100% no-repeat"></div></div></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-bars"></i><span>文章目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#AirBeep%EF%BC%88iOS-27-0%EF%BC%89%E9%80%90%E6%AD%A5%E5%BC%95%E5%AF%BC%E5%AE%89%E8%A3%85%E6%95%99%E7%A8%8B%EF%BC%9AMac-iLoader-SideStore"><span class="toc-number">1.</span> <span class="toc-text">AirBeep（iOS 27.0）逐步引导安装教程：Mac + iLoader + SideStore</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B5%81%E7%A8%8B%E6%80%BB%E8%A7%88"><span class="toc-number">1.1.</span> <span class="toc-text">流程总览</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC-1-%E6%AD%A5%EF%BC%9A%E5%9C%A8-Mac-%E4%B8%8A%E4%B8%8B%E8%BD%BD%E5%B9%B6%E5%AE%89%E8%A3%85-iLoader"><span class="toc-number">1.2.</span> <span class="toc-text">第 1 步：在 Mac 上下载并安装 iLoader</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%99%E4%B8%80%E9%98%B6%E6%AE%B5%E7%9A%84%E7%9B%AE%E6%A0%87"><span class="toc-number">1.2.1.</span> <span class="toc-text">这一阶段的目标</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%93%8D%E4%BD%9C"><span class="toc-number">1.2.2.</span> <span class="toc-text">操作</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%8C%E6%88%90%E6%A3%80%E6%9F%A5"><span class="toc-number">1.2.3.</span> <span class="toc-text">完成检查</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A6%82%E6%9E%9C%E5%87%BA%E7%8E%B0%E5%AE%89%E5%85%A8%E8%AD%A6%E5%91%8A"><span class="toc-number">1.2.4.</span> <span class="toc-text">如果出现安全警告</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC-2-%E6%AD%A5%EF%BC%9A%E7%94%A8-USB-%E5%B0%86-iPhone-%E8%BF%9E%E6%8E%A5%E5%88%B0-Mac"><span class="toc-number">1.3.</span> <span class="toc-text">第 2 步：用 USB 将 iPhone 连接到 Mac</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%93%8D%E4%BD%9C-1"><span class="toc-number">1.3.1.</span> <span class="toc-text">操作</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%8C%E6%88%90%E6%A3%80%E6%9F%A5-1"><span class="toc-number">1.3.2.</span> <span class="toc-text">完成检查</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A6%82%E6%9E%9C-Finder-%E6%B2%A1%E6%9C%89%E6%98%BE%E7%A4%BA-iPhone"><span class="toc-number">1.3.3.</span> <span class="toc-text">如果 Finder 没有显示 iPhone</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC-3-%E6%AD%A5%EF%BC%9A%E5%9C%A8-iLoader-%E4%B8%AD%E9%80%89%E6%8B%A9-iPhone"><span class="toc-number">1.4.</span> <span class="toc-text">第 3 步：在 iLoader 中选择 iPhone</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%93%8D%E4%BD%9C-2"><span class="toc-number">1.4.1.</span> <span class="toc-text">操作</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B3%E4%BA%8E-Apple-%E8%B4%A6%E6%88%B7%E7%99%BB%E5%BD%95"><span class="toc-number">1.4.2.</span> <span class="toc-text">关于 Apple 账户登录</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%93%8D%E4%BD%9C-3"><span class="toc-number">1.4.3.</span> <span class="toc-text">操作</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%8C%E6%88%90%E6%A3%80%E6%9F%A5-2"><span class="toc-number">1.4.4.</span> <span class="toc-text">完成检查</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC-4-%E6%AD%A5%EF%BC%9A%E9%80%9A%E8%BF%87-iLoader-%E5%AE%89%E8%A3%85-SideStore"><span class="toc-number">1.5.</span> <span class="toc-text">第 4 步：通过 iLoader 安装 SideStore</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%93%8D%E4%BD%9C-4"><span class="toc-number">1.5.1.</span> <span class="toc-text">操作</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%8C%E6%88%90%E6%A3%80%E6%9F%A5-3"><span class="toc-number">1.5.2.</span> <span class="toc-text">完成检查</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A6%82%E6%9E%9C%E5%AE%89%E8%A3%85%E5%A4%B1%E8%B4%A5"><span class="toc-number">1.5.3.</span> <span class="toc-text">如果安装失败</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC-5-%E6%AD%A5%EF%BC%9A%E9%A6%96%E6%AC%A1%E6%89%93%E5%BC%80-SideStore%EF%BC%8C%E5%B9%B6%E5%A4%84%E7%90%86%E7%B3%BB%E7%BB%9F%E4%BF%A1%E4%BB%BB%E6%8F%90%E7%A4%BA"><span class="toc-number">1.6.</span> <span class="toc-text">第 5 步：首次打开 SideStore，并处理系统信任提示</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%93%8D%E4%BD%9C-5"><span class="toc-number">1.6.1.</span> <span class="toc-text">操作</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%8C%E6%88%90%E6%A3%80%E6%9F%A5-4"><span class="toc-number">1.6.2.</span> <span class="toc-text">完成检查</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A6%82%E6%9E%9C%E8%A6%81%E6%B1%82%E5%BC%80%E5%90%AF%E5%BC%80%E5%8F%91%E8%80%85%E6%A8%A1%E5%BC%8F"><span class="toc-number">1.6.3.</span> <span class="toc-text">如果要求开启开发者模式</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC-6-%E6%AD%A5%EF%BC%9A%E5%BC%80%E5%90%AF-iPhone-%E5%BC%80%E5%8F%91%E8%80%85%E6%A8%A1%E5%BC%8F%EF%BC%88%E5%A6%82%E6%9E%9C%E7%B3%BB%E7%BB%9F%E8%A6%81%E6%B1%82%EF%BC%89"><span class="toc-number">1.7.</span> <span class="toc-text">第 6 步：开启 iPhone 开发者模式（如果系统要求）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%93%8D%E4%BD%9C-6"><span class="toc-number">1.7.1.</span> <span class="toc-text">操作</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%8C%E6%88%90%E6%A3%80%E6%9F%A5-5"><span class="toc-number">1.7.2.</span> <span class="toc-text">完成检查</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E5%85%A8%E6%8F%90%E9%86%92"><span class="toc-number">1.7.3.</span> <span class="toc-text">安全提醒</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC-7-%E6%AD%A5%EF%BC%9A%E8%BF%9E%E6%8E%A5-LocalDevVPN"><span class="toc-number">1.8.</span> <span class="toc-text">第 7 步：连接 LocalDevVPN</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%93%8D%E4%BD%9C-7"><span class="toc-number">1.8.1.</span> <span class="toc-text">操作</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%8C%E6%88%90%E6%A3%80%E6%9F%A5-6"><span class="toc-number">1.8.2.</span> <span class="toc-text">完成检查</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A6%82%E6%9E%9C%E8%BF%9E%E6%8E%A5%E5%A4%B1%E8%B4%A5"><span class="toc-number">1.8.3.</span> <span class="toc-text">如果连接失败</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC-8-%E6%AD%A5%EF%BC%9A%E5%AE%8C%E6%88%90-SideStore-%E9%A6%96%E6%AC%A1%E8%AE%BE%E7%BD%AE%E4%B8%8E%E5%88%B7%E6%96%B0"><span class="toc-number">1.9.</span> <span class="toc-text">第 8 步：完成 SideStore 首次设置与刷新</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%93%8D%E4%BD%9C-8"><span class="toc-number">1.9.1.</span> <span class="toc-text">操作</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%8C%E6%88%90%E6%A3%80%E6%9F%A5-7"><span class="toc-number">1.9.2.</span> <span class="toc-text">完成检查</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A6%82%E6%9E%9C-SideStore-%E8%A6%81%E6%B1%82%E7%99%BB%E5%BD%95%EF%BC%8C%E4%BD%86%E4%BD%A0%E4%B8%8D%E7%A1%AE%E5%AE%9A%E7%99%BB%E5%BD%95%E9%A1%B5%E9%9D%A2%E6%98%AF%E5%90%A6%E5%8F%AF%E4%BF%A1"><span class="toc-number">1.9.3.</span> <span class="toc-text">如果 SideStore 要求登录，但你不确定登录页面是否可信</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC-9-%E6%AD%A5%EF%BC%9A%E4%BB%8E-AirBeep-%E5%AE%98%E6%96%B9%E5%8F%91%E5%B8%83%E9%A1%B5%E4%B8%8B%E8%BD%BD-IPA"><span class="toc-number">1.10.</span> <span class="toc-text">第 9 步：从 AirBeep 官方发布页下载 IPA</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%93%8D%E4%BD%9C-9"><span class="toc-number">1.10.1.</span> <span class="toc-text">操作</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%8C%E6%88%90%E6%A3%80%E6%9F%A5-8"><span class="toc-number">1.10.2.</span> <span class="toc-text">完成检查</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A6%82%E6%9E%9C-Assets-%E4%B8%AD%E6%89%BE%E4%B8%8D%E5%88%B0-IPA"><span class="toc-number">1.10.3.</span> <span class="toc-text">如果 Assets 中找不到 IPA</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC-10-%E6%AD%A5%EF%BC%9A%E7%94%A8-SideStore-%E5%AF%BC%E5%85%A5%E5%B9%B6%E5%AE%89%E8%A3%85-AirBeep"><span class="toc-number">1.11.</span> <span class="toc-text">第 10 步：用 SideStore 导入并安装 AirBeep</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%93%8D%E4%BD%9C-10"><span class="toc-number">1.11.1.</span> <span class="toc-text">操作</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%8C%E6%88%90%E6%A3%80%E6%9F%A5-9"><span class="toc-number">1.11.2.</span> <span class="toc-text">完成检查</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A6%82%E6%9E%9C%E6%97%A0%E6%B3%95%E9%80%89%E4%B8%AD-IPA"><span class="toc-number">1.11.3.</span> <span class="toc-text">如果无法选中 IPA</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A6%82%E6%9E%9C%E7%AD%BE%E5%90%8D%E6%88%96%E5%AE%89%E8%A3%85%E5%A4%B1%E8%B4%A5"><span class="toc-number">1.11.4.</span> <span class="toc-text">如果签名或安装失败</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC-11-%E6%AD%A5%EF%BC%9A%E9%A6%96%E6%AC%A1%E6%89%93%E5%BC%80-AirBeep"><span class="toc-number">1.12.</span> <span class="toc-text">第 11 步：首次打开 AirBeep</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%93%8D%E4%BD%9C-11"><span class="toc-number">1.12.1.</span> <span class="toc-text">操作</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%8C%E6%88%90%E6%A3%80%E6%9F%A5-10"><span class="toc-number">1.12.2.</span> <span class="toc-text">完成检查</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%89%88%E6%9C%AC%E6%8F%90%E9%86%92"><span class="toc-number">1.12.3.</span> <span class="toc-text">版本提醒</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC-12-%E6%AD%A5%EF%BC%9A%E6%8C%89%E5%BA%94%E7%94%A8%E6%8F%90%E7%A4%BA%E5%AE%8C%E6%88%90%E9%85%8D%E5%AF%B9"><span class="toc-number">1.13.</span> <span class="toc-text">第 12 步：按应用提示完成配对</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%93%8D%E4%BD%9C-12"><span class="toc-number">1.13.1.</span> <span class="toc-text">操作</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%8C%E6%88%90%E6%A3%80%E6%9F%A5-11"><span class="toc-number">1.13.2.</span> <span class="toc-text">完成检查</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A6%82%E6%9E%9C%E5%BC%80%E5%8F%91%E8%80%85%E6%A8%A1%E5%BC%8F%E4%B8%AD%E6%B2%A1%E6%9C%89%E5%87%BA%E7%8E%B0-Pair-with-AirBeep"><span class="toc-number">1.13.3.</span> <span class="toc-text">如果开发者模式中没有出现 Pair with AirBeep</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A6%82%E6%9E%9C%E9%85%8D%E5%AF%B9%E5%90%8E%E6%97%A0%E6%B3%95%E7%BB%A7%E7%BB%AD"><span class="toc-number">1.13.4.</span> <span class="toc-text">如果配对后无法继续</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC-13-%E6%AD%A5%EF%BC%9A%E6%97%A5%E5%B8%B8%E7%BB%B4%E6%8A%A4%E4%B8%8E%E5%B8%B8%E8%A7%81%E5%BD%B1%E5%93%8D"><span class="toc-number">1.14.</span> <span class="toc-text">第 13 步：日常维护与常见影响</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#SideStore-%E4%B8%8E%E7%AD%BE%E5%90%8D%E6%9C%89%E6%95%88%E6%9C%9F"><span class="toc-number">1.14.1.</span> <span class="toc-text">SideStore 与签名有效期</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LocalDevVPN"><span class="toc-number">1.14.2.</span> <span class="toc-text">LocalDevVPN</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BC%80%E5%8F%91%E8%80%85%E6%A8%A1%E5%BC%8F"><span class="toc-number">1.14.3.</span> <span class="toc-text">开发者模式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8D%B8%E8%BD%BD%E5%BA%94%E7%94%A8"><span class="toc-number">1.14.4.</span> <span class="toc-text">卸载应用</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC-14-%E6%AD%A5%EF%BC%9A%E6%81%A2%E5%A4%8D%E7%B3%BB%E7%BB%9F%E5%8E%9F%E5%A7%8B%E6%8F%90%E7%A4%BA%E9%9F%B3%E4%B8%8E%E6%95%85%E9%9A%9C%E5%A4%84%E7%90%86"><span class="toc-number">1.15.</span> <span class="toc-text">第 14 步：恢复系统原始提示音与故障处理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%85%E9%9A%9C%E6%8E%92%E6%9F%A5%E9%80%9F%E6%9F%A5%E8%A1%A8"><span class="toc-number">1.16.</span> <span class="toc-text">故障排查速查表</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%87%8D%E8%A6%81%E7%9A%84%E9%9A%90%E7%A7%81%E4%B8%8E%E6%B3%95%E5%BE%8B%E6%8F%90%E9%86%92"><span class="toc-number">1.17.</span> <span class="toc-text">重要的隐私与法律提醒</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%98%E6%96%B9%E9%93%BE%E6%8E%A5%E6%B1%87%E6%80%BB"><span class="toc-number">1.18.</span> <span class="toc-text">官方链接汇总</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-history"></i><span>最近发布</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/%E9%BB%91%E5%AE%A2/iPhone%E5%AE%9E%E7%8E%B0%E9%80%9A%E8%AF%9D%E5%BD%95%E9%9F%B3%E4%B8%8D%E6%8F%90%E7%A4%BAAirBeep/" title="iPhone实现通话录音不提示AirBeep">iPhone实现通话录音不提示AirBeep</a><time datetime="2026-10-12T02:37:50.000Z" title="发表于 2026-10-12 10:37:50">2026-10-12</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/note/2026-07-02-%E6%97%A5%E8%AE%B0-%E4%B8%AA%E4%BA%BA%E6%83%85%E5%86%B5%E5%A4%A7%E8%87%B4%E8%AE%B0%E5%BD%95/" title="2026-07-02-日记-个人情况大致记录">2026-07-02-日记-个人情况大致记录</a><time datetime="2026-07-02T06:59:19.000Z" title="发表于 2026-07-02 14:59:19">2026-07-02</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/spring-boot/spring-boot-configuration-processor%E7%9A%84%E4%BD%9C%E7%94%A8/" title="spring-boot-configuration-processor的作用">spring-boot-configuration-processor的作用</a><time datetime="2026-06-27T03:02:14.000Z" title="发表于 2026-06-27 11:02:14">2026-06-27</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/java/%E5%BF%AB%E9%80%9F%E7%BA%BF%E4%B8%8A%E6%8E%92%E6%9F%A5%E9%97%AE%E9%A2%98/" title="快速线上排查问题">快速线上排查问题</a><time datetime="2026-06-26T07:38:48.000Z" title="发表于 2026-06-26 15:38:48">2026-06-26</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/redis/docker%E4%B8%8B%E8%BF%90%E8%A1%8Cvalkey%E9%9B%86%E7%BE%A4/" title="docker下运行valkey集群">docker下运行valkey集群</a><time datetime="2026-05-11T09:09:32.000Z" title="发表于 2026-05-11 17:09:32">2026-05-11</time></div></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"></div><div id="footer-bar"><div class="footer-bar-links"><div class="footer-bar-left"><div id="footer-bar-tips"><div class="copyright">&copy;2020 - 2026 By <a class="footer-bar-link" href="/" title="candy" target="_blank">candy</a></div></div><div id="footer-type-tips"></div></div><div class="footer-bar-right"><a class="footer-bar-link" href="https://candyadmin.github.io/" title="博客">博客</a></div></div></div></footer></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="sidebar-site-data site-data is-center"><a href="/archives/" title="archive"><div class="headline">文章</div><div class="length-num">54</div></a><a href="/tags/" title="tag"><div class="headline">标签</div><div class="length-num">43</div></a><a href="/categories/" title="category"><div class="headline">分类</div><div class="length-num">19</div></a></div><span class="sidebar-menu-item-title">功能</span><div class="sidebar-menu-item"><a class="darkmode_switchbutton menu-child" href="javascript:void(0);" title="显示模式"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i><span>显示模式</span></a></div><div class="back-menu-list-groups"><div class="back-menu-list-group"><div class="back-menu-list-title">网页</div><div class="back-menu-list"><a class="back-menu-item" href="https://candyadmin.github.io/" title="博客"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/favicon.ico" alt="博客"/><span class="back-menu-item-text">博客</span></a></div></div></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span> 文章</span></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/archives/"><i class="anzhiyufont anzhiyu-icon-box-archive faa-tada" style="font-size: 0.9em;"></i><span> 隧道</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/categories/"><i class="anzhiyufont anzhiyu-icon-shapes faa-tada" style="font-size: 0.9em;"></i><span> 分类</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/tags/"><i class="anzhiyufont anzhiyu-icon-tags faa-tada" style="font-size: 0.9em;"></i><span> 标签</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span> 友链</span></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/link/"><i class="anzhiyufont anzhiyu-icon-link faa-tada" style="font-size: 0.9em;"></i><span> 友人帐</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/fcircle/"><i class="anzhiyufont anzhiyu-icon-artstation faa-tada" style="font-size: 0.9em;"></i><span> 朋友圈</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/comments/"><i class="anzhiyufont anzhiyu-icon-envelope faa-tada" style="font-size: 0.9em;"></i><span> 留言板</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span> 我的</span></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/music/"><i class="anzhiyufont anzhiyu-icon-music faa-tada" style="font-size: 0.9em;"></i><span> 音乐馆</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/bangumis/"><i class="anzhiyufont anzhiyu-icon-bilibili faa-tada" style="font-size: 0.9em;"></i><span> 追番页</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/album/"><i class="anzhiyufont anzhiyu-icon-images faa-tada" style="font-size: 0.9em;"></i><span> 相册集</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/air-conditioner/"><i class="anzhiyufont anzhiyu-icon-fan faa-tada" style="font-size: 0.9em;"></i><span> 小空调</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span> 关于</span></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/about/"><i class="anzhiyufont anzhiyu-icon-paper-plane faa-tada" style="font-size: 0.9em;"></i><span> 关于本人</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/essay/"><i class="anzhiyufont anzhiyu-icon-lightbulb faa-tada" style="font-size: 0.9em;"></i><span> 闲言碎语</span></a></li><li><a class="site-page child faa-parent animated-hover" href="javascript:toRandomPost()"><i class="anzhiyufont anzhiyu-icon-shoe-prints1 faa-tada" style="font-size: 0.9em;"></i><span> 随便逛逛</span></a></li></ul></div></div><span class="sidebar-menu-item-title">标签</span><div class="card-tags"><div class="item-headline"></div><div class="card-tag-cloud"><a href="/tags/JNI/" style="font-size: 0.88rem;">JNI<sup>1</sup></a><a href="/tags/RSocket%E9%AB%98%E6%80%A7%E8%83%BDTCP%E5%A4%9A%E8%B7%AF%E5%A4%8D%E7%94%A8/" style="font-size: 0.88rem;">RSocket高性能TCP多路复用<sup>1</sup></a><a href="/tags/arthas/" style="font-size: 0.88rem;">arthas<sup>1</sup></a><a href="/tags/chrome/" style="font-size: 0.88rem;">chrome<sup>2</sup></a><a href="/tags/docker/" style="font-size: 0.88rem;">docker<sup>1</sup></a><a href="/tags/docker%E9%83%A8%E7%BD%B2/" style="font-size: 0.88rem;">docker部署<sup>1</sup></a><a href="/tags/git/" style="font-size: 0.88rem;">git<sup>1</sup></a><a href="/tags/grafana-prometheus-springboot/" style="font-size: 0.88rem;">grafana,prometheus,springboot<sup>1</sup></a><a href="/tags/k8s/" style="font-size: 0.88rem;">k8s<sup>1</sup></a><a href="/tags/nginx/" style="font-size: 0.88rem;">nginx<sup>2</sup></a><a href="/tags/openvpn/" style="font-size: 0.88rem;">openvpn<sup>2</sup></a><a href="/tags/spring-boot-configuration-processor/" style="font-size: 0.88rem;">spring-boot-configuration-processor<sup>1</sup></a><a href="/tags/%E4%BA%8B%E5%8A%A1/" style="font-size: 0.88rem;">事务<sup>1</sup></a><a href="/tags/%E4%BA%A4%E6%98%93%E7%AD%96%E7%95%A5/" style="font-size: 0.88rem;">交易策略<sup>1</sup></a><a href="/tags/%E4%BA%A4%E6%98%93%E7%B3%BB%E7%BB%9F%E4%B8%93%E5%AE%B6/" style="font-size: 0.88rem;">交易系统专家<sup>1</sup></a><a href="/tags/%E5%82%B2%E4%BA%BA%E7%9A%84%E5%86%99%E6%B3%95/" style="font-size: 0.88rem;">傲人的写法<sup>1</sup></a><a href="/tags/%E5%86%B7%E7%9F%A5%E8%AF%86/" style="font-size: 0.88rem;">冷知识<sup>1</sup></a><a href="/tags/%E5%88%9D%E5%A7%8B%E5%8C%96%E6%96%B0%E6%89%8B%E6%9C%BA/" style="font-size: 0.88rem;">初始化新手机<sup>1</sup></a><a href="/tags/%E5%91%BD%E4%BB%A4/" style="font-size: 0.88rem;">命令<sup>1</sup></a><a href="/tags/%E5%A4%87%E4%BB%BD/" style="font-size: 0.88rem;">备份<sup>2</sup></a><a href="/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" style="font-size: 0.88rem;">学习笔记<sup>2</sup></a><a href="/tags/%E5%AE%9E%E6%97%B6%E6%95%B0%E6%8D%AE%E5%90%8C%E6%AD%A5/" style="font-size: 0.88rem;">实时数据同步<sup>1</sup></a><a href="/tags/%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/" style="font-size: 0.88rem;">常用命令<sup>1</sup></a><a href="/tags/%E5%B9%B6%E5%8F%91/" style="font-size: 0.88rem;">并发<sup>1</sup></a><a href="/tags/%E5%BC%80%E6%9C%BA%E8%87%AA%E5%90%AF/" style="font-size: 0.88rem;">开机自启<sup>1</sup></a><a href="/tags/%E6%89%93%E5%8D%B0%E5%BC%82%E5%B8%B8%E6%97%A5%E5%BF%97/" style="font-size: 0.88rem;">打印异常日志<sup>1</sup></a><a href="/tags/%E6%89%A9%E5%AE%B9%E7%A3%81%E7%9B%98/" style="font-size: 0.88rem;">扩容磁盘<sup>2</sup></a><a href="/tags/%E6%8A%A5%E8%AD%A6/" style="font-size: 0.88rem;">报警<sup>1</sup></a><a href="/tags/%E6%90%AD%E5%BB%BAvalkey/" style="font-size: 0.88rem;">搭建valkey<sup>1</sup></a><a href="/tags/%E6%9F%A5%E6%89%BE%E8%BF%9B%E7%A8%8B/" style="font-size: 0.88rem;">查找进程<sup>1</sup></a><a href="/tags/%E6%BC%8F%E6%B4%9E/" style="font-size: 0.88rem;">漏洞<sup>1</sup></a><a href="/tags/%E7%8A%B6%E6%80%81%E6%9C%BA/" style="font-size: 0.88rem;">状态机<sup>1</sup></a><a href="/tags/%E7%A7%91%E5%AD%A6%E5%B8%B8%E8%AF%86/" style="font-size: 0.88rem;">科学常识<sup>1</sup></a><a href="/tags/%E7%AC%94%E8%AE%B0%E6%9C%AC%E5%90%88%E7%9B%96/" style="font-size: 0.88rem;">笔记本合盖<sup>1</sup></a><a href="/tags/%E7%BD%91%E7%AB%99%E8%B5%84%E6%BA%90/" style="font-size: 0.88rem;">网站资源<sup>1</sup></a><a href="/tags/%E7%BD%91%E7%BB%9C/" style="font-size: 0.88rem;">网络<sup>1</sup></a><a href="/tags/%E7%BF%BB%E5%A2%99/" style="font-size: 0.88rem;">翻墙<sup>1</sup></a><a href="/tags/%E8%A1%A8%E8%AE%BE%E8%AE%A1/" style="font-size: 0.88rem;">表设计<sup>1</sup></a><a href="/tags/%E8%AE%B0%E5%BD%95/" style="font-size: 0.88rem;">记录<sup>1</sup></a><a href="/tags/%E8%B4%A6%E6%88%B7%E8%B5%84%E9%87%91/" style="font-size: 0.88rem;">账户资金<sup>1</sup></a></div></div><hr/></div></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="anzhiyufont anzhiyu-icon-book-open"></i></button><button id="translateLink" type="button" title="简繁转换">繁</button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="anzhiyufont anzhiyu-icon-arrows-left-right"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="anzhiyufont anzhiyu-icon-gear"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="anzhiyufont anzhiyu-icon-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i></button></div></div><div id="nav-music"><a id="nav-music-hoverTips" onclick="anzhiyu.musicToggle()" accesskey="m">播放音乐</a><div id="console-music-bg"></div><meting-js id="8152976493" server="netease" type="playlist" mutex="true" preload="none" theme="var(--anzhiyu-main)" data-lrctype="0" order="random" volume="0.7"></meting-js></div><div id="rightMenu"><div class="rightMenu-group rightMenu-small"><div class="rightMenu-item" id="menu-backward"><i class="anzhiyufont anzhiyu-icon-arrow-left"></i></div><div class="rightMenu-item" id="menu-forward"><i class="anzhiyufont anzhiyu-icon-arrow-right"></i></div><div class="rightMenu-item" id="menu-refresh"><i class="anzhiyufont anzhiyu-icon-arrow-rotate-right" style="font-size: 1rem;"></i></div><div class="rightMenu-item" id="menu-top"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i></div></div><div class="rightMenu-group rightMenu-line rightMenuPlugin"><div class="rightMenu-item" id="menu-copytext"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制选中文本</span></div><div class="rightMenu-item" id="menu-pastetext"><i class="anzhiyufont anzhiyu-icon-paste"></i><span>粘贴文本</span></div><a class="rightMenu-item" id="menu-commenttext"><i class="anzhiyufont anzhiyu-icon-comment-medical"></i><span>引用到评论</span></a><div class="rightMenu-item" id="menu-newwindow"><i class="anzhiyufont anzhiyu-icon-window-restore"></i><span>新窗口打开</span></div><div class="rightMenu-item" id="menu-copylink"><i class="anzhiyufont anzhiyu-icon-link"></i><span>复制链接地址</span></div><div class="rightMenu-item" id="menu-copyimg"><i class="anzhiyufont anzhiyu-icon-images"></i><span>复制此图片</span></div><div class="rightMenu-item" id="menu-downloadimg"><i class="anzhiyufont anzhiyu-icon-download"></i><span>下载此图片</span></div><div class="rightMenu-item" id="menu-newwindowimg"><i class="anzhiyufont anzhiyu-icon-window-restore"></i><span>新窗口打开图片</span></div><div class="rightMenu-item" id="menu-search"><i class="anzhiyufont anzhiyu-icon-magnifying-glass"></i><span>站内搜索</span></div><div class="rightMenu-item" id="menu-searchBaidu"><i class="anzhiyufont anzhiyu-icon-magnifying-glass"></i><span>百度搜索</span></div><div class="rightMenu-item" id="menu-music-toggle"><i class="anzhiyufont anzhiyu-icon-play"></i><span>播放音乐</span></div><div class="rightMenu-item" id="menu-music-back"><i class="anzhiyufont anzhiyu-icon-backward"></i><span>切换到上一首</span></div><div class="rightMenu-item" id="menu-music-forward"><i class="anzhiyufont anzhiyu-icon-forward"></i><span>切换到下一首</span></div><div class="rightMenu-item" id="menu-music-playlist" onclick="window.open(&quot;https://y.qq.com/n/ryqq/playlist/8802438608&quot;, &quot;_blank&quot;);" style="display: none;"><i class="anzhiyufont anzhiyu-icon-radio"></i><span>查看所有歌曲</span></div><div class="rightMenu-item" id="menu-music-copyMusicName"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制歌名</span></div></div><div class="rightMenu-group rightMenu-line rightMenuOther"><a class="rightMenu-item menu-link" id="menu-randomPost"><i class="anzhiyufont anzhiyu-icon-shuffle"></i><span>随便逛逛</span></a><a class="rightMenu-item menu-link" href="/categories/"><i class="anzhiyufont anzhiyu-icon-cube"></i><span>博客分类</span></a><a class="rightMenu-item menu-link" href="/tags/"><i class="anzhiyufont anzhiyu-icon-tags"></i><span>文章标签</span></a></div><div class="rightMenu-group rightMenu-line rightMenuOther"><a class="rightMenu-item" id="menu-copy" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制地址</span></a><a class="rightMenu-item" id="menu-commentBarrage" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-message"></i><span class="menu-commentBarrage-text">关闭热评</span></a><a class="rightMenu-item" id="menu-darkmode" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i><span class="menu-darkmode-text">深色模式</span></a><a class="rightMenu-item" id="menu-translate" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-language"></i><span>轉為繁體</span></a></div></div><div id="rightmenu-mask"></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.cbd.int/@fancyapps/ui@5.0.28/dist/fancybox/fancybox.umd.js"></script><script src="https://cdn.cbd.int/instant.page@5.2.0/instantpage.js" type="module"></script><script src="https://cdn.cbd.int/vanilla-lazyload@17.8.5/dist/lazyload.iife.min.js"></script><script src="https://cdn.cbd.int/node-snackbar@0.1.16/dist/snackbar.min.js"></script><canvas id="universe"></canvas><script async src="https://npm.elemecdn.com/anzhiyu-theme-static@1.0.0/dark/dark.js"></script><script>// 消除控制台打印
+var HoldLog = console.log;
+console.log = function () {};
+let now1 = new Date();
+queueMicrotask(() => {
+  const Log = function () {
+    HoldLog.apply(console, arguments);
+  }; //在恢复前输出日志
+  const grt = new Date("04/01/2021 00:00:00"); //此处修改你的建站时间或者网站上线时间
+  now1.setTime(now1.getTime() + 250);
+  const days = (now1 - grt) / 1000 / 60 / 60 / 24;
+  const dnum = Math.floor(days);
+  const ascll = [
+    `欢迎使用安知鱼!`,
+    `生活明朗, 万物可爱`,
+    `
+        
+       █████╗ ███╗   ██╗███████╗██╗  ██╗██╗██╗   ██╗██╗   ██╗
+      ██╔══██╗████╗  ██║╚══███╔╝██║  ██║██║╚██╗ ██╔╝██║   ██║
+      ███████║██╔██╗ ██║  ███╔╝ ███████║██║ ╚████╔╝ ██║   ██║
+      ██╔══██║██║╚██╗██║ ███╔╝  ██╔══██║██║  ╚██╔╝  ██║   ██║
+      ██║  ██║██║ ╚████║███████╗██║  ██║██║   ██║   ╚██████╔╝
+      ╚═╝  ╚═╝╚═╝  ╚═══╝╚══════╝╚═╝  ╚═╝╚═╝   ╚═╝    ╚═════╝
+        
+        `,
+    "已上线",
+    dnum,
+    "天",
+    "©2020 By 安知鱼 V1.6.14",
+  ];
+  const ascll2 = [`NCC2-036`, `调用前置摄像头拍照成功，识别为【小笨蛋】.`, `Photo captured: `, `🤪`];
+
+  setTimeout(
+    Log.bind(
+      console,
+      `\n%c${ascll[0]} %c ${ascll[1]} %c ${ascll[2]} %c${ascll[3]}%c ${ascll[4]}%c ${ascll[5]}\n\n%c ${ascll[6]}\n`,
+      "color:#425AEF",
+      "",
+      "color:#425AEF",
+      "color:#425AEF",
+      "",
+      "color:#425AEF",
+      ""
+    )
+  );
+  setTimeout(
+    Log.bind(
+      console,
+      `%c ${ascll2[0]} %c ${ascll2[1]} %c \n${ascll2[2]} %c\n${ascll2[3]}\n`,
+      "color:white; background-color:#4fd953",
+      "",
+      "",
+      'background:url("https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/tinggge.gif") no-repeat;font-size:450%'
+    )
+  );
+
+  setTimeout(Log.bind(console, "%c WELCOME %c 你好，小笨蛋.", "color:white; background-color:#4f90d9", ""));
+
+  setTimeout(
+    console.warn.bind(
+      console,
+      "%c ⚡ Powered by 安知鱼 %c 你正在访问 candy 的博客.",
+      "color:white; background-color:#f0ad4e",
+      ""
+    )
+  );
+
+  setTimeout(Log.bind(console, "%c W23-12 %c 你已打开控制台.", "color:white; background-color:#4f90d9", ""));
+
+  setTimeout(
+    console.warn.bind(console, "%c S013-782 %c 你现在正处于监控中.", "color:white; background-color:#d9534f", "")
+  );
+});</script><script async src="/anzhiyu/random.js"></script><div class="js-pjax"><input type="hidden" name="page-type" id="page-type" value="post"></div><script>var visitorMail = "";
+</script><script async data-pjax src="https://cdn.cbd.int/anzhiyu-theme-static@1.0.0/waterfall/waterfall.js"></script><script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/qrcodejs/1.0.0/qrcode.min.js"></script><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.1.9/icon/ali_iconfont_css.css"><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.0.0/aplayer/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.cbd.int/anzhiyu-blog-static@1.0.1/js/APlayer.min.js"></script><script src="https://cdn.cbd.int/hexo-anzhiyu-music@1.0.1/assets/js/Meting2.min.js"></script><script src="https://cdn.cbd.int/pjax@0.2.8/pjax.min.js"></script><script>let pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+  // removeEventListener scroll 
+  anzhiyu.removeGlobalFnEvent('pjax')
+  anzhiyu.removeGlobalFnEvent('themeChange')
+
+  document.getElementById('rightside').classList.remove('rightside-show')
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+})
+
+document.addEventListener('pjax:error', e => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script charset="UTF-8" src="https://cdn.cbd.int/anzhiyu-theme-static@1.1.5/accesskey/accesskey.js"></script></div><div id="popup-window"><div class="popup-window-title">通知</div><div class="popup-window-divider"></div><div class="popup-window-content"><div class="popup-tip">你好呀</div><div class="popup-link"><i class="anzhiyufont anzhiyu-icon-arrow-circle-right"></i></div></div></div></body></html>
